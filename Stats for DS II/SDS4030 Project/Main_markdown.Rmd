@@ -29,7 +29,6 @@ library(formatR)
 
 Preliminary Reading Code In
 ```{r}
-set.seed(1738)
 gss = read.table("gss.txt", header = TRUE)
 #summary(gss)
 gss
@@ -47,5 +46,7 @@ Fiting a multiple linear model with all available quantitative covariates.
 ```{r}
 linear_model <- lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
                    data = gss)
+
+
 ```
 
