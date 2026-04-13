@@ -1,0 +1,51 @@
+---
+title: "SDS 4030 - Statistics for Data Science II: Project"
+author: "Noah Calabrese"
+subtitle: Main Markdown File
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+fontsize: 11pt
+header-includes:
+- \usepackage{hyperref}
+- \hypersetup{pdfpagemode={UseNone}, pdfstartview=}
+- \usepackage{amsthm}
+- \theoremstyle{definition}
+- \newtheorem{problem}{Problem}
+---
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(fig.align = "center", fig.height = 4, fig.width = 5)
+knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 68), tidy = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+set.seed(0)
+library(tidyverse)
+#install.packages("tinytex")
+#tinytex::install_tinytex()
+library(tinytex)
+#install.packages("formatR")
+library(formatR)
+```
+
+Preliminary Reading Code In
+```{r}
+set.seed(1738)
+gss = read.table("gss.txt", header = TRUE)
+#summary(gss)
+gss
+```
+
+Quick Cleaning of the Code
+```{r}
+#Removing Zodiac since it is not relevant in anyway to the analysis 
+gss <- gss[-c(12)]
+```
+
+
+
+Fiting a multiple linear model with all available quantitative covariates.
+```{r}
+linear_model <- lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
+                   data = gss)
+```
+

@@ -1,0 +1,816 @@
+"Age" "Educ" "Hours" "Sex" "TVHours" "Happy" "MEduc" "FEduc" "Marital" "Sibs" "Work" "Zodiac" "Income"
+48 15 38 "Female" 3 "Pretty Happy" 16 9 "Divorced" 4 "Fulltime" "Virgo" 9000
+67 13 23 "Female" 2 "Pretty Happy" 12 12 "Widowed" 4 "Housekeeping" "Libra" 18750
+44 18 50 "Male" 0 "Pretty Happy" 11 11 "Married" 0 "Fulltime" "Taurus" 110000
+52 20 40 "Male" 2 "Pretty Happy" 12 12 "Married" 0 "Fulltime" "Virgo" 110000
+52 12 45 "Male" 1 "Pretty Happy" 10 9 "Married" 2 "Fulltime" "Taurus" 55000
+51 17 50 "Male" 2 "Very Happy" 17 6 "Married" 2 "Fulltime" "Pisces" 1e+05
+52 16 26 "Female" 1 "Pretty Happy" 12 13 "Divorced" 4 "Laid Off" "Virgo" 67500
+40 8 50 "Male" 3 "Pretty Happy" 0 3 "Married" 5 "Fulltime" "Cancer" 13750
+19 11 61 "Male" 2 "Pretty Happy" 12 14 "Never Married" 2 "School" "Virgo" 1e+05
+72 12 54 "Female" 7 "Pretty Happy" 4 6 "Divorced" 2 "Retired" "Aquarius" 13750
+55 12 47 "Female" 1 "Pretty Happy" 3 8 "Married" 9 "Housekeeping" "Virgo" 45000
+29 16 50 "Male" 2 "Pretty Happy" 13 16 "Never Married" 3 "Fulltime" "Taurus" 67500
+56 16 40 "Female" 5 "Very Happy" 10 16 "Married" 1 "Fulltime" "Libra" 110000
+26 15 35 "Male" 2 "Pretty Happy" 20 17 "Married" 2 "Parttime" "Leo" 27500
+51 12 40 "Female" 2 "Very Happy" 9 10 "Divorced" 4 "Fulltime" "Capricorn" 23750
+23 16 36 "Female" 0 "Pretty Happy" 16 20 "Never Married" 0 "Housekeeping" "Libra" 2000
+43 12 46 "Male" 3 "Pretty Happy" 12 12 "Widowed" 3 "Housekeeping" "Capricorn" 37500
+33 7 39 "Female" 2 "Very Happy" 12 14 "Married" 2 "Housekeeping" "Aquarius" 45000
+32 11 40 "Female" 5 "Pretty Happy" 10 12 "Never Married" 5 "Fulltime" "Aquarius" 11250
+32 19 40 "Male" 2 "Pretty Happy" 12 12 "Married" 6 "Fulltime" "Aries" 110000
+29 18 40 "Female" 4 "Pretty Happy" 12 12 "Never Married" 1 "Fulltime" "Aquarius" 67500
+51 13 27 "Female" 3 "Pretty Happy" 13 8 "Married" 7 "Parttime" "Aquarius" 55000
+53 16 40 "Female" 1 "Not Too Happy" 7 2 "Separated" 8 "Fulltime" "Gemini" 45000
+45 14 70 "Male" 1 "Very Happy" 12 12 "Married" 1 "Fulltime" "Libra" 82500
+39 19 55 "Male" 0 "Pretty Happy" 12 12 "Divorced" 6 "Fulltime" "Sagittarius" 12584296
+47 16 50 "Female" 1 "Very Happy" 14 14 "Divorced" 2 "Fulltime" "Leo" 67500
+29 15 40 "Female" 3 "Pretty Happy" 12 16 "Never Married" 1 "Fulltime" "Cancer" 3582821
+26 16 30 "Male" 2 "Very Happy" 12 16 "Married" 1 "Parttime" "Aries" 55000
+39 16 45 "Male" 1 "Pretty Happy" 12 11 "Separated" 3 "Fulltime" "Aries" 37500
+37 12 40 "Female" 3 "Pretty Happy" 12 8 "Divorced" 5 "Fulltime" "Libra" 23750
+23 16 21 "Male" 3 "Very Happy" 14 16 "Never Married" 2 "Parttime" "Scorpio" 3500
+32 19 45 "Male" 1 "Pretty Happy" 16 19 "Married" 1 "Fulltime" "Pisces" 32500
+50 14 32 "Female" 2 "Not Too Happy" 12 11 "Divorced" 10 "Fulltime" "Virgo" 13750
+58 12 40 "Female" 3 "Not Too Happy" 12 12 "Never Married" 3 "Fulltime" "Leo" 2000
+58 20 40 "Male" 2 "Very Happy" 10 14 "Married" 3 "Fulltime" "Scorpio" 110000
+48 16 40 "Female" 1 "Pretty Happy" 12 15 "Married" 2 "Fulltime" "Virgo" 110000
+63 12 44 "Female" 6 "Pretty Happy" 12 4 "Married" 8 "Housekeeping" "Aquarius" 32500
+48 16 40 "Male" 2 "Very Happy" 12 11 "Never Married" 1 "Fulltime" "Scorpio" 82500
+42 10 40 "Male" 2 "Pretty Happy" 12 9 "Married" 1 "Fulltime" "Capricorn" 45000
+30 12 45 "Male" 2 "Pretty Happy" 12 12 "Never Married" 2 "Fulltime" "Pisces" 37500
+36 14 40 "Male" 5 "Pretty Happy" 12 16 "Married" 2 "Fulltime" "Gemini" 55000
+48 16 49 "Male" 1 "Very Happy" 12 12 "Widowed" 11 "Fulltime" "Aquarius" 82500
+39 16 70 "Male" 2 "Very Happy" 16 16 "Married" 1 "Fulltime" "Virgo" 2000
+33 16 25 "Female" 1 "Pretty Happy" 16 18 "Never Married" 4 "Parttime" "Pisces" 9000
+77 12 23 "Female" 2 "Pretty Happy" 4 4 "Widowed" 3 "Parttime" "Leo" 6500
+40 16 35 "Female" 2 "Very Happy" 12 12 "Married" 5 "Fulltime" "Cancer" 1e+05
+39 16 6 "Female" 2 "Pretty Happy" 12 12 "Married" 3 "Parttime" "Aquarius" 110000
+78 12 57 "Female" 5 "Very Happy" 16 6 "Married" 5 "Retired" "Libra" 27500
+30 19 67 "Female" 11 "Pretty Happy" 14 14 "Married" 2 "Housekeeping" "Cancer" 110000
+21 10 21 "Male" 5 "Pretty Happy" 0 0 "Never Married" 4 "Fulltime" "Scorpio" 110000
+31 12 29 "Female" 2 "Pretty Happy" 12 16 "Married" 5 "Housekeeping" "Gemini" 110000
+28 15 40 "Female" 3 "Very Happy" 12 12 "Married" 4 "Fulltime" "Gemini" 45000
+28 16 50 "Male" 0 "Pretty Happy" 13 14 "Never Married" 3 "School" "Aries" 82500
+56 12 40 "Male" 5 "Pretty Happy" 12 8 "Married" 9 "Fulltime" "Sagittarius" 67500
+53 13 57 "Female" 2 "Pretty Happy" 12 13 "Married" 3 "Housekeeping" "Cancer" 67500
+50 14 48 "Female" 1 "Not Too Happy" 16 16 "Married" 3 "Housekeeping" "Virgo" 110000
+35 11 40 "Male" 11 "Very Happy" 0 4 "Married" 8 "Fulltime" "Libra" 11250
+54 14 40 "Male" 1 "Very Happy" 10 10 "Married" 3 "Fulltime" "Virgo" 45000
+36 14 41 "Female" 4 "Pretty Happy" 14 12 "Married" 1 "Housekeeping" "Pisces" 55000
+48 17 45 "Female" 2 "Pretty Happy" 13 14 "Married" 2 "Fulltime" "Aquarius" 67500
+54 14 34 "Female" 3 "Very Happy" 12 12 "Married" 2 "School" "Aquarius" 27500
+48 12 21 "Female" 1 "Very Happy" 4 4 "Married" 6 "Parttime" "Capricorn" 55000
+29 15 56 "Male" 2 "Pretty Happy" 12 12 "Never Married" 2 "Fulltime" "Leo" 55000
+26 13 31 "Male" 3 "Pretty Happy" 12 16 "Divorced" 6 "Fulltime" "Capricorn" 27500
+47 17 63 "Male" 3 "Pretty Happy" 12 12 "Married" 1 "Not Working" "Scorpio" 45000
+43 16 60 "Male" 4 "Pretty Happy" 15 14 "Married" 4 "Fulltime" "Cancer" 82500
+54 12 54 "Female" 6 "Not Too Happy" 8 8 "Divorced" 1 "Not Working" "Gemini" 9000
+47 8 40 "Male" 10 "Pretty Happy" 9 12 "Married" 1 "Fulltime" "Virgo" 13750
+31 13 40 "Male" 1 "Pretty Happy" 12 12 "Never Married" 7 "Fulltime" "Cancer" 37500
+60 14 35 "Female" 8 "Very Happy" 9 8 "Separated" 1 "Fulltime" "Aries" 18750
+44 12 37 "Female" 5 "Pretty Happy" 12 10 "Never Married" 3 "Fulltime" "Pisces" 18750
+24 12 34 "Female" 7 "Not Too Happy" 11 13 "Never Married" 7 "Housekeeping" "Capricorn" 4500
+38 16 40 "Female" 1 "Very Happy" 14 14 "Married" 6 "Fulltime" "Gemini" 1e+05
+73 18 15 "Female" 3 "Very Happy" 14 13 "Divorced" 1 "Fulltime" "Cancer" 82500
+31 18 65 "Female" 1 "Pretty Happy" 12 16 "Married" 1 "Fulltime" "Cancer" 110000
+34 16 28 "Female" 3 "Very Happy" 16 15 "Married" 1 "Parttime" "Pisces" 110000
+26 16 50 "Female" 0 "Very Happy" 18 16 "Never Married" 2 "Fulltime" "Virgo" 32500
+38 13 45 "Male" 2 "Pretty Happy" 2 6 "Married" 6 "Fulltime" "Libra" 55000
+29 16 40 "Female" 3 "Pretty Happy" 14 18 "Never Married" 1 "Fulltime" "Scorpio" 82500
+32 20 40 "Male" 2 "Very Happy" 14 14 "Married" 2 "Fulltime" "Gemini" 110000
+26 14 40 "Female" 3 "Pretty Happy" 16 12 "Married" 2 "Other" "Taurus" 55000
+37 16 40 "Male" 3 "Not Too Happy" 6 6 "Never Married" 4 "Fulltime" "Aries" 67500
+26 16 40 "Female" 1 "Very Happy" 18 12 "Married" 1 "Fulltime" "Taurus" 32500
+23 15 20 "Male" 2 "Pretty Happy" 16 16 "Never Married" 2 "Parttime" "Scorpio" 1e+05
+22 12 40 "Male" 6 "Pretty Happy" 12 11 "Never Married" 2 "Fulltime" "Scorpio" 16250
+37 14 68 "Male" 2 "Pretty Happy" 12 13 "Married" 3 "Fulltime" "Taurus" 67500
+51 20 75 "Male" 2 "Very Happy" 14 14 "Married" 1 "Fulltime" "Sagittarius" 110000
+59 14 70 "Male" 1 "Very Happy" 14 16 "Married" 3 "Fulltime" "Sagittarius" 110000
+52 12 40 "Male" 3 "Very Happy" 12 3 "Married" 6 "Fulltime" "Sagittarius" 27500
+25 16 37 "Male" 0 "Pretty Happy" 14 16 "Never Married" 4 "Fulltime" "Gemini" 23750
+19 13 40 "Male" 2 "Pretty Happy" 12 12 "Never Married" 2 "Fulltime" "Taurus" 110000
+43 18 48 "Female" 2 "Pretty Happy" 16 16 "Married" 0 "Fulltime" "Virgo" 82500
+36 16 60 "Female" 1 "Pretty Happy" 18 18 "Married" 1 "Fulltime" "Capricorn" 110000
+45 16 40 "Male" 2 "Pretty Happy" 10 10 "Married" 2 "Fulltime" "Cancer" 110000
+71 16 5 "Male" 2 "Pretty Happy" 16 14 "Divorced" 1 "Parttime" "Aquarius" 110000
+48 16 40 "Male" 3 "Not Too Happy" 6 12 "Never Married" 1 "Fulltime" "Sagittarius" 55000
+26 16 42 "Male" 2 "Pretty Happy" 18 16 "Never Married" 1 "Fulltime" "Scorpio" 23750
+52 13 40 "Male" 1 "Very Happy" 12 12 "Married" 3 "Fulltime" "Leo" 27500
+75 16 36 "Male" 4 "Very Happy" 11 12 "Married" 7 "Retired" "Sagittarius" 11250
+42 16 40 "Female" 3 "Pretty Happy" 6 6 "Never Married" 4 "Fulltime" "Pisces" 55000
+76 12 27 "Female" 5 "Pretty Happy" 12 12 "Married" 4 "Retired" "Aquarius" 55000
+53 14 40 "Female" 2 "Pretty Happy" 16 18 "Married" 1 "Fulltime" "Leo" 67500
+26 16 30 "Female" 5 "Not Too Happy" 12 14 "Never Married" 2 "Fulltime" "Taurus" 9000
+59 18 17 "Female" 3 "Pretty Happy" 8 8 "Married" 2 "Parttime" "Libra" 16250
+37 19 45 "Male" 2 "Pretty Happy" 8 16 "Married" 2 "Fulltime" "Scorpio" 67500
+46 12 40 "Female" 2 "Very Happy" 16 12 "Married" 3 "Fulltime" "Sagittarius" 82500
+28 13 40 "Male" 1 "Pretty Happy" 16 18 "Never Married" 2 "Fulltime" "Libra" 55000
+54 17 40 "Female" 2 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Aries" 82500
+32 14 58 "Female" 2 "Very Happy" 12 14 "Married" 5 "Parttime" "Gemini" 110000
+53 14 44 "Female" 1 "Pretty Happy" 12 12 "Divorced" 3 "Fulltime" "Gemini" 32500
+58 15 40 "Female" 3 "Pretty Happy" 14 18 "Married" 0 "Fulltime" "Virgo" 110000
+37 16 65 "Male" 2 "Very Happy" 14 12 "Never Married" 2 "Fulltime" "Gemini" 82500
+39 16 40 "Male" 3 "Not Too Happy" 10 14 "Never Married" 5 "Fulltime" "Sagittarius" 32500
+38 12 29 "Female" 3 "Not Too Happy" 12 16 "Separated" 4 "Housekeeping" "Taurus" 2000
+47 12 40 "Female" 2 "Pretty Happy" 12 10 "Divorced" 8 "Fulltime" "Taurus" 67500
+41 12 42 "Female" 7 "Very Happy" 12 12 "Married" 0 "Fulltime" "Aries" 37500
+34 12 40 "Female" 2 "Very Happy" 11 10 "Married" 3 "Fulltime" "Aquarius" 55000
+52 16 48 "Male" 7 "Very Happy" 16 8 "Married" 2 "Laid Off" "Gemini" 82500
+32 10 40 "Male" 4 "Not Too Happy" 6 6 "Married" 11 "Fulltime" "Sagittarius" 21250
+21 12 40 "Female" 1 "Pretty Happy" 18 16 "Never Married" 6 "Fulltime" "Aries" 500
+35 12 50 "Male" 1 "Very Happy" 4 5 "Married" 5 "Fulltime" "Virgo" 55000
+49 17 40 "Female" 2 "Pretty Happy" 8 6 "Divorced" 2 "Fulltime" "Libra" 67500
+20 12 40 "Male" 3 "Pretty Happy" 12 12 "Married" 4 "Fulltime" "Sagittarius" 11250
+53 11 19 "Male" 15 "Not Too Happy" 10 12 "Married" 5 "Other" "Scorpio" 55000
+54 13 40 "Female" 2 "Pretty Happy" 8 8 "Married" 8 "Fulltime" "Scorpio" 55000
+31 12 40 "Male" 1 "Pretty Happy" 5 6 "Married" 4 "Fulltime" "Sagittarius" 32500
+60 12 40 "Female" 0 "Pretty Happy" 14 16 "Widowed" 5 "Fulltime" "Aquarius" 16250
+51 20 41 "Female" 6 "Not Too Happy" 20 16 "Married" 1 "Housekeeping" "Pisces" 27500
+25 18 40 "Female" 2 "Very Happy" 12 12 "Never Married" 1 "Fulltime" "Libra" 82500
+52 18 59 "Female" 1 "Very Happy" 12 12 "Married" 8 "Not Working" "Aquarius" 110000
+66 9 45 "Female" 3 "Not Too Happy" 2 8 "Divorced" 8 "Retired" "Pisces" 6500
+42 9 21 "Female" 1 "Very Happy" 0 0 "Married" 7 "Not Working" "Cancer" 18750
+43 13 40 "Female" 3 "Pretty Happy" 6 6 "Married" 9 "Fulltime" "Aries" 55000
+59 12 35 "Male" 4 "Pretty Happy" 12 8 "Married" 3 "Fulltime" "Leo" 37500
+25 12 40 "Male" 2 "Very Happy" 12 12 "Married" 2 "Fulltime" "Taurus" 12567317
+29 12 40 "Female" 2 "Very Happy" 9 7 "Married" 7 "Fulltime" "Gemini" 28637626
+40 16 40 "Female" 2 "Pretty Happy" 12 5 "Never Married" 3 "Fulltime" "Pisces" 32500
+31 12 47 "Female" 5 "Pretty Happy" 12 12 "Married" 9 "Housekeeping" "Taurus" 21250
+38 16 40 "Female" 2 "Very Happy" 16 12 "Married" 1 "Fulltime" "Libra" 67500
+25 14 40 "Female" 2 "Very Happy" 11 12 "Divorced" 2 "Fulltime" "Capricorn" 45000
+42 16 70 "Male" 1 "Pretty Happy" 16 14 "Married" 5 "Fulltime" "Virgo" 82500
+70 14 4 "Female" 3 "Pretty Happy" 12 12 "Married" 0 "Parttime" "Taurus" 11080968
+48 12 10 "Female" 3 "Very Happy" 4 12 "Married" 8 "Parttime" "Taurus" 55000
+36 14 50 "Female" 2 "Very Happy" 14 13 "Married" 2 "Fulltime" "Pisces" 55000
+29 16 50 "Male" 10 "Pretty Happy" 20 17 "Never Married" 0 "Parttime" "Scorpio" 11250
+51 8 40 "Female" 2 "Pretty Happy" 8 9 "Married" 8 "Fulltime" "Capricorn" 32500
+62 18 40 "Male" 4 "Not Too Happy" 3 2 "Divorced" 12 "Fulltime" "Leo" 82500
+33 13 60 "Female" 2 "Very Happy" 6 2 "Never Married" 10 "Fulltime" "Scorpio" 45000
+41 14 40 "Female" 1 "Very Happy" 12 8 "Never Married" 5 "Fulltime" "Cancer" 45000
+35 12 50 "Female" 20 "Pretty Happy" 8 8 "Married" 4 "Fulltime" "Cancer" 82500
+19 13 48 "Female" 4 "Pretty Happy" 12 12 "Never Married" 1 "School" "Capricorn" 9000
+25 16 40 "Male" 1 "Pretty Happy" 20 20 "Married" 2 "Fulltime" "Pisces" 82500
+35 16 50 "Male" 4 "Very Happy" 12 17 "Married" 2 "Fulltime" "Libra" 110000
+53 12 44 "Female" 2 "Pretty Happy" 12 12 "Divorced" 2 "Fulltime" "Sagittarius" 82500
+36 12 40 "Male" 2 "Pretty Happy" 3 12 "Married" 1 "Fulltime" "Scorpio" 67500
+48 14 40 "Female" 1 "Very Happy" 14 12 "Divorced" 3 "Fulltime" "Aquarius" 1e+05
+32 12 40 "Female" 3 "Very Happy" 11 10 "Married" 4 "Fulltime" "Virgo" 67500
+38 11 40 "Male" 6 "Pretty Happy" 10 10 "Never Married" 3 "Fulltime" "Capricorn" 23750
+39 14 80 "Female" 2 "Pretty Happy" 14 12 "Never Married" 2 "Fulltime" "Pisces" 37500
+19 11 64 "Female" 8 "Not Too Happy" 12 12 "Never Married" 2 "School" "Cancer" 7500
+22 14 40 "Male" 3 "Pretty Happy" 12 10 "Never Married" 5 "Fulltime" "Capricorn" 32500
+37 18 50 "Male" 2 "Very Happy" 12 10 "Married" 2 "Fulltime" "Virgo" 55000
+51 18 65 "Male" 1 "Pretty Happy" 12 10 "Married" 2 "Fulltime" "Aries" 110000
+52 20 40 "Female" 0 "Not Too Happy" 12 8 "Never Married" 4 "Fulltime" "Aries" 45000
+23 14 20 "Male" 2 "Pretty Happy" 20 12 "Never Married" 2 "Parttime" "Cancer" 110000
+40 20 50 "Male" 2 "Very Happy" 18 18 "Never Married" 5 "Fulltime" "Scorpio" 110000
+36 14 40 "Female" 8 "Not Too Happy" 12 12 "Married" 5 "Fulltime" "Capricorn" 27500
+23 14 40 "Female" 1 "Very Happy" 12 12 "Never Married" 1 "Fulltime" "Cancer" 37500
+47 13 15 "Female" 2 "Very Happy" 8 13 "Married" 5 "Fulltime" "Scorpio" 37500
+80 11 39 "Female" 4 "Very Happy" 8 8 "Married" 7 "Retired" "Cancer" 18750
+61 20 45 "Male" 4 "Pretty Happy" 12 11 "Never Married" 4 "Fulltime" "Leo" 55000
+53 19 50 "Male" 1 "Very Happy" 12 12 "Divorced" 1 "Fulltime" "Scorpio" 37500
+51 14 27 "Female" 2 "Very Happy" 12 12 "Divorced" 2 "Parttime" "Virgo" 18750
+38 12 40 "Male" 3 "Very Happy" 12 12 "Married" 1 "Fulltime" "Pisces" 16250
+50 17 40 "Male" 3 "Not Too Happy" 12 10 "Divorced" 7 "Fulltime" "Pisces" 67500
+45 12 12 "Female" 2 "Very Happy" 11 12 "Married" 4 "Parttime" "Scorpio" 45000
+32 13 22 "Female" 2 "Very Happy" 12 12 "Married" 2 "Parttime" "Libra" 1e+05
+18 11 16 "Female" 0 "Pretty Happy" 12 12 "Never Married" 1 "Parttime" "Pisces" 1e+05
+37 14 40 "Male" 3 "Very Happy" 12 13 "Married" 4 "Fulltime" "Aquarius" 55000
+28 12 45 "Male" 6 "Pretty Happy" 12 12 "Never Married" 4 "Fulltime" "Scorpio" 18750
+31 16 40 "Female" 3 "Very Happy" 16 20 "Married" 2 "Fulltime" "Scorpio" 67500
+33 18 61 "Female" 2 "Very Happy" 12 12 "Married" 2 "Housekeeping" "Aquarius" 67500
+38 14 45 "Male" 3 "Pretty Happy" 8 6 "Divorced" 8 "Fulltime" "Capricorn" 55000
+49 14 50 "Male" 3 "Pretty Happy" 8 12 "Married" 3 "Fulltime" "Libra" 55000
+37 18 55 "Female" 0 "Very Happy" 14 15 "Married" 1 "Fulltime" "Libra" 82500
+61 13 55 "Male" 3 "Very Happy" 3 12 "Married" 3 "Fulltime" "Leo" 27500
+47 12 48 "Male" 3 "Pretty Happy" 8 12 "Divorced" 4 "Fulltime" "Aquarius" 45000
+22 15 25 "Male" 1 "Pretty Happy" 15 10 "Never Married" 1 "Parttime" "Aquarius" 82500
+26 14 40 "Male" 1 "Pretty Happy" 16 14 "Never Married" 1 "Fulltime" "Taurus" 23750
+57 14 40 "Male" 3 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Pisces" 37500
+33 13 50 "Female" 1 "Pretty Happy" 15 14 "Married" 2 "Fulltime" "Aries" 37500
+19 9 53 "Male" 2 "Very Happy" 12 15 "Never Married" 7 "Fulltime" "Cancer" 9000
+56 12 40 "Male" 1 "Pretty Happy" 10 8 "Divorced" 5 "Fulltime" "Sagittarius" 23750
+27 16 36 "Male" 1 "Pretty Happy" 14 16 "Never Married" 1 "Parttime" "Capricorn" 16250
+26 12 45 "Female" 2 "Very Happy" 12 12 "Never Married" 6 "Fulltime" "Gemini" 23750
+31 14 45 "Female" 2 "Very Happy" 12 12 "Married" 1 "Fulltime" "Capricorn" 67500
+37 16 50 "Male" 4 "Pretty Happy" 12 12 "Married" 5 "Fulltime" "Pisces" 55000
+79 11 44 "Male" 2 "Pretty Happy" 0 0 "Widowed" 5 "Retired" "Libra" 21250
+36 15 40 "Male" 2 "Very Happy" 12 16 "Married" 0 "Fulltime" "Leo" 55000
+73 16 49 "Male" 2 "Very Happy" 8 8 "Married" 7 "Retired" "Gemini" 27500
+88 16 59 "Female" 1 "Pretty Happy" 12 9 "Widowed" 0 "Housekeeping" "Virgo" 13750
+52 14 40 "Male" 2 "Very Happy" 12 13 "Separated" 5 "Fulltime" "Virgo" 110000
+36 16 52 "Male" 1 "Pretty Happy" 18 12 "Married" 2 "Fulltime" "Pisces" 67500
+48 11 27 "Female" 5 "Very Happy" 12 8 "Married" 11 "Parttime" "Libra" 45000
+43 12 40 "Female" 2 "Pretty Happy" 8 8 "Married" 4 "Fulltime" "Gemini" 45000
+74 12 63 "Male" 2 "Pretty Happy" 8 8 "Never Married" 0 "Retired" "Pisces" 7500
+69 12 56 "Female" 3 "Pretty Happy" 12 8 "Married" 4 "Retired" "Gemini" 11250
+46 14 8 "Female" 4 "Pretty Happy" 14 12 "Widowed" 14 "Parttime" "Virgo" 27500
+26 16 35 "Female" 3 "Pretty Happy" 14 14 "Never Married" 4 "Parttime" "Taurus" 18750
+24 12 40 "Male" 3 "Pretty Happy" 12 12 "Never Married" 1 "Fulltime" "Aquarius" 27500
+44 5 40 "Male" 8 "Not Too Happy" 0 0 "Divorced" 10 "Fulltime" "Leo" 13750
+44 13 40 "Male" 3 "Pretty Happy" 16 12 "Divorced" 4 "Fulltime" "Aquarius" 9000
+54 12 40 "Female" 3 "Very Happy" 8 8 "Divorced" 0 "Fulltime" "Aquarius" 9000
+45 13 43 "Female" 3 "Very Happy" 12 14 "Married" 5 "Fulltime" "Sagittarius" 55000
+38 13 40 "Male" 1 "Pretty Happy" 12 8 "Married" 2 "Fulltime" "Capricorn" 16250
+32 12 3 "Female" 3 "Pretty Happy" 14 16 "Married" 2 "Parttime" "Aries" 23750
+50 16 50 "Male" 10 "Very Happy" 12 10 "Divorced" 2 "Fulltime" "Virgo" 4734586
+48 12 65 "Female" 3 "Pretty Happy" 12 12 "Divorced" 3 "Fulltime" "Aquarius" 32500
+34 12 50 "Male" 4 "Pretty Happy" 12 6 "Married" 3 "Fulltime" "Aquarius" 45000
+61 8 32 "Female" 3 "Very Happy" 12 12 "Married" 4 "Fulltime" "Leo" 27500
+47 17 40 "Male" 2 "Pretty Happy" 13 12 "Never Married" 1 "Fulltime" "Aquarius" 67500
+44 15 40 "Male" 3 "Pretty Happy" 9 9 "Separated" 8 "Fulltime" "Capricorn" 16250
+32 20 45 "Male" 2 "Very Happy" 12 13 "Married" 1 "Fulltime" "Leo" 21250
+38 18 70 "Female" 1 "Very Happy" 18 18 "Never Married" 2 "Fulltime" "Leo" 6582054
+36 13 46 "Female" 4 "Pretty Happy" 15 12 "Married" 5 "Housekeeping" "Pisces" 45000
+46 12 40 "Female" 1 "Pretty Happy" 13 16 "Never Married" 3 "Fulltime" "Sagittarius" 27500
+36 17 72 "Male" 3 "Very Happy" 7 5 "Married" 2 "Fulltime" "Capricorn" 27500
+68 12 54 "Female" 2 "Pretty Happy" 8 12 "Widowed" 10 "Housekeeping" "Libra" 11250
+46 10 54 "Male" 2 "Pretty Happy" 8 12 "Married" 3 "Other" "Pisces" 23750
+26 16 40 "Male" 2 "Very Happy" 12 14 "Never Married" 2 "Fulltime" "Pisces" 55000
+28 12 40 "Female" 2 "Pretty Happy" 7 12 "Married" 4 "Fulltime" "Libra" 32500
+18 11 25 "Female" 1 "Very Happy" 12 11 "Never Married" 5 "Parttime" "Capricorn" 16250
+77 12 63 "Female" 2 "Pretty Happy" 8 12 "Married" 5 "Retired" "Capricorn" 45000
+44 18 55 "Male" 1 "Very Happy" 12 16 "Married" 4 "Fulltime" "Libra" 110000
+80 12 12 "Male" 4 "Pretty Happy" 5 6 "Widowed" 1 "Retired" "Leo" 67500
+32 12 45 "Male" 4 "Very Happy" 4 0 "Married" 10 "Fulltime" "Aries" 18750
+23 16 35 "Male" 5 "Very Happy" 16 18 "Never Married" 2 "Parttime" "Virgo" 11250
+37 14 56 "Female" 2 "Not Too Happy" 6 9 "Separated" 3 "Fulltime" "Cancer" 23750
+46 16 48 "Female" 3 "Pretty Happy" 16 12 "Separated" 3 "Fulltime" "Capricorn" 1e+05
+59 14 35 "Female" 3 "Pretty Happy" 14 19 "Married" 3 "Retired" "Aquarius" 55000
+31 12 48 "Female" 1 "Pretty Happy" 12 12 "Never Married" 7 "Fulltime" "Sagittarius" 23750
+37 13 40 "Male" 3 "Not Too Happy" 12 13 "Married" 3 "Fulltime" "Leo" 55000
+59 17 56 "Male" 1 "Pretty Happy" 12 12 "Married" 3 "Fulltime" "Cancer" 110000
+31 18 18 "Female" 0 "Pretty Happy" 14 14 "Never Married" 2 "Parttime" "Pisces" 13750
+31 16 35 "Female" 2 "Pretty Happy" 16 14 "Divorced" 1 "Parttime" "Sagittarius" 9000
+21 12 30 "Female" 5 "Pretty Happy" 12 12 "Never Married" 2 "Fulltime" "Aquarius" 9000
+84 13 49 "Male" 7 "Pretty Happy" 15 8 "Divorced" 1 "Retired" "Virgo" 11250
+31 12 40 "Female" 2 "Very Happy" 11 13 "Never Married" 3 "Fulltime" "Scorpio" 32500
+77 12 29 "Female" 2 "Very Happy" 3 3 "Widowed" 7 "Housekeeping" "Aquarius" 11250
+45 17 57 "Male" 1 "Pretty Happy" 14 16 "Married" 3 "Fulltime" "Aries" 55000
+39 16 25 "Female" 0 "Very Happy" 14 18 "Married" 4 "Parttime" "Capricorn" 67500
+60 18 50 "Female" 2 "Pretty Happy" 11 12 "Married" 2 "Fulltime" "Cancer" 67500
+30 16 45 "Female" 3 "Very Happy" 12 9 "Married" 3 "Fulltime" "Pisces" 67500
+50 12 49 "Male" 1 "Very Happy" 12 14 "Married" 3 "Fulltime" "Pisces" 55000
+86 16 49 "Female" 3 "Pretty Happy" 14 8 "Married" 4 "Retired" "Leo" 45000
+47 8 52 "Male" 6 "Not Too Happy" 12 12 "Married" 7 "Other" "Capricorn" 16250
+19 10 40 "Male" 1 "Very Happy" 10 11 "Married" 2 "Fulltime" "Capricorn" 21250
+26 12 40 "Male" 4 "Not Too Happy" 14 14 "Never Married" 3 "Fulltime" "Taurus" 55000
+41 16 45 "Male" 3 "Very Happy" 12 12 "Never Married" 4 "Fulltime" "Leo" 32500
+55 12 52 "Male" 4 "Very Happy" 4 6 "Married" 13 "Fulltime" "Aquarius" 55000
+38 16 48 "Male" 2 "Pretty Happy" 12 16 "Married" 1 "Fulltime" "Leo" 110000
+24 12 35 "Female" 2 "Pretty Happy" 12 10 "Separated" 1 "Laid Off" "Sagittarius" 32500
+56 11 40 "Female" 2 "Pretty Happy" 11 10 "Divorced" 11 "Fulltime" "Taurus" 18750
+27 16 30 "Male" 1 "Pretty Happy" 18 18 "Never Married" 2 "Fulltime" "Virgo" 18750
+50 18 40 "Female" 1 "Very Happy" 12 9 "Divorced" 6 "Fulltime" "Capricorn" 45000
+26 18 25 "Female" 3 "Pretty Happy" 12 13 "Never Married" 1 "Parttime" "Taurus" 9000
+39 15 32 "Male" 2 "Very Happy" 12 13 "Married" 1 "Fulltime" "Virgo" 1e+05
+56 18 60 "Male" 3 "Pretty Happy" 13 20 "Married" 7 "Fulltime" "Gemini" 55000
+35 16 40 "Female" 3 "Very Happy" 14 16 "Married" 3 "Fulltime" "Cancer" 1e+05
+39 20 6 "Male" 1 "Pretty Happy" 18 16 "Married" 4 "Parttime" "Taurus" 67500
+47 11 40 "Female" 1 "Pretty Happy" 12 12 "Married" 4 "Fulltime" "Aries" 45000
+37 12 60 "Male" 2 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Taurus" 67500
+40 15 55 "Female" 3 "Pretty Happy" 16 12 "Married" 4 "Housekeeping" "Pisces" 110000
+42 12 48 "Male" 5 "Not Too Happy" 12 12 "Never Married" 0 "Fulltime" "Virgo" 18750
+43 12 10 "Female" 1 "Pretty Happy" 12 10 "Married" 2 "Parttime" "Aquarius" 110000
+44 12 40 "Male" 3 "Pretty Happy" 12 12 "Divorced" 2 "Fulltime" "Libra" 32500
+37 15 32 "Female" 2 "Pretty Happy" 15 16 "Married" 1 "Parttime" "Aquarius" 45000
+51 12 48 "Female" 2 "Pretty Happy" 8 8 "Married" 3 "Housekeeping" "Aquarius" 45000
+27 16 45 "Male" 3 "Very Happy" 14 16 "Married" 3 "Fulltime" "Sagittarius" 67500
+58 12 40 "Male" 3 "Very Happy" 12 8 "Married" 1 "Fulltime" "Aquarius" 67500
+52 12 37 "Female" 2 "Pretty Happy" 8 3 "Divorced" 6 "Fulltime" "Virgo" 27500
+53 16 50 "Male" 3 "Pretty Happy" 12 10 "Separated" 3 "Fulltime" "Virgo" 45000
+26 18 40 "Female" 2 "Pretty Happy" 16 12 "Married" 1 "Fulltime" "Cancer" 67500
+30 12 50 "Female" 2 "Pretty Happy" 14 15 "Separated" 4 "Fulltime" "Aquarius" 27500
+18 11 15 "Female" 3 "Pretty Happy" 14 12 "Never Married" 3 "Parttime" "Aquarius" 37500
+25 14 40 "Male" 3 "Pretty Happy" 14 14 "Married" 3 "Fulltime" "Capricorn" 18750
+37 11 40 "Female" 1 "Very Happy" 6 1 "Married" 8 "Fulltime" "Cancer" 45000
+53 12 14 "Male" 4 "Pretty Happy" 7 6 "Married" 9 "Not Working" "Aquarius" 32500
+44 11 48 "Male" 3 "Pretty Happy" 13 6 "Married" 3 "Fulltime" "Capricorn" 9000
+39 16 40 "Female" 0 "Pretty Happy" 16 18 "Divorced" 1 "Fulltime" "Gemini" 32500
+45 13 15 "Female" 2 "Pretty Happy" 13 12 "Married" 2 "Parttime" "Libra" 9000
+61 15 61 "Male" 5 "Pretty Happy" 12 12 "Married" 1 "Retired" "Pisces" 67500
+56 14 40 "Male" 3 "Pretty Happy" 10 12 "Married" 1 "Fulltime" "Scorpio" 37500
+36 14 36 "Female" 3 "Pretty Happy" 14 8 "Separated" 2 "Fulltime" "Virgo" 32500
+40 14 55 "Male" 3 "Pretty Happy" 2 6 "Never Married" 7 "Fulltime" "Sagittarius" 37500
+40 20 40 "Male" 4 "Pretty Happy" 14 20 "Married" 1 "Fulltime" "Cancer" 110000
+39 12 40 "Female" 0 "Very Happy" 12 10 "Divorced" 2 "Fulltime" "Scorpio" 13750
+41 9 40 "Male" 4 "Pretty Happy" 0 0 "Married" 3 "Fulltime" "Taurus" 23750
+59 15 50 "Male" 3 "Very Happy" 12 9 "Married" 3 "Fulltime" "Gemini" 82500
+53 17 40 "Female" 2 "Very Happy" 12 12 "Married" 5 "Fulltime" "Taurus" 110000
+42 16 8 "Female" 1 "Pretty Happy" 16 16 "Married" 3 "Parttime" "Scorpio" 110000
+43 16 40 "Female" 3 "Pretty Happy" 14 14 "Divorced" 11 "Fulltime" "Taurus" 1e+05
+30 16 40 "Female" 0 "Pretty Happy" 16 18 "Never Married" 1 "Fulltime" "Aries" 27500
+36 15 40 "Female" 3 "Pretty Happy" 12 20 "Never Married" 5 "Fulltime" "Leo" 16250
+32 16 50 "Female" 3 "Pretty Happy" 16 16 "Married" 1 "Fulltime" "Virgo" 21250
+86 16 20 "Male" 5 "Pretty Happy" 14 15 "Married" 1 "Retired" "Gemini" 21250
+50 15 40 "Female" 3 "Very Happy" 10 9 "Married" 1 "Fulltime" "Scorpio" 82500
+51 20 80 "Male" 2 "Pretty Happy" 12 12 "Divorced" 3 "Fulltime" "Cancer" 45000
+28 14 63 "Male" 1 "Pretty Happy" 8 11 "Never Married" 2 "Fulltime" "Virgo" 45000
+24 14 44 "Male" 2 "Pretty Happy" 12 16 "Married" 2 "Fulltime" "Virgo" 45000
+32 17 42 "Female" 1 "Pretty Happy" 13 18 "Married" 1 "Fulltime" "Cancer" 67500
+25 16 35 "Female" 2 "Very Happy" 12 20 "Never Married" 4 "Fulltime" "Cancer" 18750
+49 12 37 "Female" 4 "Pretty Happy" 12 11 "Divorced" 3 "Fulltime" "Libra" 27500
+37 12 43 "Female" 2 "Pretty Happy" 12 12 "Married" 1 "Fulltime" "Leo" 67500
+24 15 40 "Female" 3 "Pretty Happy" 12 12 "Never Married" 2 "Fulltime" "Scorpio" 13750
+42 12 42 "Female" 2 "Pretty Happy" 8 5 "Married" 2 "Fulltime" "Sagittarius" 16250
+40 16 45 "Male" 2 "Pretty Happy" 12 12 "Never Married" 4 "Fulltime" "Scorpio" 32500
+45 14 40 "Female" 2 "Pretty Happy" 14 11 "Divorced" 9 "Fulltime" "Pisces" 32500
+54 16 40 "Male" 2 "Very Happy" 12 12 "Divorced" 3 "Fulltime" "Scorpio" 37500
+32 14 46 "Female" 2 "Pretty Happy" 12 14 "Married" 2 "Fulltime" "Pisces" 32500
+29 15 36 "Female" 4 "Pretty Happy" 12 12 "Married" 2 "Parttime" "Sagittarius" 37500
+31 13 23 "Male" 1 "Not Too Happy" 12 12 "Married" 1 "Laid Off" "Aries" 45000
+77 11 64 "Female" 8 "Not Too Happy" 2 8 "Widowed" 2 "Retired" "Capricorn" 13750
+36 20 15 "Male" 1 "Not Too Happy" 12 12 "Never Married" 1 "Parttime" "Capricorn" 16250
+23 14 40 "Male" 0 "Pretty Happy" 16 12 "Never Married" 1 "Fulltime" "Scorpio" 13750
+54 14 60 "Male" 2 "Very Happy" 12 12 "Widowed" 2 "Fulltime" "Virgo" 67500
+43 14 40 "Female" 2 "Pretty Happy" 12 14 "Married" 1 "Fulltime" "Sagittarius" 1e+05
+34 16 10 "Female" 3 "Not Too Happy" 16 16 "Widowed" 3 "Parttime" "Libra" 18750
+47 12 40 "Female" 2 "Pretty Happy" 7 8 "Married" 6 "Fulltime" "Cancer" 55000
+66 19 16 "Male" 3 "Pretty Happy" 8 8 "Married" 0 "Parttime" "Scorpio" 82500
+40 12 44 "Female" 2 "Pretty Happy" 12 13 "Married" 2 "Housekeeping" "Scorpio" 110000
+42 16 80 "Male" 3 "Pretty Happy" 12 8 "Married" 1 "Fulltime" "Virgo" 82500
+37 16 45 "Male" 3 "Pretty Happy" 12 16 "Married" 3 "Fulltime" "Virgo" 55000
+39 18 50 "Male" 1 "Very Happy" 14 11 "Never Married" 1 "Fulltime" "Scorpio" 45000
+33 14 40 "Female" 3 "Pretty Happy" 14 14 "Divorced" 5 "Fulltime" "Leo" 23750
+44 12 40 "Male" 4 "Pretty Happy" 12 6 "Never Married" 4 "Fulltime" "Leo" 18750
+29 12 50 "Male" 2 "Not Too Happy" 12 12 "Never Married" 1 "Fulltime" "Capricorn" 23750
+45 12 40 "Male" 4 "Not Too Happy" 16 14 "Never Married" 15 "Fulltime" "Pisces" 27500
+48 14 46 "Male" 2 "Pretty Happy" 10 12 "Married" 6 "Fulltime" "Sagittarius" 1e+05
+66 20 48 "Female" 1 "Very Happy" 12 16 "Never Married" 1 "Retired" "Libra" 55000
+41 12 50 "Female" 4 "Not Too Happy" 12 12 "Married" 5 "Fulltime" "Leo" 32500
+28 13 50 "Female" 1 "Pretty Happy" 12 14 "Widowed" 1 "Fulltime" "Aquarius" 32500
+46 14 40 "Female" 3 "Pretty Happy" 14 12 "Never Married" 4 "Fulltime" "Capricorn" 67500
+27 14 40 "Female" 1 "Very Happy" 12 11 "Married" 5 "Fulltime" "Aries" 82500
+39 12 44 "Male" 6 "Very Happy" 12 12 "Married" 2 "Fulltime" "Gemini" 32500
+60 13 60 "Female" 4 "Pretty Happy" 12 14 "Married" 1 "Housekeeping" "Virgo" 45000
+29 12 42 "Male" 2 "Not Too Happy" 12 13 "Married" 3 "Fulltime" "Pisces" 37500
+63 16 41 "Male" 2 "Pretty Happy" 12 14 "Divorced" 4 "Laid Off" "Virgo" 110000
+47 13 44 "Female" 3 "Pretty Happy" 10 7 "Divorced" 11 "Fulltime" "Sagittarius" 13750
+51 12 40 "Male" 3 "Pretty Happy" 8 8 "Separated" 3 "Fulltime" "Aquarius" 45000
+52 12 40 "Female" 3 "Pretty Happy" 12 11 "Divorced" 2 "Fulltime" "Aquarius" 21250
+25 16 85 "Female" 1 "Pretty Happy" 12 20 "Never Married" 1 "Fulltime" "Virgo" 32500
+21 13 41 "Female" 2 "Pretty Happy" 12 14 "Never Married" 1 "Fulltime" "Pisces" 110000
+60 8 60 "Male" 1 "Pretty Happy" 8 4 "Married" 3 "Fulltime" "Cancer" 45000
+51 12 46 "Female" 2 "Pretty Happy" 12 11 "Divorced" 5 "Fulltime" "Sagittarius" 11542616
+25 12 70 "Female" 2 "Pretty Happy" 12 9 "Never Married" 7 "Fulltime" "Capricorn" 45000
+48 16 20 "Female" 2 "Pretty Happy" 12 8 "Married" 2 "Parttime" "Sagittarius" 1e+05
+42 13 50 "Male" 3 "Very Happy" 12 16 "Married" 1 "Fulltime" "Taurus" 110000
+42 16 45 "Male" 2 "Pretty Happy" 16 16 "Married" 2 "Fulltime" "Aries" 110000
+49 20 45 "Female" 2 "Very Happy" 12 12 "Married" 3 "Fulltime" "Cancer" 110000
+56 18 48 "Female" 4 "Not Too Happy" 12 8 "Divorced" 1 "Retired" "Libra" 45000
+25 12 6 "Female" 14 "Not Too Happy" 12 12 "Never Married" 1 "Parttime" "Taurus" 500
+70 12 57 "Female" 2 "Very Happy" 12 12 "Divorced" 3 "Retired" "Cancer" 6500
+56 12 40 "Female" 2 "Pretty Happy" 12 11 "Divorced" 2 "Fulltime" "Capricorn" 23750
+34 13 19 "Male" 0 "Not Too Happy" 16 16 "Never Married" 1 "Laid Off" "Leo" 13750
+47 4 40 "Female" 2 "Pretty Happy" 2 2 "Divorced" 14 "Fulltime" "Libra" 23750
+29 13 40 "Female" 2 "Pretty Happy" 15 12 "Married" 4 "Fulltime" "Capricorn" 67500
+29 12 37 "Female" 3 "Pretty Happy" 15 15 "Never Married" 3 "Fulltime" "Gemini" 27500
+47 12 40 "Male" 3 "Pretty Happy" 9 12 "Married" 6 "Fulltime" "Taurus" 55000
+58 7 40 "Female" 4 "Not Too Happy" 6 5 "Never Married" 14 "Fulltime" "Libra" 21250
+28 13 60 "Male" 2 "Very Happy" 14 12 "Married" 4 "Fulltime" "Cancer" 45000
+44 16 49 "Male" 2 "Pretty Happy" 12 12 "Never Married" 2 "Fulltime" "Leo" 45000
+39 12 57 "Male" 4 "Very Happy" 18 16 "Never Married" 2 "Fulltime" "Libra" 32500
+46 12 32 "Female" 4 "Pretty Happy" 14 13 "Divorced" 1 "Fulltime" "Scorpio" 32500
+26 13 40 "Female" 2 "Pretty Happy" 9 9 "Married" 3 "Fulltime" "Virgo" 55000
+46 16 45 "Female" 2 "Pretty Happy" 18 20 "Married" 4 "Fulltime" "Sagittarius" 67500
+26 13 55 "Male" 2 "Pretty Happy" 14 20 "Married" 2 "Fulltime" "Aries" 67500
+53 14 40 "Female" 2 "Pretty Happy" 16 14 "Never Married" 6 "Fulltime" "Cancer" 55000
+30 14 30 "Male" 3 "Pretty Happy" 10 11 "Married" 3 "Fulltime" "Aries" 45000
+47 14 89 "Male" 2 "Very Happy" 13 12 "Never Married" 1 "Fulltime" "Virgo" 37500
+24 16 60 "Female" 2 "Pretty Happy" 12 12 "Never Married" 2 "Fulltime" "Gemini" 32500
+50 20 50 "Female" 4 "Pretty Happy" 12 16 "Divorced" 5 "Fulltime" "Leo" 55000
+38 12 16 "Female" 3 "Pretty Happy" 11 12 "Never Married" 3 "Parttime" "Aries" 6185378
+43 14 40 "Female" 3 "Pretty Happy" 12 8 "Never Married" 16 "Fulltime" "Leo" 21250
+37 15 40 "Female" 3 "Pretty Happy" 8 8 "Separated" 2 "Fulltime" "Sagittarius" 11250
+23 14 39 "Female" 2 "Very Happy" 17 15 "Never Married" 2 "Fulltime" "Gemini" 18750
+44 13 35 "Female" 5 "Pretty Happy" 16 12 "Married" 4 "Fulltime" "Leo" 13750
+25 12 40 "Female" 4 "Pretty Happy" 14 12 "Divorced" 3 "Fulltime" "Virgo" 18750
+28 16 40 "Female" 2 "Pretty Happy" 14 10 "Married" 1 "Fulltime" "Libra" 45000
+44 15 28 "Female" 1 "Pretty Happy" 10 8 "Married" 3 "Parttime" "Pisces" 23750
+38 12 60 "Male" 2 "Pretty Happy" 12 10 "Never Married" 5 "Fulltime" "Capricorn" 67500
+46 18 75 "Male" 1 "Pretty Happy" 16 12 "Married" 0 "Fulltime" "Pisces" 110000
+79 18 33 "Female" 5 "Pretty Happy" 8 4 "Never Married" 3 "Housekeeping" "Leo" 16250
+24 12 40 "Male" 2 "Pretty Happy" 12 20 "Married" 4 "Fulltime" "Virgo" 37500
+34 12 40 "Female" 4 "Not Too Happy" 9 7 "Married" 15 "Fulltime" "Aries" 67500
+37 15 60 "Male" 3 "Pretty Happy" 12 16 "Married" 2 "Fulltime" "Virgo" 67500
+32 12 52 "Male" 3 "Pretty Happy" 11 6 "Married" 7 "Fulltime" "Scorpio" 45000
+38 12 32 "Female" 3 "Not Too Happy" 10 14 "Divorced" 2 "Fulltime" "Leo" 23750
+42 13 55 "Female" 1 "Very Happy" 10 9 "Married" 6 "Not Working" "Sagittarius" 21250
+64 12 38 "Female" 4 "Very Happy" 12 12 "Widowed" 1 "Retired" "Capricorn" 27500
+23 13 70 "Male" 2 "Pretty Happy" 18 15 "Married" 0 "Fulltime" "Libra" 27500
+50 16 70 "Male" 4 "Not Too Happy" 19 19 "Divorced" 1 "Fulltime" "Pisces" 37500
+81 16 35 "Female" 4 "Pretty Happy" 12 11 "Married" 2 "Retired" "Libra" 32500
+48 12 30 "Female" 2 "Very Happy" 10 12 "Never Married" 6 "Parttime" "Virgo" 16941190
+42 12 40 "Male" 4 "Pretty Happy" 12 12 "Never Married" 6 "Fulltime" "Taurus" 1e+05
+21 12 23 "Female" 3 "Pretty Happy" 13 17 "Never Married" 2 "Parttime" "Sagittarius" 67500
+38 17 40 "Male" 0 "Pretty Happy" 12 12 "Divorced" 4 "Fulltime" "Leo" 55000
+69 12 3 "Male" 5 "Very Happy" 8 4 "Widowed" 8 "Retired" "Gemini" 18750
+62 12 25 "Female" 4 "Pretty Happy" 12 14 "Divorced" 2 "Parttime" "Capricorn" 16250
+36 13 30 "Male" 2 "Not Too Happy" 12 18 "Never Married" 6 "Parttime" "Sagittarius" 32500
+40 12 38 "Male" 8 "Very Happy" 12 16 "Married" 2 "Fulltime" "Sagittarius" 37500
+59 12 20 "Male" 3 "Pretty Happy" 8 8 "Never Married" 3 "Parttime" "Leo" 11250
+34 20 48 "Male" 2 "Pretty Happy" 16 8 "Never Married" 3 "School" "Leo" 18750
+30 16 45 "Male" 2 "Very Happy" 12 14 "Never Married" 0 "Fulltime" "Capricorn" 37500
+48 14 20 "Female" 2 "Pretty Happy" 12 10 "Married" 4 "Parttime" "Gemini" 32500
+40 14 45 "Male" 2 "Very Happy" 14 13 "Married" 1 "Fulltime" "Cancer" 45000
+25 16 40 "Female" 2 "Pretty Happy" 15 17 "Never Married" 0 "Fulltime" "Gemini" 55000
+43 9 40 "Female" 5 "Not Too Happy" 3 3 "Separated" 11 "Fulltime" "Libra" 11250
+43 12 55 "Male" 1 "Very Happy" 8 8 "Married" 4 "Fulltime" "Pisces" 82500
+63 13 46 "Male" 1 "Not Too Happy" 14 4 "Married" 2 "Fulltime" "Taurus" 21250
+42 16 50 "Female" 3 "Pretty Happy" 14 20 "Divorced" 4 "Fulltime" "Aries" 37500
+44 16 24 "Female" 4 "Not Too Happy" 15 20 "Never Married" 0 "Parttime" "Gemini" 9000
+40 16 40 "Male" 2 "Pretty Happy" 16 16 "Married" 3 "Fulltime" "Gemini" 27500
+38 14 20 "Male" 4 "Pretty Happy" 16 16 "Married" 8 "Housekeeping" "Capricorn" 37500
+61 11 45 "Female" 4 "Pretty Happy" 10 10 "Married" 6 "Housekeeping" "Virgo" 23750
+38 13 50 "Female" 2 "Pretty Happy" 3 12 "Married" 2 "Fulltime" "Virgo" 45000
+70 17 76 "Male" 2 "Pretty Happy" 0 0 "Married" 0 "Retired" "Capricorn" 110000
+34 14 50 "Male" 2 "Pretty Happy" 12 12 "Never Married" 0 "Fulltime" "Capricorn" 55000
+46 13 65 "Male" 4 "Not Too Happy" 10 6 "Married" 3 "Fulltime" "Sagittarius" 23750
+48 19 50 "Male" 3 "Pretty Happy" 10 3 "Married" 4 "Fulltime" "Aries" 32500
+23 15 40 "Male" 3 "Very Happy" 14 16 "Never Married" 5 "Fulltime" "Sagittarius" 13750
+30 16 50 "Male" 1 "Pretty Happy" 14 19 "Never Married" 2 "Fulltime" "Leo" 27500
+24 13 32 "Male" 5 "Pretty Happy" 14 12 "Never Married" 2 "Housekeeping" "Cancer" 13750
+50 16 60 "Male" 2 "Pretty Happy" 14 12 "Married" 0 "Fulltime" "Libra" 37500
+32 18 42 "Female" 2 "Pretty Happy" 16 17 "Never Married" 1 "Fulltime" "Leo" 32500
+48 12 40 "Male" 1 "Pretty Happy" 11 9 "Divorced" 6 "Fulltime" "Capricorn" 27500
+38 18 45 "Male" 2 "Pretty Happy" 12 12 "Married" 5 "Fulltime" "Aquarius" 82500
+66 11 36 "Female" 4 "Very Happy" 8 6 "Married" 3 "Housekeeping" "Aquarius" 32500
+30 14 60 "Female" 1 "Very Happy" 12 5 "Divorced" 3 "Fulltime" "Sagittarius" 32500
+47 14 30 "Female" 3 "Pretty Happy" 14 20 "Divorced" 3 "Parttime" "Aquarius" 18750
+49 12 45 "Female" 1 "Pretty Happy" 11 10 "Divorced" 4 "Fulltime" "Aquarius" 32500
+23 16 50 "Female" 2 "Pretty Happy" 16 18 "Never Married" 1 "Fulltime" "Gemini" 27500
+27 14 40 "Female" 3 "Pretty Happy" 12 16 "Never Married" 2 "Fulltime" "Scorpio" 16250
+34 16 60 "Male" 1 "Pretty Happy" 12 12 "Never Married" 3 "Fulltime" "Pisces" 45000
+55 16 45 "Female" 1 "Pretty Happy" 8 10 "Never Married" 6 "Fulltime" "Taurus" 32500
+25 15 40 "Male" 6 "Very Happy" 16 12 "Never Married" 2 "Fulltime" "Leo" 21250
+41 16 80 "Female" 4 "Very Happy" 20 14 "Divorced" 2 "Fulltime" "Taurus" 55000
+32 13 48 "Male" 2 "Pretty Happy" 12 14 "Married" 1 "Fulltime" "Taurus" 37500
+60 16 40 "Male" 1 "Pretty Happy" 12 6 "Divorced" 0 "Fulltime" "Scorpio" 32500
+50 12 40 "Female" 3 "Pretty Happy" 16 12 "Divorced" 3 "Fulltime" "Scorpio" 23750
+58 20 60 "Male" 4 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Aquarius" 110000
+43 10 40 "Male" 5 "Very Happy" 0 3 "Married" 6 "Fulltime" "Cancer" 45000
+48 12 60 "Male" 1 "Pretty Happy" 12 12 "Married" 3 "Fulltime" "Pisces" 82500
+42 10 89 "Male" 1 "Pretty Happy" 10 10 "Married" 6 "Fulltime" "Aquarius" 45000
+38 12 41 "Male" 2 "Pretty Happy" 14 13 "Never Married" 5 "Fulltime" "Sagittarius" 27500
+52 12 50 "Female" 2 "Very Happy" 12 11 "Married" 5 "Fulltime" "Capricorn" 1e+05
+48 12 60 "Female" 3 "Pretty Happy" 11 11 "Married" 5 "Fulltime" "Leo" 45000
+56 14 40 "Male" 3 "Pretty Happy" 12 10 "Married" 5 "Fulltime" "Virgo" 55000
+32 16 44 "Male" 3 "Very Happy" 11 12 "Never Married" 6 "Fulltime" "Sagittarius" 55000
+50 14 24 "Female" 2 "Pretty Happy" 12 12 "Married" 2 "Housekeeping" "Cancer" 110000
+59 16 50 "Male" 2 "Pretty Happy" 14 16 "Married" 2 "Fulltime" "Aries" 110000
+59 16 75 "Female" 1 "Very Happy" 16 16 "Married" 1 "Housekeeping" "Capricorn" 110000
+24 12 33 "Female" 1 "Pretty Happy" 12 11 "Never Married" 3 "Housekeeping" "Taurus" 2000
+29 13 55 "Female" 2 "Pretty Happy" 13 13 "Never Married" 1 "Fulltime" "Taurus" 32500
+58 14 30 "Female" 3 "Pretty Happy" 9 12 "Married" 6 "Fulltime" "Pisces" 110000
+27 17 65 "Female" 1 "Very Happy" 12 20 "Never Married" 3 "Fulltime" "Aries" 82500
+56 16 58 "Male" 2 "Very Happy" 9 10 "Divorced" 2 "Fulltime" "Aries" 82500
+32 9 16 "Female" 3 "Pretty Happy" 12 14 "Never Married" 2 "Parttime" "Leo" 18750
+28 17 32 "Female" 2 "Pretty Happy" 12 13 "Married" 2 "Fulltime" "Virgo" 55000
+40 13 25 "Male" 4 "Very Happy" 12 12 "Divorced" 5 "Fulltime" "Libra" 18750
+31 9 38 "Male" 2 "Pretty Happy" 10 10 "Divorced" 6 "Fulltime" "Leo" 45000
+25 13 40 "Male" 4 "Very Happy" 12 12 "Widowed" 2 "Fulltime" "Aquarius" 45000
+49 14 38 "Male" 2 "Pretty Happy" 6 10 "Divorced" 3 "Retired" "Pisces" 32500
+32 12 50 "Male" 12 "Not Too Happy" 9 9 "Separated" 1 "Fulltime" "Virgo" 21250
+50 12 40 "Female" 3 "Not Too Happy" 12 12 "Widowed" 3 "Parttime" "Gemini" 32500
+47 18 50 "Male" 2 "Very Happy" 12 14 "Married" 2 "Fulltime" "Libra" 110000
+56 13 48 "Male" 2 "Pretty Happy" 12 12 "Married" 3 "Fulltime" "Cancer" 1e+05
+42 16 40 "Female" 1 "Very Happy" 16 18 "Married" 5 "Fulltime" "Aries" 1e+05
+59 14 34 "Male" 2 "Very Happy" 10 10 "Married" 3 "Retired" "Leo" 45000
+26 14 65 "Male" 6 "Pretty Happy" 12 12 "Never Married" 1 "Fulltime" "Leo" 27500
+29 14 40 "Female" 3 "Very Happy" 12 12 "Married" 3 "Fulltime" "Libra" 23750
+51 13 20 "Female" 1 "Pretty Happy" 14 14 "Divorced" 2 "Fulltime" "Aquarius" 55000
+47 13 43 "Male" 4 "Pretty Happy" 4 8 "Divorced" 6 "Fulltime" "Libra" 37500
+44 15 11 "Female" 8 "Pretty Happy" 12 15 "Married" 10 "Housekeeping" "Aries" 82500
+45 12 48 "Male" 1 "Pretty Happy" 12 13 "Married" 1 "Fulltime" "Capricorn" 2000
+46 16 44 "Male" 3 "Pretty Happy" 12 14 "Divorced" 2 "Fulltime" "Scorpio" 23750
+34 12 44 "Female" 3 "Pretty Happy" 12 12 "Married" 4 "Fulltime" "Capricorn" 55000
+85 8 43 "Male" 6 "Pretty Happy" 5 5 "Never Married" 8 "Retired" "Leo" 11250
+49 16 40 "Male" 5 "Very Happy" 10 8 "Separated" 3 "Fulltime" "Libra" 32500
+28 12 40 "Female" 1 "Pretty Happy" 12 13 "Never Married" 4 "Fulltime" "Pisces" 13750
+55 18 50 "Male" 3 "Pretty Happy" 12 13 "Never Married" 1 "Fulltime" "Scorpio" 18750
+38 16 38 "Male" 2 "Not Too Happy" 16 14 "Divorced" 9 "Fulltime" "Taurus" 45000
+44 18 45 "Male" 3 "Not Too Happy" 12 8 "Never Married" 1 "Fulltime" "Leo" 18750
+27 16 51 "Male" 5 "Pretty Happy" 8 11 "Never Married" 1 "Fulltime" "Sagittarius" 37500
+57 14 40 "Male" 4 "Pretty Happy" 12 11 "Married" 3 "Fulltime" "Cancer" 55000
+54 16 40 "Female" 2 "Very Happy" 14 13 "Married" 3 "Fulltime" "Gemini" 82500
+49 16 65 "Female" 2 "Pretty Happy" 10 20 "Married" 2 "Fulltime" "Cancer" 82500
+66 17 37 "Female" 1 "Very Happy" 9 9 "Divorced" 1 "Parttime" "Virgo" 37500
+62 12 64 "Male" 3 "Pretty Happy" 12 12 "Married" 0 "Fulltime" "Gemini" 1e+05
+42 12 30 "Female" 3 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Cancer" 45000
+37 14 60 "Male" 2 "Pretty Happy" 12 12 "Married" 3 "Fulltime" "Leo" 55000
+40 13 40 "Female" 4 "Pretty Happy" 5 5 "Separated" 5 "Fulltime" "Libra" 11250
+44 14 80 "Male" 4 "Very Happy" 0 12 "Divorced" 5 "Fulltime" "Aries" 11250
+39 14 38 "Female" 1 "Pretty Happy" 12 12 "Divorced" 4 "Laid Off" "Cancer" 27500
+38 16 40 "Male" 0 "Very Happy" 12 12 "Married" 1 "Fulltime" "Gemini" 110000
+26 18 60 "Male" 2 "Pretty Happy" 18 12 "Never Married" 1 "Fulltime" "Taurus" 45000
+54 12 32 "Female" 1 "Very Happy" 12 12 "Married" 4 "Fulltime" "Taurus" 55000
+47 20 40 "Female" 1 "Pretty Happy" 16 18 "Married" 1 "Fulltime" "Virgo" 82500
+22 14 30 "Male" 0 "Not Too Happy" 12 16 "Never Married" 0 "School" "Virgo" 11250
+23 16 45 "Male" 3 "Pretty Happy" 18 15 "Never Married" 0 "Fulltime" "Aquarius" 45000
+23 11 53 "Female" 0 "Pretty Happy" 12 12 "Never Married" 3 "Fulltime" "Virgo" 9000
+51 12 45 "Male" 4 "Very Happy" 12 11 "Married" 3 "Fulltime" "Virgo" 1e+05
+43 14 45 "Female" 2 "Pretty Happy" 12 12 "Married" 1 "Fulltime" "Taurus" 67500
+47 16 50 "Male" 1 "Very Happy" 11 9 "Married" 3 "Fulltime" "Pisces" 67500
+43 17 40 "Female" 1 "Pretty Happy" 11 12 "Divorced" 5 "Fulltime" "Scorpio" 55000
+32 13 45 "Male" 1 "Very Happy" 12 12 "Never Married" 4 "Fulltime" "Aquarius" 32500
+77 12 31 "Female" 2 "Pretty Happy" 3 3 "Widowed" 16 "Housekeeping" "Sagittarius" 11250
+30 14 40 "Male" 2 "Pretty Happy" 14 12 "Never Married" 3 "Fulltime" "Scorpio" 32500
+45 12 40 "Female" 4 "Pretty Happy" 6 8 "Married" 1 "Fulltime" "Scorpio" 55000
+36 14 55 "Male" 2 "Very Happy" 12 10 "Never Married" 7 "Fulltime" "Gemini" 82500
+43 12 39 "Female" 1 "Not Too Happy" 8 6 "Divorced" 2 "Fulltime" "Cancer" 18750
+28 12 20 "Male" 5 "Pretty Happy" 10 13 "Never Married" 2 "Parttime" "Aries" 21250
+48 10 40 "Male" 2 "Pretty Happy" 9 10 "Divorced" 7 "Fulltime" "Cancer" 239841
+50 11 40 "Female" 3 "Pretty Happy" 12 14 "Never Married" 9 "Fulltime" "Gemini" 37500
+45 11 20 "Female" 4 "Pretty Happy" 6 10 "Never Married" 3 "Parttime" "Aquarius" 21250
+56 13 38 "Female" 4 "Pretty Happy" 6 6 "Never Married" 10 "Fulltime" "Cancer" 13750
+35 17 40 "Male" 3 "Pretty Happy" 12 14 "Never Married" 5 "Fulltime" "Gemini" 45000
+51 14 40 "Male" 3 "Not Too Happy" 12 8 "Divorced" 3 "Fulltime" "Sagittarius" 67500
+38 19 70 "Female" 1 "Very Happy" 14 20 "Never Married" 4 "Fulltime" "Libra" 45000
+43 15 20 "Female" 1 "Pretty Happy" 12 8 "Divorced" 3 "Parttime" "Libra" 11250
+34 13 40 "Female" 2 "Very Happy" 12 14 "Married" 1 "Fulltime" "Cancer" 45000
+35 16 44 "Female" 2 "Very Happy" 12 12 "Married" 2 "Fulltime" "Sagittarius" 67500
+43 16 39 "Male" 2 "Pretty Happy" 10 15 "Married" 3 "Laid Off" "Pisces" 67500
+43 13 40 "Female" 2 "Pretty Happy" 16 18 "Never Married" 3 "Fulltime" "Scorpio" 45000
+32 14 34 "Male" 2 "Pretty Happy" 12 12 "Divorced" 2 "Parttime" "Aries" 37500
+29 16 52 "Female" 1 "Pretty Happy" 14 16 "Married" 5 "Fulltime" "Scorpio" 110000
+36 16 55 "Male" 2 "Pretty Happy" 12 12 "Married" 6 "Fulltime" "Sagittarius" 110000
+46 12 47 "Male" 1 "Pretty Happy" 12 12 "Married" 3 "Other" "Virgo" 37500
+21 12 60 "Female" 0 "Pretty Happy" 12 12 "Never Married" 0 "Fulltime" "Aquarius" 27500
+26 17 45 "Male" 1 "Pretty Happy" 12 12 "Never Married" 2 "Fulltime" "Gemini" 82500
+29 16 40 "Male" 3 "Pretty Happy" 12 16 "Never Married" 2 "Fulltime" "Cancer" 32500
+32 12 45 "Female" 3 "Pretty Happy" 14 12 "Never Married" 3 "Fulltime" "Gemini" 45000
+39 12 50 "Male" 3 "Pretty Happy" 12 8 "Married" 4 "Fulltime" "Capricorn" 55000
+20 13 20 "Male" 3 "Pretty Happy" 16 16 "Never Married" 3 "Parttime" "Capricorn" 4500
+40 16 85 "Female" 3 "Pretty Happy" 12 12 "Never Married" 6 "Fulltime" "Virgo" 37500
+30 14 40 "Female" 2 "Pretty Happy" 16 16 "Never Married" 2 "Fulltime" "Virgo" 27500
+20 12 18 "Female" 3 "Very Happy" 20 12 "Never Married" 2 "Parttime" "Aries" 2000
+43 14 40 "Male" 3 "Very Happy" 12 12 "Divorced" 5 "Fulltime" "Libra" 7500
+58 15 40 "Male" 0 "Very Happy" 9 8 "Never Married" 3 "Fulltime" "Libra" 27500
+45 14 60 "Female" 4 "Very Happy" 12 12 "Never Married" 4 "Not Working" "Aries" 45000
+69 14 45 "Female" 3 "Not Too Happy" 3 12 "Married" 6 "Parttime" "Scorpio" 82500
+30 17 40 "Female" 5 "Pretty Happy" 15 16 "Married" 0 "Fulltime" "Virgo" 55000
+32 13 40 "Female" 3 "Pretty Happy" 12 14 "Never Married" 6 "Fulltime" "Gemini" 18750
+43 12 40 "Female" 3 "Pretty Happy" 15 16 "Widowed" 6 "Fulltime" "Leo" 32500
+25 10 40 "Female" 4 "Not Too Happy" 11 13 "Never Married" 2 "Fulltime" "Gemini" 21250
+77 12 48 "Female" 3 "Pretty Happy" 8 8 "Widowed" 2 "Housekeeping" "Libra" 45000
+70 12 25 "Female" 2 "Very Happy" 10 8 "Widowed" 1 "Housekeeping" "Pisces" 37500
+28 14 40 "Female" 2 "Pretty Happy" 12 12 "Divorced" 1 "Fulltime" "Leo" 45000
+36 16 48 "Female" 2 "Very Happy" 13 20 "Divorced" 2 "Fulltime" "Libra" 67500
+57 14 41 "Male" 5 "Very Happy" 8 8 "Married" 4 "Retired" "Sagittarius" 67500
+53 15 40 "Female" 0 "Pretty Happy" 16 16 "Divorced" 1 "Fulltime" "Leo" 32500
+34 12 60 "Male" 2 "Very Happy" 12 9 "Married" 1 "Fulltime" "Taurus" 67500
+30 16 40 "Female" 3 "Pretty Happy" 13 14 "Married" 0 "Fulltime" "Libra" 55000
+55 12 46 "Female" 5 "Very Happy" 12 12 "Married" 2 "Housekeeping" "Capricorn" 67500
+29 18 60 "Male" 2 "Pretty Happy" 20 20 "Never Married" 1 "Fulltime" "Aquarius" 67500
+44 16 20 "Female" 3 "Very Happy" 11 13 "Never Married" 5 "Parttime" "Gemini" 37500
+49 18 40 "Male" 3 "Pretty Happy" 12 14 "Divorced" 1 "Fulltime" "Leo" 37500
+31 12 40 "Male" 3 "Not Too Happy" 13 11 "Separated" 11 "Fulltime" "Scorpio" 55000
+66 8 40 "Female" 2 "Pretty Happy" 12 8 "Widowed" 8 "Fulltime" "Gemini" 23750
+47 12 89 "Female" 8 "Pretty Happy" 7 8 "Separated" 2 "Fulltime" "Libra" 5500
+30 12 40 "Female" 3 "Very Happy" 12 12 "Never Married" 2 "Fulltime" "Sagittarius" 32500
+49 15 50 "Male" 2 "Very Happy" 12 12 "Married" 1 "Fulltime" "Sagittarius" 110000
+64 17 7 "Female" 3 "Very Happy" 4 3 "Married" 0 "Parttime" "Scorpio" 67500
+30 14 50 "Male" 2 "Very Happy" 16 16 "Married" 2 "Fulltime" "Cancer" 67500
+63 19 8 "Female" 4 "Very Happy" 12 8 "Married" 3 "Parttime" "Capricorn" 67500
+63 14 40 "Female" 5 "Very Happy" 12 10 "Divorced" 1 "Fulltime" "Cancer" 1e+05
+62 11 19 "Female" 6 "Very Happy" 9 7 "Married" 7 "Parttime" "Taurus" 37500
+37 13 50 "Female" 2 "Very Happy" 9 10 "Never Married" 2 "Fulltime" "Taurus" 32500
+44 16 48 "Female" 0 "Pretty Happy" 14 12 "Married" 7 "Fulltime" "Gemini" 110000
+60 12 45 "Male" 4 "Very Happy" 12 12 "Married" 0 "Fulltime" "Sagittarius" 1e+05
+61 16 70 "Male" 1 "Pretty Happy" 12 16 "Separated" 1 "Fulltime" "Aquarius" 67500
+34 16 43 "Male" 1 "Very Happy" 12 16 "Married" 1 "Fulltime" "Libra" 1e+05
+38 14 60 "Male" 1 "Pretty Happy" 12 4 "Separated" 2 "Not Working" "Sagittarius" 32500
+83 11 34 "Female" 2 "Very Happy" 7 7 "Never Married" 1 "Retired" "Libra" 16250
+32 14 39 "Female" 2 "Pretty Happy" 14 10 "Never Married" 1 "Housekeeping" "Taurus" 18750
+33 13 55 "Male" 3 "Pretty Happy" 13 12 "Married" 2 "Fulltime" "Pisces" 27500
+44 18 40 "Male" 3 "Very Happy" 12 7 "Divorced" 3 "Fulltime" "Gemini" 67500
+48 12 80 "Female" 3 "Pretty Happy" 12 12 "Divorced" 4 "Fulltime" "Virgo" 13750
+53 14 40 "Female" 2 "Very Happy" 12 12 "Never Married" 3 "Fulltime" "Gemini" 55000
+39 17 40 "Female" 2 "Very Happy" 12 8 "Never Married" 8 "Fulltime" "Virgo" 24013233
+32 12 40 "Male" 3 "Pretty Happy" 15 18 "Married" 4 "Fulltime" "Scorpio" 67500
+24 16 40 "Female" 2 "Pretty Happy" 16 18 "Never Married" 1 "Fulltime" "Libra" 45000
+47 18 40 "Female" 0 "Pretty Happy" 12 8 "Never Married" 3 "Fulltime" "Scorpio" 67500
+41 14 40 "Female" 1 "Pretty Happy" 14 13 "Divorced" 6 "Fulltime" "Sagittarius" 55000
+45 14 40 "Female" 5 "Pretty Happy" 8 6 "Divorced" 10 "Fulltime" "Scorpio" 45000
+43 12 35 "Female" 6 "Pretty Happy" 8 9 "Never Married" 5 "Parttime" "Scorpio" 9000
+33 15 40 "Female" 2 "Very Happy" 10 12 "Married" 3 "Fulltime" "Cancer" 67500
+50 16 40 "Female" 3 "Pretty Happy" 12 8 "Divorced" 4 "Fulltime" "Aries" 37500
+54 12 32 "Female" 6 "Very Happy" 12 12 "Married" 1 "Housekeeping" "Virgo" 82500
+49 15 45 "Female" 3 "Very Happy" 8 9 "Divorced" 4 "Fulltime" "Libra" 18750
+20 12 30 "Male" 3 "Pretty Happy" 16 17 "Never Married" 2 "Parttime" "Taurus" 23750
+22 12 40 "Female" 2 "Pretty Happy" 15 12 "Never Married" 4 "School" "Libra" 27500
+34 12 40 "Male" 1 "Pretty Happy" 14 14 "Married" 0 "Fulltime" "Virgo" 55000
+27 14 45 "Male" 1 "Pretty Happy" 20 20 "Never Married" 1 "Fulltime" "Virgo" 27500
+37 12 60 "Male" 2 "Very Happy" 17 17 "Divorced" 2 "Fulltime" "Gemini" 67500
+74 12 72 "Male" 5 "Pretty Happy" 6 16 "Divorced" 2 "Fulltime" "Cancer" 55000
+41 17 55 "Male" 2 "Very Happy" 12 12 "Never Married" 2 "Fulltime" "Aries" 45000
+42 16 40 "Female" 2 "Very Happy" 12 16 "Divorced" 3 "Fulltime" "Scorpio" 67500
+32 12 55 "Male" 3 "Very Happy" 12 12 "Married" 4 "Fulltime" "Taurus" 55000
+40 20 60 "Male" 2 "Very Happy" 14 12 "Married" 3 "Fulltime" "Pisces" 37500
+68 17 30 "Male" 0 "Very Happy" 13 6 "Widowed" 3 "Retired" "Aquarius" 27500
+64 12 40 "Male" 4 "Very Happy" 8 3 "Married" 9 "Fulltime" "Capricorn" 37500
+79 12 35 "Female" 4 "Very Happy" 12 6 "Widowed" 4 "Retired" "Aquarius" 16250
+29 16 50 "Female" 0 "Pretty Happy" 16 12 "Divorced" 2 "Fulltime" "Taurus" 32500
+21 14 65 "Male" 4 "Pretty Happy" 12 10 "Never Married" 4 "Fulltime" "Cancer" 27500
+25 13 38 "Female" 2 "Pretty Happy" 16 16 "Married" 2 "Fulltime" "Cancer" 16250
+25 12 50 "Male" 1 "Very Happy" 14 10 "Married" 2 "Fulltime" "Leo" 21250
+60 6 53 "Male" 2 "Very Happy" 8 0 "Married" 10 "Housekeeping" "Pisces" 16250
+51 15 42 "Female" 1 "Pretty Happy" 14 20 "Married" 0 "Fulltime" "Leo" 45000
+43 14 50 "Male" 0 "Pretty Happy" 9 12 "Divorced" 1 "Fulltime" "Gemini" 55000
+39 16 24 "Female" 2 "Very Happy" 12 8 "Never Married" 1 "Parttime" "Virgo" 1e+05
+38 14 51 "Male" 3 "Pretty Happy" 16 12 "Married" 6 "Not Working" "Sagittarius" 27500
+33 12 35 "Male" 1 "Very Happy" 8 8 "Never Married" 7 "Fulltime" "Sagittarius" 45000
+44 16 40 "Female" 1 "Very Happy" 12 16 "Never Married" 3 "Fulltime" "Aries" 37500
+50 12 40 "Female" 4 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Sagittarius" 9000
+55 16 40 "Female" 2 "Pretty Happy" 7 5 "Married" 6 "Fulltime" "Libra" 67500
+43 20 45 "Female" 2 "Pretty Happy" 16 12 "Divorced" 3 "Fulltime" "Cancer" 67500
+35 12 47 "Male" 3 "Very Happy" 12 8 "Married" 3 "Fulltime" "Pisces" 55000
+25 15 35 "Male" 1 "Pretty Happy" 18 18 "Never Married" 1 "Parttime" "Capricorn" 82500
+46 14 40 "Male" 2 "Pretty Happy" 12 12 "Married" 3 "Fulltime" "Leo" 1e+05
+55 12 47 "Female" 4 "Pretty Happy" 8 10 "Divorced" 2 "Fulltime" "Libra" 45000
+43 13 46 "Female" 4 "Pretty Happy" 11 6 "Married" 1 "Not Working" "Taurus" 37500
+59 12 56 "Female" 4 "Very Happy" 7 5 "Married" 5 "Housekeeping" "Gemini" 55000
+68 12 59 "Female" 1 "Pretty Happy" 8 3 "Married" 3 "Retired" "Aquarius" 37500
+52 16 24 "Female" 3 "Very Happy" 16 15 "Married" 2 "Parttime" "Libra" 110000
+34 13 65 "Male" 1 "Very Happy" 16 12 "Widowed" 11 "Fulltime" "Leo" 82500
+32 11 46 "Male" 3 "Very Happy" 10 6 "Married" 2 "Fulltime" "Scorpio" 37500
+45 16 40 "Female" 3 "Pretty Happy" 8 11 "Divorced" 2 "Fulltime" "Libra" 55000
+59 19 65 "Male" 2 "Very Happy" 16 11 "Married" 0 "Fulltime" "Virgo" 82500
+79 11 29 "Female" 5 "Pretty Happy" 7 5 "Divorced" 4 "Retired" "Capricorn" 18750
+50 16 37 "Female" 0 "Pretty Happy" 16 16 "Married" 3 "Fulltime" "Sagittarius" 55000
+36 13 40 "Male" 2 "Very Happy" 12 14 "Married" 3 "Fulltime" "Capricorn" 55000
+43 14 45 "Male" 3 "Very Happy" 14 6 "Married" 7 "Fulltime" "Pisces" 67500
+35 12 54 "Male" 3 "Pretty Happy" 10 10 "Divorced" 4 "Fulltime" "Gemini" 32500
+54 12 70 "Female" 0 "Pretty Happy" 8 1 "Married" 2 "Fulltime" "Aquarius" 500
+45 12 40 "Male" 3 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Sagittarius" 1e+05
+29 8 35 "Male" 3 "Pretty Happy" 8 11 "Divorced" 2 "Parttime" "Libra" 32500
+79 11 49 "Female" 3 "Pretty Happy" 6 6 "Widowed" 7 "Retired" "Cancer" 11250
+68 8 35 "Male" 2 "Very Happy" 8 8 "Married" 9 "Retired" "Pisces" 6500
+25 17 16 "Male" 3 "Pretty Happy" 16 20 "Never Married" 1 "Parttime" "Capricorn" 5500
+24 16 69 "Female" 1 "Pretty Happy" 13 14 "Never Married" 3 "School" "Gemini" 16250
+39 20 80 "Male" 1 "Pretty Happy" 16 16 "Widowed" 1 "Fulltime" "Aries" 82500
+22 15 16 "Male" 6 "Not Too Happy" 12 14 "Never Married" 3 "School" "Libra" 7500
+44 18 45 "Female" 3 "Pretty Happy" 12 8 "Never Married" 7 "Fulltime" "Gemini" 27500
+46 12 40 "Male" 4 "Very Happy" 12 12 "Married" 3 "Fulltime" "Capricorn" 55000
+37 12 4 "Female" 14 "Pretty Happy" 12 3 "Married" 8 "Parttime" "Aquarius" 11250
+51 16 40 "Male" 3 "Pretty Happy" 12 13 "Never Married" 1 "Fulltime" "Leo" 18750
+26 19 22 "Male" 3 "Pretty Happy" 14 20 "Never Married" 2 "Parttime" "Cancer" 23750
+42 12 89 "Male" 1 "Pretty Happy" 11 6 "Married" 0 "Fulltime" "Cancer" 82500
+63 7 15 "Male" 6 "Pretty Happy" 3 3 "Married" 5 "Retired" "Taurus" 9000
+52 5 15 "Male" 4 "Pretty Happy" 5 2 "Never Married" 1 "Parttime" "Cancer" 6500
+32 12 8 "Female" 3 "Very Happy" 8 8 "Married" 5 "Parttime" "Libra" 45000
+46 12 40 "Female" 3 "Very Happy" 12 12 "Married" 6 "Fulltime" "Libra" 67500
+31 13 40 "Female" 1 "Very Happy" 13 10 "Married" 4 "Fulltime" "Capricorn" 32500
+20 12 40 "Female" 2 "Pretty Happy" 11 8 "Married" 5 "Fulltime" "Cancer" 7500
+50 12 47 "Male" 4 "Pretty Happy" 3 5 "Divorced" 6 "Fulltime" "Libra" 45000
+45 13 23 "Female" 15 "Pretty Happy" 16 12 "Married" 3 "Housekeeping" "Pisces" 11250
+25 12 80 "Male" 12 "Very Happy" 12 12 "Divorced" 3 "Fulltime" "Aries" 23750
+46 18 40 "Female" 3 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Leo" 67500
+73 14 20 "Female" 4 "Very Happy" 7 5 "Never Married" 2 "Parttime" "Virgo" 13750
+49 8 19 "Female" 4 "Not Too Happy" 9 10 "Never Married" 8 "Housekeeping" "Taurus" 9000
+79 4 33 "Female" 1 "Not Too Happy" 8 0 "Widowed" 2 "Housekeeping" "Sagittarius" 4500
+27 14 40 "Female" 1 "Very Happy" 12 12 "Separated" 2 "Fulltime" "Libra" 13750
+28 13 55 "Male" 2 "Very Happy" 12 12 "Married" 2 "Fulltime" "Pisces" 37500
+49 12 60 "Male" 3 "Very Happy" 6 6 "Married" 3 "Fulltime" "Virgo" 1e+05
+35 15 50 "Male" 3 "Very Happy" 12 12 "Married" 3 "Fulltime" "Capricorn" 37500
+43 12 40 "Male" 3 "Pretty Happy" 12 11 "Divorced" 3 "Fulltime" "Gemini" 45000
+41 12 40 "Male" 3 "Very Happy" 8 8 "Married" 4 "Fulltime" "Leo" 55000
+45 12 40 "Male" 2 "Pretty Happy" 11 11 "Married" 3 "Fulltime" "Pisces" 32500
+23 12 45 "Female" 2 "Very Happy" 12 12 "Married" 1 "Fulltime" "Aquarius" 32500
+34 12 55 "Female" 2 "Not Too Happy" 14 12 "Divorced" 7 "Housekeeping" "Aquarius" 6500
+20 10 26 "Male" 5 "Pretty Happy" 12 8 "Never Married" 3 "Parttime" "Virgo" 82500
+27 10 37 "Male" 2 "Pretty Happy" 13 12 "Married" 1 "Fulltime" "Virgo" 18750
+34 16 40 "Female" 2 "Very Happy" 12 12 "Married" 2 "Fulltime" "Aquarius" 67500
+58 13 48 "Female" 2 "Pretty Happy" 8 12 "Married" 4 "Housekeeping" "Capricorn" 67500
+32 16 45 "Female" 1 "Pretty Happy" 14 16 "Married" 2 "Fulltime" "Capricorn" 1e+05
+37 14 40 "Male" 2 "Pretty Happy" 11 12 "Married" 6 "Fulltime" "Leo" 67500
+34 14 12 "Female" 1 "Very Happy" 12 9 "Married" 5 "Parttime" "Cancer" 45000
+35 14 40 "Male" 2 "Very Happy" 16 19 "Married" 2 "Fulltime" "Cancer" 82500
+39 16 40 "Female" 1 "Pretty Happy" 16 17 "Married" 4 "Fulltime" "Taurus" 1e+05
+47 13 45 "Male" 2 "Pretty Happy" 14 16 "Married" 5 "Fulltime" "Taurus" 1e+05
+52 12 40 "Female" 3 "Very Happy" 12 8 "Married" 6 "Fulltime" "Libra" 67500
+43 15 40 "Male" 2 "Pretty Happy" 12 12 "Married" 5 "Fulltime" "Scorpio" 67500
+29 15 20 "Female" 1 "Pretty Happy" 12 16 "Married" 4 "Parttime" "Taurus" 45000
+50 15 50 "Female" 4 "Pretty Happy" 12 10 "Married" 2 "Fulltime" "Aries" 67500
+57 12 32 "Female" 4 "Very Happy" 12 11 "Married" 5 "Housekeeping" "Taurus" 27500
+62 12 40 "Male" 3 "Pretty Happy" 8 12 "Married" 1 "Fulltime" "Sagittarius" 21250
+57 18 15 "Male" 2 "Very Happy" 12 8 "Married" 0 "Not Working" "Capricorn" 45000
+28 14 40 "Male" 1 "Very Happy" 14 16 "Married" 2 "Fulltime" "Taurus" 45000
+31 13 40 "Female" 4 "Pretty Happy" 10 8 "Never Married" 9 "Fulltime" "Scorpio" 6500
+27 10 60 "Male" 2 "Pretty Happy" 4 12 "Married" 1 "Fulltime" "Libra" 45000
+48 12 52 "Female" 3 "Very Happy" 12 12 "Married" 4 "Fulltime" "Libra" 21250
+43 12 20 "Female" 1 "Very Happy" 12 14 "Married" 3 "Fulltime" "Virgo" 55000
+37 12 69 "Female" 4 "Pretty Happy" 10 8 "Divorced" 1 "Housekeeping" "Sagittarius" 3500
+41 12 52 "Female" 10 "Pretty Happy" 10 16 "Divorced" 4 "Fulltime" "Libra" 13750
+49 12 51 "Female" 3 "Not Too Happy" 12 8 "Married" 4 "Fulltime" "Scorpio" 27500
+83 13 44 "Male" 5 "Pretty Happy" 12 14 "Widowed" 6 "Retired" "Libra" 16250
+44 15 40 "Male" 3 "Pretty Happy" 12 6 "Married" 3 "Fulltime" "Libra" 55000
+64 12 39 "Female" 4 "Very Happy" 8 10 "Married" 1 "Housekeeping" "Leo" 27500
+74 12 63 "Female" 3 "Pretty Happy" 12 8 "Married" 5 "Retired" "Cancer" 23750
+69 10 11 "Female" 5 "Pretty Happy" 8 8 "Married" 7 "Housekeeping" "Taurus" 16250
+52 16 50 "Male" 4 "Pretty Happy" 12 12 "Never Married" 6 "Fulltime" "Gemini" 16250
+71 16 76 "Female" 3 "Pretty Happy" 13 6 "Widowed" 4 "Housekeeping" "Pisces" 18750
+20 11 30 "Male" 2 "Not Too Happy" 12 14 "Never Married" 3 "Parttime" "Gemini" 32500
+67 13 47 "Female" 1 "Not Too Happy" 12 8 "Married" 4 "Housekeeping" "Virgo" 55000
+40 18 50 "Female" 3 "Very Happy" 8 8 "Never Married" 3 "Fulltime" "Gemini" 45000
+51 14 70 "Male" 1 "Pretty Happy" 8 8 "Married" 3 "Fulltime" "Scorpio" 67500
+43 16 45 "Female" 2 "Pretty Happy" 16 8 "Never Married" 2 "Fulltime" "Cancer" 32500
+46 12 70 "Male" 1 "Very Happy" 12 8 "Married" 2 "Fulltime" "Aries" 27500
+59 12 40 "Male" 3 "Not Too Happy" 2 8 "Divorced" 3 "Fulltime" "Taurus" 32500
+50 16 56 "Male" 2 "Very Happy" 12 13 "Separated" 4 "Fulltime" "Sagittarius" 37500
+50 12 38 "Female" 3 "Very Happy" 2 7 "Divorced" 3 "Fulltime" "Taurus" 27500
+41 12 37 "Female" 4 "Very Happy" 0 0 "Married" 4 "Parttime" "Cancer" 55000
+38 14 40 "Male" 1 "Pretty Happy" 12 8 "Married" 2 "Fulltime" "Capricorn" 45000
+20 12 7 "Female" 2 "Pretty Happy" 13 14 "Never Married" 2 "School" "Leo" 16250
+23 13 40 "Female" 2 "Pretty Happy" 13 13 "Never Married" 2 "Fulltime" "Aquarius" 32500
+54 15 23 "Female" 2 "Not Too Happy" 10 8 "Never Married" 3 "Not Working" "Aquarius" 9000
+25 12 30 "Male" 7 "Pretty Happy" 12 12 "Never Married" 4 "Laid Off" "Libra" 55000
+30 12 43 "Female" 3 "Very Happy" 12 16 "Separated" 0 "Fulltime" "Scorpio" 500
+23 13 40 "Female" 0 "Pretty Happy" 2 10 "Never Married" 1 "Fulltime" "Taurus" 27500
+69 15 65 "Male" 2 "Very Happy" 12 11 "Married" 5 "Parttime" "Capricorn" 37500
+24 13 43 "Female" 3 "Very Happy" 16 16 "Married" 2 "Fulltime" "Capricorn" 45000
+38 16 70 "Male" 6 "Not Too Happy" 16 12 "Never Married" 8 "Fulltime" "Aries" 110000
+54 12 69 "Female" 8 "Not Too Happy" 10 3 "Divorced" 12 "Retired" "Capricorn" 23750
+57 15 38 "Male" 3 "Pretty Happy" 12 12 "Married" 2 "Fulltime" "Cancer" 67500
+38 16 40 "Female" 3 "Pretty Happy" 12 8 "Divorced" 3 "Fulltime" "Libra" 23750
+55 10 45 "Female" 3 "Pretty Happy" 8 2 "Separated" 5 "Parttime" "Cancer" 13750
+61 12 20 "Male" 1 "Pretty Happy" 8 7 "Never Married" 6 "Parttime" "Virgo" 24685216
+57 12 30 "Male" 2 "Very Happy" 7 4 "Married" 5 "Parttime" "Cancer" 67500
+26 13 28 "Female" 2 "Pretty Happy" 11 10 "Married" 13 "School" "Capricorn" 45000
+58 16 30 "Male" 3 "Pretty Happy" 11 16 "Married" 5 "Parttime" "Capricorn" 82500
+68 15 43 "Male" 2 "Very Happy" 9 8 "Married" 2 "Fulltime" "Virgo" 45000
+52 12 44 "Female" 2 "Pretty Happy" 12 12 "Married" 6 "Fulltime" "Cancer" 67500
+36 20 40 "Female" 4 "Pretty Happy" 11 8 "Divorced" 3 "Fulltime" "Taurus" 500
+69 12 41 "Female" 8 "Very Happy" 12 6 "Married" 6 "Retired" "Scorpio" 16250
+19 11 32 "Male" 4 "Pretty Happy" 12 10 "Never Married" 2 "Parttime" "Taurus" 8352101
+33 12 48 "Female" 3 "Very Happy" 12 14 "Divorced" 3 "Parttime" "Aries" 13750
+35 15 52 "Male" 3 "Pretty Happy" 11 12 "Never Married" 4 "Fulltime" "Leo" 23750
+46 16 40 "Female" 2 "Very Happy" 12 12 "Never Married" 3 "Fulltime" "Taurus" 32500
+56 12 40 "Male" 2 "Very Happy" 12 8 "Married" 5 "Fulltime" "Leo" 110000
+63 13 35 "Female" 2 "Very Happy" 8 8 "Married" 3 "Retired" "Capricorn" 18750
+43 12 40 "Male" 2 "Pretty Happy" 12 18 "Married" 1 "Fulltime" "Sagittarius" 67500
+21 14 60 "Male" 2 "Pretty Happy" 12 12 "Married" 1 "Fulltime" "Libra" 16250
+48 19 60 "Male" 0 "Pretty Happy" 19 15 "Married" 2 "Fulltime" "Gemini" 82500
+22 12 40 "Male" 2 "Pretty Happy" 14 12 "Married" 1 "Parttime" "Sagittarius" 18750
+32 15 41 "Female" 1 "Pretty Happy" 17 17 "Married" 1 "Fulltime" "Gemini" 18750
+32 14 38 "Female" 3 "Very Happy" 12 11 "Married" 3 "Fulltime" "Cancer" 23750
+68 12 20 "Male" 12 "Not Too Happy" 10 8 "Widowed" 13 "Retired" "Capricorn" 6500
+45 12 45 "Female" 4 "Pretty Happy" 12 12 "Married" 4 "Housekeeping" "Leo" 45000
+53 13 35 "Female" 1 "Very Happy" 12 12 "Married" 3 "Fulltime" "Aquarius" 28091309
+45 16 40 "Male" 2 "Very Happy" 14 12 "Married" 4 "Fulltime" "Capricorn" 1e+05
+39 13 35 "Male" 2 "Pretty Happy" 13 12 "Married" 3 "Fulltime" "Pisces" 32500
+66 12 20 "Male" 3 "Pretty Happy" 14 16 "Never Married" 2 "Parttime" "Aries" 16250
+29 12 46 "Female" 3 "Pretty Happy" 12 9 "Married" 2 "Fulltime" "Virgo" 45000
+64 16 40 "Female" 3 "Very Happy" 13 13 "Widowed" 1 "Fulltime" "Capricorn" 37500
+38 12 50 "Male" 1 "Pretty Happy" 10 12 "Divorced" 3 "Fulltime" "Aries" 45000
+54 16 89 "Male" 3 "Very Happy" 12 8 "Married" 2 "Fulltime" "Scorpio" 67500
+35 16 35 "Female" 3 "Not Too Happy" 12 2 "Never Married" 8 "Fulltime" "Aquarius" 27500
+83 12 29 "Female" 5 "Not Too Happy" 8 12 "Widowed" 1 "Retired" "Aries" 11250
+31 12 55 "Male" 1 "Very Happy" 14 12 "Married" 3 "Fulltime" "Cancer" 45000
+19 9 45 "Male" 0 "Very Happy" 9 9 "Never Married" 6 "Fulltime" "Sagittarius" 32500
+40 15 80 "Female" 2 "Pretty Happy" 15 12 "Married" 3 "Fulltime" "Aries" 32500
+48 12 40 "Female" 2 "Very Happy" 12 11 "Married" 1 "Fulltime" "Scorpio" 1221147
+60 9 52 "Female" 4 "Pretty Happy" 6 6 "Married" 11 "Housekeeping" "Capricorn" 27500
+27 16 45 "Male" 3 "Very Happy" 14 12 "Never Married" 1 "Parttime" "Scorpio" 9000
+48 20 42 "Female" 2 "Pretty Happy" 10 19 "Never Married" 1 "Fulltime" "Aquarius" 21250
+31 14 54 "Female" 2 "Very Happy" 14 12 "Married" 1 "Housekeeping" "Gemini" 37500
+45 10 40 "Female" 1 "Very Happy" 8 9 "Married" 4 "Fulltime" "Gemini" 67500
+42 11 21 "Male" 2 "Pretty Happy" 8 8 "Married" 10 "Not Working" "Libra" 13750
+30 10 31 "Male" 3 "Very Happy" 10 12 "Never Married" 6 "Fulltime" "Scorpio" 11250
+68 17 13 "Female" 2 "Pretty Happy" 12 10 "Never Married" 9 "Housekeeping" "Leo" 18750
+30 12 48 "Male" 5 "Pretty Happy" 11 9 "Married" 0 "Fulltime" "Libra" 45000
+21 9 20 "Male" 3 "Not Too Happy" 11 9 "Never Married" 6 "Parttime" "Libra" 2000
+36 13 48 "Female" 2 "Pretty Happy" 12 10 "Married" 2 "Fulltime" "Aquarius" 67500
+39 14 40 "Female" 4 "Pretty Happy" 3 4 "Married" 6 "Fulltime" "Pisces" 67500
+19 12 46 "Male" 2 "Pretty Happy" 12 12 "Never Married" 0 "School" "Virgo" 82500
+54 12 47 "Female" 4 "Pretty Happy" 12 6 "Married" 1 "Other" "Pisces" 55000
+36 16 50 "Female" 0 "Very Happy" 16 14 "Married" 3 "Fulltime" "Aquarius" 82500
+35 12 54 "Male" 2 "Pretty Happy" 12 12 "Divorced" 2 "Fulltime" "Scorpio" 32500
+58 18 40 "Female" 2 "Pretty Happy" 10 13 "Divorced" 2 "Fulltime" "Leo" 45000
+35 16 50 "Female" 0 "Very Happy" 12 16 "Married" 2 "Fulltime" "Cancer" 67500
+54 20 55 "Female" 3 "Pretty Happy" 10 11 "Divorced" 2 "Fulltime" "Gemini" 55000
+59 16 40 "Female" 3 "Very Happy" 15 12 "Married" 1 "Fulltime" "Taurus" 1e+05
+72 13 51 "Male" 3 "Very Happy" 9 6 "Married" 6 "Retired" "Taurus" 37500
+58 17 24 "Male" 3 "Not Too Happy" 12 14 "Divorced" 0 "Fulltime" "Taurus" 55000
+25 17 50 "Male" 3 "Pretty Happy" 16 14 "Never Married" 2 "Fulltime" "Leo" 13750
+72 10 36 "Female" 0 "Very Happy" 4 3 "Married" 6 "Housekeeping" "Cancer" 16250
+43 12 48 "Female" 3 "Pretty Happy" 10 4 "Married" 3 "Fulltime" "Aries" 45000
+27 12 19 "Female" 0 "Pretty Happy" 12 14 "Married" 2 "Housekeeping" "Virgo" 23750
+74 12 69 "Female" 4 "Very Happy" 10 10 "Married" 2 "Housekeeping" "Libra" 13750
+54 17 60 "Female" 0 "Very Happy" 12 12 "Married" 3 "Fulltime" "Capricorn" 67500
+23 14 38 "Female" 3 "Pretty Happy" 15 14 "Never Married" 2 "Fulltime" "Cancer" 3500
+69 16 80 "Male" 2 "Pretty Happy" 14 15 "Widowed" 2 "Fulltime" "Aquarius" 37500
+39 16 45 "Female" 1 "Very Happy" 16 20 "Divorced" 7 "Fulltime" "Pisces" 67500
+29 17 50 "Male" 1 "Very Happy" 12 12 "Married" 2 "Fulltime" "Pisces" 27500
+58 16 33 "Female" 3 "Pretty Happy" 16 16 "Never Married" 2 "Fulltime" "Capricorn" 16250
+53 18 40 "Male" 2 "Pretty Happy" 14 20 "Married" 5 "Fulltime" "Aries" 26529898
+41 12 20 "Female" 3 "Very Happy" 17 12 "Married" 4 "Parttime" "Pisces" 23750
+43 12 40 "Female" 2 "Pretty Happy" 11 12 "Married" 4 "Fulltime" "Leo" 55000
+35 13 28 "Female" 1 "Not Too Happy" 12 12 "Divorced" 3 "Parttime" "Capricorn" 11250
+55 14 45 "Male" 2 "Pretty Happy" 8 8 "Married" 3 "Fulltime" "Gemini" 67500
+66 12 54 "Female" 3 "Not Too Happy" 8 8 "Married" 0 "Retired" "Leo" 27500
+29 16 40 "Female" 4 "Very Happy" 5 6 "Divorced" 10 "Fulltime" "Taurus" 11250
+53 11 40 "Male" 3 "Pretty Happy" 8 8 "Married" 2 "Fulltime" "Scorpio" 37500
+38 12 48 "Male" 1 "Pretty Happy" 10 10 "Married" 4 "Fulltime" "Gemini" 55000
