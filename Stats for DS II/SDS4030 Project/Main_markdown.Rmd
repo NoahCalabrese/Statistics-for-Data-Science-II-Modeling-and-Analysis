@@ -3,9 +3,9 @@ title: "SDS 4030 - Statistics for Data Science II: Project"
 author: "Noah Calabrese"
 subtitle: Main Markdown File
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 fontsize: 11pt
 header-includes:
 - \usepackage{hyperref}
@@ -27,26 +27,101 @@ library(tinytex)
 library(formatR)
 ```
 
-Preliminary Reading Code In
+Preliminary Reading Code In and library loading
 ```{r}
 gss = read.table("gss.txt", header = TRUE)
 #summary(gss)
-gss
+#gss
 ```
 
-Quick Cleaning of the Code
+Quick Cleaning of the Code. The Zodiac column has no relevance, it is not quantitatve and has no correlation to anything we need to regress so it is best if we just entirely remove it. It is an essential part of cleaning code. 
 ```{r}
 #Removing Zodiac since it is not relevant in anyway to the analysis 
 gss <- gss[-c(12)]
 ```
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Step 1: 
 
-Fiting a multiple linear model with all available quantitative covariates.
+  i) Fit a multiple linear model with all available quantitative covariates. 
+  
+  ii) Perform exact and asymptotic tests for the set of linear constraints which has been specified for your team. 
+  
+  iii) Do all of your conclusions agree with each other and what are the relationships between the different tests?
+  
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+i) Fitting a multiple linear model with all available quantitative covariates. This is the model that we will use for the next few parts of this project. To create a reduced model, we have to fit $H_0 : 10 ∗ \beta_{M Educ} = 20 ∗ \beta_{F Educ} = 2$ into a linear model (by created a new income variable to the specifications of the null). 
 ```{r}
 linear_model <- lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
                    data = gss)
 
+gss$Income_Reduced <- gss$Income - (2/10)*gss$MEduc - (2/20)*gss$FEduc
+reduced_model <- lm(Income_Reduced ~ Age + Educ + Hours + TVHours + Sibs, 
+                    data = gss)
+
+```
+
+
+ii) We have to test the hypothesis $H_0 : 10 ∗ \beta_{M Educ} = 20 ∗ \beta_{F Educ} = 2$ against exact and asymptotic tests. The best exact test is, of course, the exact F-test assuming we are have normalcy conditions (which we will check later, but step 1 ensures that we do it regardless of the normalcy checks). To test for the asymptotic tests it is logical to use the Wald test since we have  a large sample (n = 815). It is also one of the easier asmyptotic tests to check, so we will use it due to its efficiency, accuracy, and sample size.
+```{r}
+#ensuring the variables are numeric
+
+
+
+
+#F-Exact Test
+
+
+
+#Wald Asymptotic Test
+
+
+```
+
+iii) 
+```{r}
+
+```
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 2: 
+
+  i) Is the variance of the random error terms non-constant as a function of any of the quantitative or qualitative covariates? 
+  
+  ii) Perform suitable heteroscedasticity tests and state your conclusions.
+  
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+i)
+```{r}
+
+```
+
+ii)
+```{r}
+
+```
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 3: 
+
+  i) Calculate a suitable heteroscedasticity-consistent estimate for the covariance matrix of the regression coefficients. How does it compare against the
+     corresponding ordinary least squares estimate? 
+     
+  ii) Calculate heteroscedastisticity-consistent t test statistics and 95 percent CIs for the regression coefficients. How do they compare against the results           yielded by the ordinary least squares method?
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+i)
+```{r}
+
+```
+
+ii)
+```{r}
 
 ```
 
