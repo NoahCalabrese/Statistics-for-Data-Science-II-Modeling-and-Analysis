@@ -396,33 +396,102 @@ bptest(full_model)
 
 Step 3: 
 
-  i) Calculate a suitable heteroscedasticity-consistent estimate for the covariance matrix of the regression coefficients. How does it compare against the
-     corresponding ordinary least squares estimate? 
+  i) Calculate a suitable heteroscedasticity-consistent estimate for the covariance matrix of the regression coefficients. How does it compare against the corresponding ordinary least squares estimate? 
      
-  ii) Calculate heteroscedasticity-consistent t-test statistics and 95 percent CIs for the regression coefficients. How do they compare against the results           yielded by the ordinary least squares method?
+  ii) Calculate heteroscedasticity-consistent t-test statistics and 95 percent CIs for the regression coefficients. How do they compare against the results yielded by the ordinary least squares method?
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-i)
+
 ```{r}
-#The third heteroscedasticity-consistent estimate is most robust
-
-
-#Comparing Robust Standard Errors against the OLS Standard Errors
-
-
+X = model.matrix(full_model)
+n = dim(X)[1]
+p = dim(X)[2]
+beta = full_model$coefficients
+residuals = full_model$residuals
+vcovOLS = summary(full_model)$sigma^2*summary(full_model)$cov.unscaled
+print(vcovOLS)
 ```
+The covariance matrix of the least squares estimator is $\begin{pmatrix} 474220174987 & -1907433705.2 & -12064670132 & -1347058849.0 & -8426312775 & -5079147869.7 & -4109118474 & -9103007619 \\  -1907433705 & 38829681.0 & -31202461 & -432037.2 & -15594169 & 29086917.4 & 37000089 & -7167222 \\  -12064670132 & -31202461.2 & 1269225187 & -20945952.6 & 200001770 & -236010377.3 & -154559694 & 167953096 \\  -1347058849 & -432037.2    & -20945953 & 35081614.4 & 15414790 & 138585.3 & 6151805 & 14433306 \\ -8426312775 & -15594168.6 & 200001770 & 15414789.6 & 1805687552 & 28954807.1 & 53859762 & -56165946 \\ -5079147870 & 29086917.4 & -236010377 & 138585.3 & 28954807 & 1069222108.8 & -493576358 & 79738958 \\ -4109118474 & 37000088.9 & -154559694 & 6151805.3  & 53859762 & -493576358.5 & 825093313 & 159284579 \\ -9103007619 & -7167222.2 & 167953096 & 14433306.1 & -56165946 & 79738957.8 & 159284579 & 1121549496 \end{pmatrix}$. 
 
-ii)
+
 ```{r}
-#T-test for the heteroscedasticity-consistent regression coefficient
-
-
-#95% CI for the heteroscedasticity-consistent regression coefficient
-
-
-#Overall Comparison
-
-
+confint(full_model)
 ```
+The 95% observed CI for the regression coefficient $\hat\beta_0$, the intercept, is [-1139787.136, 1563672.818]. The 95% observed CI for the regression coefficient$\hat\beta_{Age}$, is [-9282.145, 15180.975]. The 95% observed CI for the regression coefficient$\hat\beta_{Educ}$, is [-49482.462, 90379.388]. The 95% observed CI for the regression coefficient$\hat\beta_{Hours}$, is [-20949.732, 2302.771]. The 95% observed CI for the regression coefficient$\hat\beta_{TVHours}$, is [-148773.710, 18047.486]. The 95% observed CI for the regression coefficient$\hat\beta_{MEduc}$, is [-67900.262, 60469.842].The 95% observed CI for the regression coefficient$\hat\beta_{FEduc}$, is [-46177.946, 66588.907]. The 95% observed CI for the regression coefficient$\hat\beta_{Sibs}$, is [-7087.921, 124385.860].
+
+```{r}
+summary(full_model)
+```
+The observed t test statistic of statistical significance for the intercept regression coeﬃcient
+is 0.308 with p-value 0.7583. The observed t test statistic of statistical significance for the Age regression coefficient is 0.473 with p-value 0.6361. The observed t test statistic of statistical significance for the Educ regression coefficient is 0.574 with p-value 0.5661. The observed t test statistic of statistical significance for the Hours regression coefficient is -1.574 with p-value 0.1159. The observed t test statistic of statistical significance for the TVHours regression coefficient is -1.538 with p-value 0.1244. The observed t test statistic of statistical significance for the MEduc regression coefficient is -0.114 with p-value 0.9096. The observed t test statistic of statistical significance for the FEduc regression coefficient is 0.355 with p-value 0.7225. The observed t test statistic of statistical significance for the Sibs regression coefficient is 1.751 with p-value 0.0803. Thus, none of the regression coefficients are statistically significant at the 0.05 level. 
+
+
+i) Calculate a suitable heteroscedasticity-consistent estimate for the covariance matrix of the regression coefficients. How does it compare against the corresponding ordinary least squares estimate?
+
+```{r}
+Sigma = diag(residuals^2 / (1 - hatvalues(full_model))^2)
+vcovHC3 = summary(full_model)$cov.unscaled %*% crossprod(X, Sigma) %*% X %*% summary(full_model)$cov.unscaled
+print(vcovHC3)
+```
+The heteroscedasticity-consistent estimate for the covariance matrix of the regression coeﬃcients is $\begin{pmatrix} 647905975588 & -2119149267 & -19837922241 & -1357649949 & -9486014566 & 3595276136 & -17028391209 & -11637769372 \\ -2119149267 & 48814436 & -24590704 & -17494011 & -50260968 & -34217774    & 162045871 & -37033183 \\ -19837922241 & -24590704 &  1162078662 & 31381166 & 143728482 & -53411133 & 94715693 & 888805838 \\ -1357649949  & -17494011 & 31381166  & 27278306 & 103955035& 9117008 & -7441799 & -9925909 \\ -9486014566 & -50260968 & 143728482 & 103955035 & 1240245743&  30651678 & 103186441 & -486253897 \\ 3595276136 & -34217774 & -53411133 & 9117008 & 30651678 & 245096719  & -386380314 & -132459705 \\ -17028391209 & 162045871   & 94715693 & -7441799 & 103186441 & -386380314 & 1151032066 & 101992572 \\ -11637769372 & -37033183 & 888805838 & -9925909 & -486253897 & -132459705 & 101992572 &  1425697587 \end{pmatrix}$. 
+
+The variance of the intercept increases from 474220174987 to 647905975588. The variance of the Age coefficient decreases from -1907433705.2 to -2119149267. The variance of the Educ coefficient decreases from -12064670132 to -19837922241.  The variance of the Hours coefficient decreases slightly from -1347058849.0 to -1357649949. The variance of the TVHours coefficient decreases from -8426312775 to -9486014566. The variance of the MEduc coefficient increases from -5079147869.7 to 3595276136. The variance of the FEduc coefficient increases from -4109118474 to -17028391209. The variance of the Sibs coefficient decreases from -9103007619 to -11637769372. 
+
+So, the heteroscedasticity-consistent estimator overall produces broadly similar estimated variances and standard errors than the ordinary least squares estimator. The heteroscedasticity-consistent estimate for the covariance matrix of the least squares estimator is similar compared to the one obtained through the least squares method due to the lack of evidence for heteroscedasticity in the random error terms.
+
+ii) Calculate heteroscedasticity-consistent t-test statistics and 95 percent CIs for the regression coefficients. How do they compare against the results yielded by the ordinary least squares method?
+
+## Heteroscedasticity-consistent t-test statistics
+
+```{r}
+library(lmtest)
+coeftest(full_model, vcov. = vcovHC3)
+```
+For the intercept coefficient, the heteroscedastisticity-consistent t test statistic is 0.2633, and corresponding p-value is 0.79238. Compared to the t-statistic and p-value yielded by the ordinary least squares method, 0.308 and 0.7583, respectively, the heteroscedasticity-consistent t-test statistic is slightly smaller with a slightly larger p-value. 
+
+For the Age coefficient, the heteroscedastisticity-consistent t test statistic is 0.4221, and corresponding p-value is 0.67303. Compared to the t-statistic and p-value yielded by the ordinary least squares method, 0.473 with p-value 0.6361, respectively, the heteroscedasticity-consistent t-test statistic is slightly smaller with a slightly larger p-value. 
+
+For the Educ coefficient, the heteroscedastisticity-consistent t test statistic is 0.5999, and corresponding p-value is 0.54877 Compared to the t-statistic and p-valye yielded by the ordinary least squares method, 0.574 with p-value 0.5661, respectively, the heteroscedasticity-consistent t-test statistic is slightly larger with a slightly smaller p-value. 
+
+For the Hours coefficient, the heteroscedastisticity-consistent t test statistic is -1.7851, and corresponding p-value is 0.07462 Compared to the t-statistic and p-value yielded by the ordinary least squares method, -1.574 with p-value 0.1159, respectively, the heteroscedasticity-consistent t-test statistic is slightly more negative with a slightly smaller p-value. 
+
+For the TVHours coefficient, the heteroscedastisticity-consistent t test statistic is -1.8560, and corresponding p-value is 0.06382 Compared to the t-statistic and p-value yielded by the ordinary least squares method, -1.538 with p-value 0.1244, respectively, the heteroscedasticity-consistent t-test statistic is slightly more negative with a slightly smaller p-value. 
+
+For the MEduc coefficient, the heteroscedastisticity-consistent t test statistic is -0.2373, and corresponding p-value is 0.81248. Compared to the t-statistic and p-value yielded by the ordinary least squares method, -0.114 with p-value 0.9096, respectively, the heteroscedasticity-consistent t-test statistic is slightly more negative with a slightly smaller p-value. 
+
+For the FEduc coefficient, the heteroscedastisticity-consistent t test statistic is 0.3008, and corresponding p-value is 0.76364 Compared to the t-statistic and p-value yielded by the ordinary least squares method, 0.355 with p-value 0.7225, respectively, the heteroscedasticity-consistent t-test statistic is slightly smaller with a slightly larger p-value.
+
+For the Sibs coefficient, the heteroscedastisticity-consistent t test statistic is 1.5533, and corresponding p-value is 0.12075 Compared to the t-statistic and p-value yielded by the ordinary least squares method, 1.751 with p-value 0.0803, respectively, the heteroscedasticity-consistent t-test statistic is slightly smaller with a larger p-value.
+
+Both methods do not produce statistically significant p-values for all coefficients.
+
+## 95 percent CIs
+
+```{r}
+alpha = 0.05
+CI = cbind(beta - qt(1 - alpha/2, n - p) * sqrt(diag(vcovHC3)),
+           beta + qt(1 - alpha/2, n - p) * sqrt(diag(vcovHC3)))
+colnames(CI) = colnames(confint(full_model))
+print(CI)
+```
+The heteroscedastisticity-consistent 95% CIs for the intercept coefficient is [-1368052.93, 1791938.6124]. Compared to the results yielded by the ordinary least squares method [-1139787.136, 1563672.818], the heteroscedastisticity-consistency interval is much wider. 
+
+The heteroscedastisticity-consistent 95% CIs for the Age coefficient is [-10764.90, 16663.7286]. Compared to the results yielded by the ordinary least squares method [-9282.145, 15180.975], the heteroscedastisticity-consistency interval is wider. 
+
+The heteroscedastisticity-consistent 95% CIs for the Educ coefficient is [-46465.65, 87362.5712]. Compared to the results yielded by the ordinary least squares method [-49482.462, 90379.388], the heteroscedastisticity-consistency interval is much wider.
+
+The heteroscedastisticity-consistent 95% CIs for the Hours coefficient is [-19575.48, 928.5205]. Compared to the results yielded by the ordinary least squares method [-20949.732, 2302.771], the heteroscedastisticity-consistency interval is actually not wider. 
+
+The heteroscedastisticity-consistent 95% CIs for the TVHours coefficient is [-134491.08, 3764.8580]. Compared to the results yielded by the ordinary least squares method [-148773.710, 18047.486], the heteroscedastisticity-consistency interval is much wider.
+
+The heteroscedastisticity-consistent 95% CIs for the MEduc coefficient is [-34445.64, 27015.2230]. Compared to the results yielded by the ordinary least squares method [-67900.262, 60469.842], the heteroscedastisticity-consistency interval is much more narrow. 
+
+The heteroscedastisticity-consistent 95% CIs for the FEduc coefficient is [-56389.83, 76800.7903]. Compared to the results yielded by the ordinary least squares method [-46177.946, 66588.907], the heteroscedastisticity-consistency interval is more narrow. 
+
+The heteroscedastisticity-consistent 95% CIs for the Sibs coefficient is [-15467.31, 132765.2539]. Compared to the results yielded by the ordinary least squares method [-7087.921, 124385.860], the heteroscedastisticity-consistency interval is much wider.
+
+The heteroscedastisticity-consistent 95% CIs for all regression coeﬃcients besides MEduc and FEduc are wider than the 95% CIs with by the ordinary least squares method, but all methods contain 0 so the conclusions are the same at the 5% level and all regression coefficients are not statistically significant.  
+
+
 
