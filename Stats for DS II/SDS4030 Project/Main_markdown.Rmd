@@ -1,11 +1,11 @@
 ---
-title: "SDS 4030 - Statistics for Data Science II: Project"
-author: "Noah Calabrese"
+title: "SDS 4030 - Statistics for Data Science II: Final Project"
+author: "Noah Calabrese, Natalia Jamula, Tim Mellman"
 subtitle: Main Markdown File
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
 fontsize: 11pt
 header-includes:
 - \usepackage{hyperref}
@@ -27,18 +27,15 @@ library(tinytex)
 library(formatR)
 ```
 
-Preliminary Reading Code In and library loading
+Preliminary library loading, reading code in, and exploratory data analysis
+
 ```{r}
 gss = read.table("gss.txt", header = TRUE)
-#summary(gss)
-#gss
+summary(gss)
 ```
+We begin our data science workflow by familiarizing ourselves with the GSS dataset. The dataset contains 815 rows corresponding to 815 individuals' survery responses. The dataset contains 13 variables. There are 8 discrete numerical variables: Age (Responder's Age), Educ (Total years of education), Hours (Weekly work hours), TVHours (Hours spent watching TV daily), MEduc (Mother's years of education), FEduc (Father's years of education), Sibs (Number of siblings), and Income (Yearly income). Thus there are 5 categorical variables: Sex (Responder's sex), Happy (Happiness level), Marital (Marital status), Work (Work status), and Zodiac (Zodiac sign). Uniquely they take on the following values: Sex (Female, Male), Happy (Pretty Happy, Very Happy, Not Too Happy), Marital ("Divorced, Widowed, Married, Never Married, Separated), Work (Fulltime, Housekeeping, Laid Off, School, Retired, Parttime, Not Working, Other), and Zodiac (Virgo, Libra, Taurus, Pisces, Cancer, Aquarius, Leo, Capricorn, Aries, Gemini, Sagittarius, Scorpio). 
 
-Quick Cleaning of the Code. The Zodiac column has no relevance, it is not quantitatve and has no correlation to anything we need to regress so it is best if we just entirely remove it. It is an essential part of cleaning code. 
-```{r}
-#Removing Zodiac since it is not relevant in anyway to the analysis 
-gss <- gss[-c(12)]
-```
+Now that we understand our data we isolate our goal being to build a linear model for the response variable yearly income by treating all other seven quanitative variables as covariates and ignoring all five qualitative variables. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -52,48 +49,196 @@ Step 1:
   
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-i) Fitting a multiple linear model with all available quantitative covariates. This is the model that we will use for the next few parts of this project. The reduced model is a little more tricky where we have to create a model in which it follows the constraints given by: $H_0 : 10 ∗ \beta_{M Educ} = 20 ∗ \beta_{F Educ} = 2$. So, we have to remove MEduc and FEduc since they are fixed parts of the response in the reduced model, so we remove them as predictors since they are specially accounted for.
-```{r}
-full_model <- lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
-                   data = gss)
+i) Fitting a multiple linear model with all available quantitative covariates. This is the model that we will use for the next few parts of this project
 
-#Reduced model adhereing to the hypotheses constraints
-gss$Income_adj <- gss$Income - (0.2 * gss$MEduc) - (0.1 * gss$FEduc)
-reduced_model <- lm(Income_adj ~ Age + Educ + Hours + TVHours + Sibs, data = gss)
+```{r}
+library(faraway)
+full_model <- lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, gss)
+summary(full_model)
 ```
 
+For the sake of later model comparison we will find the least squares estimate of the coefficient vector, an unbiased estimate of the residual variance and the MLE of the residual variance in the full model. 
 
-ii) We have to test the hypothesis $H_0 : 10 ∗ \beta_{M Educ} = 20 ∗ \beta_{F Educ} = 2$ against exact and asymptotic tests. The best exact test is, of course, the exact F-test assuming we are have normalcy conditions (which we will check later, but step 1 ensures that we do it regardless of the normalcy checks). To test for the asymptotic tests it is logical to use the Wald test since we have  a large sample (n = 815). It is also one of the easier asmyptotic tests to check, so we will use it due to its efficiency, accuracy, and sample size.
 ```{r}
-#F-Exact Test
-beta <- coef(full_model)                 
-X <- model.matrix(full_model)            
-n <- nrow(gss)                    
-p <- length(beta)                
-S2 <- summary(full_model)$sigma^2
-R <- rbind(c(0, 0, 0, 0, 0, 1, 0, 0), 
-           c(0, 0, 0, 0, 0, 0, 1, 0))
-#the 1's in R represent the MEduc and FEduc since those are within the null hyp
+Y = gss$Income
+X = model.matrix(full_model)
+n = dim(X)[1]
+p = dim(X)[2]
+beta = solve(crossprod(X), crossprod(X, Y))[, ]
+print(beta)
+```
 
-#adjusting given the constraints from the null hypothesis
-#2/10 = 0.2 | 1/10 = 0.1
+```{r}
+residuals = Y - X %*% beta
+sigma = sqrt(mean(residuals^2))
+print(sigma^2)
+```
+
+```{r}
+S = sqrt(sum(residuals^2)/(n - p))
+print(S^2)
+```
+
+Our full model is $Y_i = \beta_0 +\beta_{Age}{\text{Age}_i} +\beta_{Educ}{\text{Educ}_i}+ +\beta_{Hours}{\text{Hours}_i} + \beta_{TVHours}{\text{TVHours}_i} + \beta_{MEduc}{\text{MEduc}_i} + \beta_{FEduc}{\text{FEduc}_i} + \beta_{Sibs}{\text{Sibs}_i} + \epsilon_i$. An unbiased estimate of the residual variance is equal to 5.42076e+12 and the MLE of the residual variance is equal to 5.474497e+12, under the full model. 
+
+The reduced model is a little more tricky where we have to create a model in which it follows the constraints given by: $H_0 : 10 * \beta_{MEduc} = 20 * \beta_{FEduc} = 2$. 
+
+We can rewrite the constraint as $10 * \beta_{MEduc} = 2$ , $20 * \beta_{FEduc} = 2$. 
+Or, $\beta_{MEduc} = 0.2$, $\beta_{FEduc} = 0.1$
+
+We can plug the null values into the full model, replacing coefficients with the constants so the full model becomes
+ $Y_i = \beta_0 +\beta_{Age}{\text{Age}_i} +\beta_{Educ}{\text{Educ}_i} +\beta_{Hours}{\text{Hours}_i} + \beta_{TVHours}{\text{TVHours}_i} + 0.2*{\text{MEduc}_i} + 0.1*{\text{FEduc}_i} + \beta_{Sibs}{\text{Sibs}_i} + \epsilon_i$
+
+We have to set MEduc and FEduc, the fixed parts of the response in the reduced model, as the offset. 
+```{r}
+reduced_model <- lm(Income ~ Age + Educ + Hours + TVHours + Sibs, gss, offset = 0.2*MEduc + 0.1*FEduc)
+summary(reduced_model)
+```
+```{r}
+R <- rbind(c(0, 0, 0, 0, 0, 1, 0, 0), 
+           c(0, 0, 0, 0, 0, 0, 1, 0)) ##the 1's in R represent the MEduc and FEduc since those are within the null hypothesis
 r <- c(0.2, 0.1) 
 k <- length(r)
-
-FT = crossprod(R %*% beta - r, solve(R %*% solve(crossprod(X), t(R)), 
-                                     R %*% beta - r))[,] / (k * S2)
-print(FT)
-anova(reduced_model, full_model)
-
-#Wald Asymptotic Test
-WT = k * FT
-print(WT)
-pvalue = pchisq(WT, k, lower.tail = FALSE)
-anova(reduced_model, full_model, test = "Chisq")
-
+beta0 = beta - solve(crossprod(X), crossprod(R, solve(R %*% solve(crossprod(X),
+t(R)), R %*% beta - r)))[, ]
+print(beta0)
 ```
 
-iii) The conclusions agree with each other, both the F-Exact test and the Wald test provide very small test statistics (0.06 and 0.13 respectively), which means we do not have substantial evidence to reject the null hypothesis. There is no evidence suggesting that we should reject, even the p-values of each covariate in the anova test are at least above 0.08. To be specific, there is not a single statistically significant variable shown within these models. Also, the Wald Test is consistent with it's calculation of k X FT which is expected since n = 815 which is large enough to be accurate for an asymptotic test. That is further proof that the conclusions agree with each other.
+```{r}
+residuals0 = Y - X %*% beta0
+sigma0 = sqrt(mean(residuals0^2))
+print(sigma0^2)
+```
+
+```{r}
+S0 = sqrt(sum(residuals0^2)/(n - p + k))
+print(S0^2)
+```
+
+An unbiased estimate of the residual variance is equal to 5.421657e+12 and the MLE of the residual variance is equal to 5.461868e+12, under the reduced model. 
+
+ii) We have to test the hypothesis $H_0 : 10 * \beta_{MEduc} = 20 * \beta_{FEduc} = 2$ against exact and asymptotic tests. The best exact test is, of course, the exact F-test assuming we are have normalcy conditions (which we will check later, but step 1 ensures that we do it regardless of the normalcy checks). To test for the asymptotic tests it is logical to use the Wald test since we have a large sample (n = 815). It is also one of the easier asymptotic tests to check, so we will use it due to its efficiency, accuracy, and sample size.
+
+
+### Exact F- Test 
+
+```{r}
+FT = crossprod(R %*% beta - r, solve(R %*% solve(crossprod(X), t(R)), 
+                                     R %*% beta - r))[,] / (k * S^2)
+print(FT)
+```
+
+```{r}
+pvalue = pf(FT, k, n - p, lower.tail = FALSE)
+print(pvalue)
+```
+
+```{r}
+anova(reduced_model, full_model)
+```
+The observed value of the F test statistic is equal to 0.06680263 and the corresponding p-value is equal to 0.935385, so we fail to reject the null hypothesis at significance level $\alpha$ = 5%.
+
+### Wald Test
+
+```{r}
+WT = crossprod(R %*% beta - r, solve(R %*% solve(crossprod(X), t(R)), R %*% beta - r))[, ]/S^2
+print(WT)
+```
+
+```{r}
+pvalue = pchisq(WT, k, lower.tail = FALSE)
+print(pvalue)
+```
+
+```{r}
+anova(reduced_model, full_model, test = "Chisq")
+```
+The observed value of the Wald test statistic is equal to 0.1336053 and the corresponding p-value is equal to 0.9353798, so we fail to reject the null hypothesis at significance level $\alpha$ = 5%
+
+### Score Test
+
+```{r}
+SF = crossprod(X, residuals0)/sigma0^2
+FI = crossprod(X)/sigma0^2
+ST = crossprod(SF, solve(FI, SF))[, ]
+print(ST)
+```
+
+```{r}
+P = X %*% solve(crossprod(X), t(X))
+ST = sum((P %*% residuals0)^2)/sigma0^2
+print(ST)
+```
+
+```{r}
+pvalue = pchisq(ST, k, lower.tail = FALSE)
+print(pvalue)
+```
+
+The observed value of the Score test statistic is equal to 0.1349074 and the corresponding p-value is
+equal to 0.934771, so we fail to reject the null hypothesis at significance level $\alpha$ = 5%. 
+
+### Likelihood Ratio Test
+
+```{r}
+LR = -2 * (logLik(reduced_model)[1] - logLik(full_model)[1])
+print(LR)
+```
+
+```{r}
+LR = n * log(sigma0^2/sigma^2)
+print(LR)
+```
+
+```{r}
+pchisq(LR, k, lower.tail = FALSE)
+```
+
+```{r}
+library(lmtest)
+lrtest(reduced_model, full_model)
+```
+The observed value of the Likelihood Ratio test statistic is equal to 0.1349186 and the corresponding
+p-value is equal to 0.9347658, so we fail to reject the null hypothesis at significance level $\alpha$ = 5%. 
+
+
+iii) Yes, all of my conclusion agree with each other as in the exact F test, Wald test, score test, and likelihood ratio test we have failed to reject the null, and they all yield have similar p-values. Both the F-Exact test and asymptotic tests provide very small test statistics which means we do not have substantial evidence to reject the null hypothesis. 
+
+
+```{r}
+WT = k * FT
+print(WT)
+```
+
+```{r}
+ST = WT * S^2/sigma0^2
+print(ST)
+```
+
+```{r}
+LR = n * log(n/(n - p) * WT/ST)
+print(LR)
+```
+
+```{r}
+LR = n * log(1 + WT/(n - p))
+print(LR)
+```
+
+```{r}
+LR = -n * log(1 - ST/n)
+print(LR)
+```
+
+In the F test, the exact F-statistic is 0.06680263, and the p-value is 0.935385. In the Wald test the Wald statistic is 0.1336053 and the p-value is 0.9353798. According to Slutsky’s theorem, we infer that $W_n$ = kF, the Wald statistic equals kF asymptotically. The Wald statistic is k times the 0.06680263 where k=2. While the F test relies on a finite sample, the Wald statistic follows a chi-square distribution and asymptotic approximations. 
+
+In the score test, the score test statistic is 0.1349074 and the p-value is 0.934771 We know that $\hat{\sigma}_0^2 ST = S^2 W_n$. The Wald and Score test statistics only differ in terms of the residual variance estimation. The Wald test statistic utilizes an unbiased estimator of the residual variance under the full model while the Score test statistic utilizes the MLE of the residual variance under the reduced model. In other words the Wald test uses the full model variance and the Score test uses reduced model variance. Thus we can can see how the two test statistics differ slightly. 
+
+In the likelihood ratio test, likelihood test statistic is 0.1349186 and the p-value is 0.9347658. Below we see how the Likelihood test statistic relates to the Wald test and Score test through transformations, implying they provide the same inference for very large sample sizes. 
+
+So yes, we observe that the results of all the four test statistics concur. The results of the asymptotic Wald, Likelihood Ratio and Score tests are perfectly in line with the results of the exact F test, which is expected since n = 815 which is large enough to be accurate for an asymptotic test. All three asymptotic tests, Wald, Score & Likelihood Ratio Tests, are all asymptotically equivalent, converging to the same test statistics and giving us the same conclusions. They measure deviation from the null differently, where the Wald test measures the horizontal differences of the parameters and the null, the Score test measures the slope of the log likelihood  at the null, and the likelihood ratio test measures the vertical differences in log likelihood.  
+
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Step 2: 
@@ -104,31 +249,145 @@ Step 2:
   
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-i) After plotting a residuals vs fitted plot of the full model (shown in part 1), I think it is clear that this graph has non-constant variance which means that it likely suffers from heteroscedasticity. It also has some extreme outliers and leverage points (also called influential outliers). The points are basically pulling the regression line and likely causing that massive variance, or at least factoring into the magnitude of it.
+i) We begin by plotting and examining a residuals vs fitted plot of the full model (shown in part 1). We can note that the residuals increase as the fitted values increases and also has some extreme outliers and leverage points (also called influential outliers). The points are basically pulling the regression line and likely causing that massive variance, or at least factoring into the magnitude of it.
+
+
 ```{r}
-#Visualization of residuals against the fitted values 
-plot(fitted(full_model), residuals(full_model), 
+library(faraway)
+full_model <- lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs,
+                 data = gss)
+Y = gss$Income
+X = model.matrix(full_model)
+n = dim(X)[1]
+p = dim(X)[2] - 1
+residuals = full_model$residuals
+plot(fitted(full_model), residuals, 
      xlab = "Fitted Values", ylab = "Residuals",
      main = "Residuals vs Fitted")
 abline(h = 0, col = "red")
-
 ```
 
-ii) The Breush-Pagan test for heteroscedasticity actually gives us a different answer than anticipated. From the BP test, we actually get the conclusion that we can not reject the null hypothesis that the full_model is homooscedastic since the p-value is larger than the alpha threshold of 0.05 (the p-value is at 0.23). This means we do not have sufficient evidence to reject the null hypothesis, so we cannot call the data heteroscedastic. This could be done because of the leverage outliers that is overriding the test, causing the test see random noise rather than a linear increase in variance, which leads to a high p-value. That is a possible explanation for this. 
+
+## Quantitative Covariates
+
+### Responder's age 
+
+```{r}
+plot(rstandard(full_model) ~ Age, data = gss, ylab = "Standardized Residuals",
+     xlab = "Age", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Total years of education
+```{r}
+plot(rstandard(full_model) ~ Educ, data = gss, ylab = "Standardized Residuals",
+     xlab = "Educ", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Weekly work hours
+```{r}
+plot(rstandard(full_model) ~ Hours, data = gss, ylab = "Standardized Residuals",
+     xlab = "Hours", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Hours spent watching TV daily 
+```{r}
+plot(rstandard(full_model) ~ TVHours, data = gss, ylab = "Standardized Residuals",
+     xlab = "TVHours", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+
+### Mother's years of education
+
+```{r}
+plot(rstandard(full_model) ~ MEduc, data = gss, ylab = "Standardized Residuals",
+     xlab = "MEduc", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Father's years of education
+```{r}
+plot(rstandard(full_model) ~ FEduc, data = gss, ylab = "Standardized Residuals",
+     xlab = "FEduc", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Number of siblings
+```{r}
+plot(rstandard(full_model) ~ Sibs, data = gss, ylab = "Standardized Residuals",
+     xlab = "Sibs", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
+```
+After inspecting the standardized residuals plotted against each quantitative covariate, I noticed the presence of extreme outliers but no systematic pattern of increasing or decreasing spread as a function of a quantitative covariate that would indicate the form of heteroscedasticity that appears when the variance of the random error terms is a function of some of the available covariates.
+
+
+## Qualitative Covariates
+
+### Responder's sex
+
+```{r}
+boxplot(rstandard(full_model) ~ Sex, data = gss, ylab = "Standardized Residuals",
+        xlab = "Sex")
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Happiness level
+```{r}
+boxplot(rstandard(full_model) ~ Happy, data = gss, ylab = "Standardized Residuals",
+        xlab = "Happy")
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Marital status
+```{r}
+boxplot(rstandard(full_model) ~ Marital, data = gss, ylab = "Standardized Residuals",
+        xlab = "Marital")
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Work status
+```{r}
+boxplot(rstandard(full_model) ~ Work, data = gss, ylab = "Standardized Residuals",
+        xlab = "Work")
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+### Zodiac sign
+```{r}
+boxplot(rstandard(full_model) ~ Zodiac, data = gss, ylab = "Standardized Residuals",
+        xlab = "Zodiac")
+abline(h = 0, lty = 2, lwd = 2)
+```
+
+
+After inspecting the standardized residuals plotted against each qualititative covariate, I again noticed the presence of extreme outliers but no pattern of difference in spread across the levels of the qualitative covariate  that would indicate the form of heteroscedasticity that appears when the variance of the random error terms differs across the different levels of some qualitative covariate. 
+
+So no, we do not have strong evidence to conclude that the variance of the random error terms is non-constant as a function of
+any of the quantitative or qualitative covariates.
+
+ii) We use the Breush-Pagan test for heteroscedasticity to test whether the variance of the error terms is a lineae function of the residuals. The BP test statistic is 8.955868 and p-value is 0.2558401. Thus, we can not reject the null hypothesis that the full_model is homoscedastic since the p-value is larger than the alpha threshold of 0.05. This means we do not have sufficient evidence to reject the null hypothesis of homoskedasticity at $\alpha$ = 5% and we do not detect a relationship of linear dependence of variance on the covariates. 
+
+
 ```{r}
 #Breusch-Pagan Test for heteroscedasticity
 Y = gss$Income
 residuals = full_model$residuals
-
-
 Yaux = residuals^2
 aux = lm(Yaux ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
                    data = gss)
 BP = n * summary(aux)$r.squared
 print(BP)
+```
+
+```{r}
 pvalue = pchisq(BP, p, lower.tail = FALSE)
 print(pvalue)
+```
 
+```{r}
 library(lmtest)
 bptest(full_model)
 ```
