@@ -493,5 +493,128 @@ The heteroscedasticity-consistent 95% CIs for the Sibs coefficient is [-15467.31
 
 The heteroscedasticity-consistent 95% CIs for all regression coeﬃcients besides Hours and MEduc are wider than the 95% CIs by the ordinary least squares method, but all methods contain 0 so the conclusions are the same at the 5% level and none of the regression coefficients are statistically significant.  
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Step 4: 
+
+  i) Apply the iteratively reweighted least squares method to specify optimal weights for the variances of the random error terms as a function of the quantitative      covariate which has been specified for your team.
+
+  ii) Write down and interpret your estimated equation for the residual variance. Use the optimal weights to apply the weighted least squares method with all            available quantitative covariates. 
+
+  iii) Calculate t test statistics and 95 percent CIs for the regression coefficients. 
+
+  iv) How do they compare against the resultsyielded by the ordinary least squares method?
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+i)
+### Weighted Least Squares
+```{r}
+w = gss$Income^(-2)
+WLS = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
+         data = gss, weights = w)
+summary(WLS$fitted.values)
+summary(summary(WLS)$residuals)
+summary(WLS)
+plot(WLS$fitted.values, rstandard(WLS), xlab = "Fitted Values",
+ylab = "Standardized Residuals", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
+
+```
+We finally have gotten statistically significant covariates and respectively significant p-values through the WLS model; up until this point, we had no variables show statistical significance. If high-income individuals in the GSS have massive variance in their reported income (some making 100k, some 500k with the same education level), OLS treats that noise as if it applies to everyone. However, WLS clears out that noise and puts less emphasis on the data points with extremely high variance (the outliers/ leverage points) and gives more emphasis to the stable/ "good" data points. 
+The WLS model is:
+    1. Isolating the noise
+    2. Decreases standard error (through giving emphasis to stable data points)
+    3. P-values then drop below 0.05 due to the reasons above and we finally see which covariates are truly significant
+    
+WLS doesn't create significance rather it just fixes a violation of Gauss-Markov assumptions that was hiding the true relationship.
+
+
+### Iteratively Reweighted Least Squares Method as a function of the Age Covariate
+```{r}
+w = rep(1, n)
+err = Inf
+tol = 1e-10
+niter = 0
+maxiter = 1e3
+
+while (err > tol & niter < maxiter)
+{
+aux = lm(log(residuals^2) ~ log(Age), data = gss)
+
+err = sum(abs(w - exp(-aux$fitted.values))) / sum(w)
+w = exp(-aux$fitted.values)
+WLS = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
+         data = gss, weights = w)
+
+residuals = WLS$residuals
+niter = niter + 1
+}
+summary(aux)
+summary(WLS)
+
+```
+
+The summary of the aux model confirms that Age is a major driver of heteroskedasticity in your GSS data since it is extremely significant, harboring a very low p-value of 0.00067. The slope is also positive, 0.6978 which implies that variance increases with age, but at a relatively low rate. As people get older, the gap between high incomes and low incomes widen.
+
+The summary of the WLS with the selected weight from IRLS tells a very different story. None of the covariates are statistically significant at the 0.05 level, or any level for that matter. There are also extremely high standard errors, such as age having a SE of 6360 when only 2073 was expected (3x what we originally thought). To further, R^2 adj is at 0.0002864 which basically implies that there the linear combination of these variables, all together, explains practically none of the actual variation in Income from the WLS model. 
+
+ii)
+##The Equation for the residual variance
+```{r}
+#From the aux in part i
+intercept <- exp(22.2574)
+multiplier <- gss$Age^(0.6978)
+
+residual_variance = intercept * multiplier
+```
+The coefficient is positive which means that the variance of the error term increases as Age increases. Each age data point (within the 815) is put to the power of 0.6978, meaning that the variance of the income residuals increase by 0.7% (it is the magnitude multiplier). 
+
+iii)
+```{r}
+
+```
+
+
+iv)
+```{r}
+
+```
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 5: 
+
+  i) Ignore any heteroscedasticity issues from now on. Apply the jackknife and a suitable bootstrap method to estimate the standard errors of your regression           coefficients. 
+
+  ii) How do your estimates compare against the estimates obtained through the ordinary least squares method? 
+
+  iii) Use the bootstrap estimates to construct different types of 95 percent CIs for the regression coefficients. 
+
+  iv) How do the results of these methods compare against each other?
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Jackknife Method
+```{r}
+betajack = matrix(0, n, p + 1)
+
+for (i in 1:n)
+{
+jack = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
+         data = gss, setdiff(1:n, i))
+betajack[i,] = jack$coefficients
+}
+
+xbetabar = colMeans(betajack)
+print(betabar)
+SE = apply(betajack, 2, sd) * sqrt((n - 1)^2 / n)
+print(SE)
+```
+
+### Boostrap Method
+```{r}
+
+```
 
