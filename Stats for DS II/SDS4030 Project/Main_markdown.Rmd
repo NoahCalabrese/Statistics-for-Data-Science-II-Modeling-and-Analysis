@@ -499,16 +499,18 @@ Step 4:
 
   i) Apply the iteratively reweighted least squares method to specify optimal weights for the variances of the random error terms as a function of the quantitative      covariate which has been specified for your team.
 
-  ii) Write down and interpret your estimated equation for the residual variance. Use the optimal weights to apply the weighted least squares method with all            available quantitative covariates. 
+  ii) Write down and interpret your estimated equation for the residual variance. 
+  
+  iii) Use the optimal weights to apply the weighted least squares method with all available quantitative covariates. 
 
-  iii) Calculate t test statistics and 95 percent CIs for the regression coefficients. 
+  iv) Calculate t test statistics and 95 percent CIs for the regression coefficients. 
 
-  iv) How do they compare against the resultsyielded by the ordinary least squares method?
+  v) How do they compare against the results yielded by the ordinary least squares method?
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-i)
-### Weighted Least Squares
+### Part i
+## Weighted Least Squares
 ```{r}
 w = gss$Income^(-2)
 WLS = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
@@ -559,34 +561,58 @@ The summary of the aux model confirms that Age is a major driver of heteroskedas
 
 The summary of the WLS with the selected weight from IRLS tells a very different story. None of the covariates are statistically significant at the 0.05 level, or any level for that matter. There are also extremely high standard errors, such as age having a SE of 6360 when only 2073 was expected (3x what we originally thought). To further, R^2 adj is at 0.0002864 which basically implies that there the linear combination of these variables, all together, explains practically none of the actual variation in Income from the WLS model. 
 
-ii)
-##The Equation for the residual variance
+We likely got different results from the above WLS because weighting by the response variable by itself is a much more aggressive transformation than weighting by a single, chosen covariate (such as age). Especially if income is extremely low for a family, the weight of $Income^{-2}$ would create really large residuals. Weighting by one covariate is generally better and provides more accurate results in this case, it just happened that it results in none of our covariates being statistically significant.
+
+
+## Part ii: The Equation for the residual variance
 ```{r}
 #From the aux in part i
 intercept <- exp(22.2574)
 multiplier <- gss$Age^(0.6978)
 
 residual_variance = intercept * multiplier
+
+new_weight = 1/(residual_variance)
 ```
 The coefficient is positive which means that the variance of the error term increases as Age increases. Each age data point (within the 815) is put to the power of 0.6978, meaning that the variance of the income residuals increase by 0.7% (it is the magnitude multiplier). 
 
 iii)
 ```{r}
-
+WLS = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
+         data = gss, weights = new_weight)
+summary(WLS$fitted.values)
+summary(summary(WLS)$residuals)
+summary(WLS)
+plot(WLS$fitted.values, rstandard(WLS), xlab = "Fitted Values",
+ylab = "Standardized Residuals", pch = 16)
+abline(h = 0, lty = 2, lwd = 2)
 ```
 
+### Part iv: T-Tests and 95 percent CI
 
-iv)
+## T-tests
 ```{r}
-
+coef_table <- summary(WLS)$coefficients
+variable_t_stats <- coef_table[, "t value"]
+variable_t_stats
 ```
 
+## 95 CI's
+```{r}
+WLS_ci <- confint(WLS, level = 0.95)
+WLS_ci
+```
+
+### Part V:
+They all responded fairly similar to the OLS model in terms of T-Test Statistics with the soul exception of Female Education which changed signs. Female education went from 0.3 to -0.02. But since it is so low (close to 0), it essentially means that it is a non-significant covariate that we are still utilizing in the model. The other biggest change in the t-test statistic was TVHours and Hours, since they changed by 0.5 (becoming more negative). Yet, through all of our quantitiative covariates, none of them changed to be significant in any way. All other test statistics changed by no more than 0.15 beside those three covariates, demonstrating that the new weight based off the age did not "move the needle" for our potential inconsistencies.
+
+That is also visible in the confidence intervals we constructed above. All of them contain zero, which means we can NOT reject the null hypothesis because we do not have sufficient evidence to prove it wrong otherwise. The results simply are not statistically significant, at least at the $5\%$ level. It matches the insignificance that we identified in the OLS model, meaning that the weight based on age did not really alter our results to make anything significant. The entire model supplied a p-value of 0.4, which is even larger than the initial full models 0.15 p-value. Meaning our data has gotten less significant.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Step 5: 
 
-  i) Ignore any heteroscedasticity issues from now on. Apply the jackknife and a suitable bootstrap method to estimate the standard errors of your regression           coefficients. 
+  i) Ignore any heteroscedasticity issues from now on. Apply the jackknife and a suitable bootstrap method to estimate the standard errors of your regression coefficients. 
 
   ii) How do your estimates compare against the estimates obtained through the ordinary least squares method? 
 
@@ -595,26 +621,276 @@ Step 5:
   iv) How do the results of these methods compare against each other?
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-### Jackknife Method
+### Part i:
+## Jackknife Method
 ```{r}
-betajack = matrix(0, n, p + 1)
+#re-establishing the full model
+full_model = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
+                data = gss)
+
+
+betajack = matrix(0, n, p)
 
 for (i in 1:n)
 {
-jack = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
-         data = gss, setdiff(1:n, i))
-betajack[i,] = jack$coefficients
+  jack = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss, subset = setdiff(1:n, i))
+  betajack[i,] = jack$coefficients
 }
 
-xbetabar = colMeans(betajack)
+betabar = colMeans(betajack)
 print(betabar)
 SE = apply(betajack, 2, sd) * sqrt((n - 1)^2 / n)
 print(SE)
 ```
+Standard Errors for the Jackknife Method:
+Intercept: 804432.058   Age: 6982.445  Educ: 34068.354   Hours: 5219.658  TVHours: 35195.483  MEduc: 15645.958  FEduc: 33906.043  Sibs: 37735.233
 
-### Boostrap Method
+
+Choosing the nonparametric boostrap method makes the most sense rather than semi-parametric and parametric for a couple reasons:
+         1. It is the safest choice when the data is not normal or has outliers and as we have seen in earlier parts we have a lot of outliers and leverage points
+         2. Our plots showed outliers and potentianl non-constant variance, so this generates the most robust starting point for us to go off of.
+         
+The semi-parametric is not a bad choice either though since, at this point, we are fairly certain that the full_model is fairly correct, since nothing has come back saying that the covariates are significant or that the model itself is significant. But it does not acknowledge the outliers as well as the nonparametric does, and since we are currently ignoring potential heteroscadastity for the sake of analysis using the nonparametric test is the most useful. We also should not use the parametric test since we are not confident that our data is normally distributed given the amount of outliers and leverage points that we have riddled throughout our data.
+## Nonparametric Boostrap Method
 ```{r}
+nboot = 10000
+betaboot = matrix(0, nboot, p)
+for (k in 1:nboot)
+{
+boot = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
+          data = gss, sample(n, replace = TRUE))
+betaboot[k,] = boot$coefficients
+}
+betabar = colMeans(betaboot)
+print(betabar)
+SE = apply(betaboot, 2, sd)
+print(SE)
+```
+Standard Errors for the Nonparametric Bootstrap Method:
+Intercept: 806702.926   Age: 6981.679  Educ: 34064.401   Hours: 5138.218  TVHours: 35746.581  MEduc: 16093.799  FEduc: 34084.656  Sibs: 37862.515
 
+### Step ii:
+```{r}
+coef_full_model <- summary(full_model)$coefficients
+coef_std <- coef_table[, "Std. Error"]
+coef_std
+```
+Standard Errors for the OLS Method:
+Intercept: 661484.217   Age: 6359.772  Educ: 35431.605   Hours: 5831.865  TVHours: 40846.300  MEduc: 32196.590  FEduc: 28386.664  Sibs: 33613.869
+
+##Jackknife V.S. OLS Standard Error estimates
+
+The Jackknife has a significantly higher standard error for the intercept estimate than the OLS method, 804432.058 vs 661484.217. It is almost 15000 dollars larger than OLS's, which means the entire benchmark of where we begin to measure income may be off when using the OLS model. Age is also significantly under evaluated in the OLS model, which means the OLS may acutally be underestimating the variability for these parameters. 
+
+Both MEduc and FEduc change pretty significantly too, MEduc specifically. Male's education drops about 150000, which means that the OLS might have been overly sensative and observations in the MEduc covariate, causing it to way overestimate the standard error. FEduc (and Sibs) increased a relative amount, by about 4000-4500, which means that the OLS model fell short to account for the actual variabiulity that the FEduc covariate brings to model, which would be detrimental to the overall outcome that the model gives us. 
+
+To add onto MEduc underestimate, variables such as Hours (lower by 7000) and TVHours (lower by 5000) were also lower in the Jackknife method than the OLS estimates. This means that there might be influential points that had inflated the OLS error estimates for these variables. This overall could've affected the outcome that the model had while testing the significance of the covariates. 
+
+##Nonparametric Bootstrapping Method V.S. OLS Standard Error estimates
+
+The results gotten from the nonparametric boostrapping method are about equal to the results that we got from the Jackknife method. All of the results from the nonparametric boostrapping method are within 1000 dollars of each other (excluding the intercept which is about 1500 away), which means they are so closely related that the results from the Jackknife VS OLS will apply to the nonparametric test results. 
+
+The fact that the Jackknife and Nonparametric Bootstrap got almost identical standard errors is actually quite a good sign for the validity of the project. The resampling results were good and stable provided evidence for each other by yielding the same results. Both methods showed that certain variables, like the intercept and MEduc, are extremely suspicious under the OLS, since they are very under valued in that model compared to the Bootstrapping and Jackknife methods. 
+
+### Step iii:
+
+```{r}
+par(mfrow = c(1, 2))
+hist(betaboot[,1], "FD", freq = FALSE, xlab = colnames(X)[1],
+main = NA)
+abline(v = beta[1], col = 2, lty = 2, lwd = 4)
+hist(betaboot[,2], "FD", freq = FALSE, xlab = colnames(X)[2],
+main = NA)
+abline(v = beta[2], col = 2, lty = 2, lwd = 4)
 ```
 
+```{r}
+alpha = 0.05
+confint(full_model)
+
+CInormal = cbind(betabar - qnorm(1 - alpha / 2) * SE, betabar +
+qnorm(1 - alpha / 2) * SE)
+print(CInormal)
+
+CIpercentile = cbind(apply(betaboot, 2, quantile, probs = alpha
+/ 2), apply(betaboot, 2, quantile, probs = 1 - alpha / 2))
+print(CIpercentile)
+
+CIpivotal = cbind(2 * beta - apply(betaboot, 2, quantile, probs
+= 1 - alpha / 2), 2 * beta - apply(betaboot, 2, quantile,
+probs = alpha / 2))
+print(CIpivotal)
+```
+
+### Step iv:
+Above there are 4 different types of $95\%$ confidence intervals using the non-parametric bootstrapping method for each regression coefficients, as well as a histogram showing normality in the intercept and Income (y -variable), separately. The confidence intervals utilized are a regular T-Test, CInormal, CIpercentile, and CIpivitol, all targeting slightly different parts of the linear model to help construct the confidence intervals. 
+
+For the most part the CInormal intervals are wider than the OLS interval with MEduc and Hours as exceptions and TVHours as exceptions because, as said in part ii, the OLS overestimated those variables significantly, making their confidence intervals wide and not too percise. This is because the OLS model under-estimated most of the variables (including the intercept) because it assumed the errors were all normal and homoscedastic (assuming it achieved all assumptions of the Gauss-Markov assumptions). When in reality that is not true due to the outliers and leverage points throughout the dataset. 
+
+It is important to draw attention to the Pivitol CI for the variable Hours and TVHours. These are the ONLY intervals that does NOT contain 0, Hours: [-20480.62, -416.9613], and TVHours: [-143808.24,  -4352.3522]. Which means that the pivitol CI, which corrects for bias in the boostrap distribution, calculated that Hours and TVHours significant covariates. It is the only CI that marked Hours and TVHours as significant, since every other CI had Hours interval contain zero, which may mean that it is incorrect and fell victim to $5\%$ likelihood of a type 1 error. But it could also mean that when adjusting for the specific skew or bias that the data has using the Pivitol method, these variables might actually be statistically signficant. Which means we will have to continue to evaluate and test Hours and TVhours. 
+
+Overall, OLS, Normal, and Percentile's intervals all contained 0, so there was nothing statistically significant between them. Even if some intervals were wdier or narrower than each other, they ultimately lead to the same conclusion in the end: failing to reject the null hypothesis for all variables at the $5\%$ confidence level. But percentile shows that there may actually be some significance within the Hours and TVHours variables, giving a glimmer of hope for rejecting the null hypothesis.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 6: 
+
+  i) Perform a nonparametric test of overall statistical significance. 
+
+  ii) Perform a non-parametric test of statistical significance for the effect of a single covariate of your choice on the response variable. 
+
+  iii) How do the estimated p-values compare against the p-values obtained under the theoretical null distribution?
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### Part i
+## Performing a Permutation F-test of overall statistical significance
+
+Permutation F-test: Getting Permutation F-Statistic and corresponding P-Value
+```{r}
+alpha = 0.05
+f = summary(full_model)$fstatistic[1]
+print(f)
+pvalue = pf(f, p, n - p - 1, lower.tail = FALSE)
+print(pvalue)
+nperm = 10000
+fperm = numeric(nperm)
+for (k in 1:nperm)
+{
+Yperm = sample(Y)
+perm = lm(Yperm ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss)
+fperm[k] = summary(perm)$fstatistic[1]
+}
+```
+Provides the distribution with theoretical, observed, and empirical information using the entire full model.
+```{r}
+pvalue = (1 + sum(fperm > f)) / (1 + nperm)
+print(pvalue)
+hist(fperm, "FD", freq = FALSE, main = NA, xlab = "Permutation
+F Test Statistics")
+curve(df(x, p, n - p - 1), add = TRUE, lty = 2, lwd = 4)
+abline(v = qf(1 - alpha, p, n - p - 1), col = 2, lty = 2, lwd =
+4)
+abline(v = quantile(fperm, 1 - alpha), col = 4, lty = 2, lwd =
+4)
+abline(v = f, col = 7, lty = 2, lwd = 4)
+legend("topright", c("Theoretical Distribution", "Theoretical
+Quantile", "Empirical Quantile", "Observed Statistic"), col
+= c(1, 2, 4, 7), lty = rep(2, 4), lwd = rep(4, 4))
+```
+
+
+### Part ii
+## Performing a nonparametric test of statistical significance for the effect of Hours on Income
+
+Permutation F-test: Getting Permutation F-Statistic and corresponding P-Value after utilizing the Hours covariate.
+```{r}
+t = summary(full_model)$coefficients["Hours", 3]
+print(t)
+
+pvalue = 2 * pt(abs(t), n - p - 1, lower.tail = FALSE)
+print(pvalue)
+
+aux = lm(Income ~ Age + Educ + TVHours + MEduc + FEduc + Sibs, data = gss)
+fitted = aux$fitted.values
+residuals = aux$residuals
+tperm = numeric(nperm)
+for (k in 1:nperm) {
+Yperm = fitted + sample(residuals)
+perm = lm(Yperm ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss)
+tperm[k] = summary(perm)$coefficients["Hours", 3]
+}
+pvalue = (1 + sum(abs(tperm) > abs(t)))/(1 + nperm)
+print(pvalue)
+```
+
+Permutation T-Test statistic:
+Provides the distribution with theoretical, observed, and empirical information using the Hours covariate.
+```{r}
+hist(tperm, "FD", freq = FALSE, main = NA, xlab = "Permutation t Test Statistics")
+curve(dt(x, n - p - 1), add = TRUE, lty = 2, lwd = 2)
+abline(v = qt(c(alpha/2, 1 - alpha/2), n - p - 1), col = 2, lty = 2,
+lwd = 2)
+abline(v = quantile(tperm, c(alpha/2, 1 - alpha/2)), col = 4, lty = 2,
+lwd = 2)
+abline(v = t, col = 7, lty = 2, lwd = 2)
+legend("topright", c("Theoretical Distribution", "Theoretical Quantiles",
+"Empirical Quantiles", "Observed Statistic"), col = c(1, 2, 4, 7),
+lty = rep(2, 4), lwd = rep(2, 4), cex = 0.5)
+```
+
+## Performing a nonparametric test of statistical significance for the effect of TVHours on Income (since part 5 reported TVHours also might be significant)
+Permutation F-test: Getting Permutation F-Statistic and corresponding P-Value after utilizing the TVHours covariate.
+```{r}
+t = summary(full_model)$coefficients["TVHours", 3]
+print(t)
+
+pvalue = 2 * pt(abs(t), n - p - 1, lower.tail = FALSE)
+print(pvalue)
+
+aux = lm(Income ~ Age + Educ + Hours + MEduc + FEduc + Sibs, data = gss)
+fitted = aux$fitted.values
+residuals = aux$residuals
+tperm = numeric(nperm)
+for (k in 1:nperm) {
+Yperm = fitted + sample(residuals)
+perm = lm(Yperm ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss)
+tperm[k] = summary(perm)$coefficients["TVHours", 3]
+}
+pvalue = (1 + sum(abs(tperm) > abs(t)))/(1 + nperm)
+print(pvalue)
+```
+
+Permutation T-Test statistic:
+Provides the distribution with theoretical, observed, and empirical information using the TVHours covariate.
+```{r}
+hist(tperm, "FD", freq = FALSE, main = NA, xlab = "Permutation t Test Statistics")
+curve(dt(x, n - p - 1), add = TRUE, lty = 2, lwd = 2)
+abline(v = qt(c(alpha/2, 1 - alpha/2), n - p - 1), col = 2, lty = 2,
+lwd = 2)
+abline(v = quantile(tperm, c(alpha/2, 1 - alpha/2)), col = 4, lty = 2,
+lwd = 2)
+abline(v = t, col = 7, lty = 2, lwd = 2)
+legend("topright", c("Theoretical Distribution", "Theoretical Quantiles",
+"Empirical Quantiles", "Observed Statistic"), col = c(1, 2, 4, 7),
+lty = rep(2, 4), lwd = rep(2, 4), cex = 0.5)
+```
+
+### Part iii:
+Hours covariate and Permutation F test:
+The p-value using the permutation F-test, 0.29 was over double the p-value of using a permutation t test for Hours on Income, 0.11. 
+
+The Permutation T Test statistic almost perfectly agrees with the theoretical null dsitrubtion, it follows the theoretical distribution and is within the Empirical and Theoretical quantiles. Which means that the p-value compares very similarly to how the theoretical null distribution expects it to act. The p-value is not significant since the permutation t test almost perfectly follows the theortical null distribution, which is what we expect after that is the same answer we get from various different angles of testing.
+
+A very similar story is told with the permutation F test. The histrogram and the theoretical distribution are essentially equal, with little variation difference between them, which means that the overall significance's and p-values of the permutation F test and the theortical null distribution are quite reasonable and similar. The p-value, 0.29, is also proper since it is to the left of the empirical and theoretical quantiles, which means that the p-value is NOT significant. The overall model is NOT significant. 
+
+TVHours covariate:
+Interestingly enough, when testing the p-value of TVHours on Income using the permutation t test, we get to see a slightly different output than the other two. Perm F-test and Hours perm t test were textbook examples of non-significance, but this shows a slightly different story. The histogram does not perfectly follow the theoretical distribution, being much more concentrated around zero than the t-distribution assumed. This means that the OLS model assumption of normally distributed errors is not correct for the TVHours covariate. However, even though this test is showing a little evidence of significance, it is still not enough to actually be considered statistically significant at the $5\%$ level, since the p-value is 0.1 So, the pivotal CI was not entirely accurate when determining these two covariates as statistically signficant.   
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 7: 
+
+  i) Are there any covariates which should be transformed? Should a transformation be applied to the response variable? 
+
+  ii) Refit your linear model to account for all your transformed variables. 
+
+  iii) Are the standardized residuals from your linear model normally distributed? 
+
+  iv) Construct 95 percent simultaneous confidence bands to test the global null hypothesis of normality for the standardized residuals.
+  
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 8: 
+
+Use your transformed variables from now on.
+
+  i) Investigate the interaction effects between the 2 qualitative covariate which has been specified for your team and all available quantitative covariates on the response variable. 
+  
+        - What has been specified to us: Investigate the interaction effects between work status and all available quantitative covariates on the response variable.
+        
+  ii) Formulate a suitable final model to draw inferences on the response variable and provide the interpretation of each type of coefficient in your final model.
+  
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
