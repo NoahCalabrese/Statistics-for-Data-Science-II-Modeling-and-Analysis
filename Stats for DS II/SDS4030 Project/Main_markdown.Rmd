@@ -255,7 +255,7 @@ Step 2:
 
 ## i) Is the variance of the random error terms non-constant as a function of any of the quantitative or qualitative covariates? 
 
-We begin by plotting and examining a residuals vs fitted plot of the full model (shown in part 1). We can note that the residuals increase as the fitted values increases and also has some extreme outliers and leverage points (also called influential outliers). The points are basically pulling the regression line and likely causing that massive variance, or at least factoring into the magnitude of it.
+We begin by plotting and examining a residuals vs fitted plot of the full model (shown in part 1). We can note that the residuals increase as the fitted values increases and also has some extreme outliers and leverage points (also called influential outliers). The points are basically pulling the regression line and likely causing that massive variance, or at least factoring into the magnitude of it. Thus, overall, there is evidence of non constant variance since the spread of residuals appears to increase for larger fitted values.
 
 
 ```{r}
@@ -369,10 +369,9 @@ abline(h = 0, lty = 2, lwd = 2)
 ```
 
 
-After inspecting the standardized residuals plotted against each qualititative covariate, I again noticed the presence of extreme outliers but no pattern of difference in spread across the levels of the qualitative covariate  that would indicate the form of heteroscedasticity that appears when the variance of the random error terms differs across the different levels of some qualitative covariate. 
+After inspecting the standardized residuals plotted against each qualititative covariate, I again noticed the presence of extreme outliers but no pattern of difference in spread for the boxplots across the levels of the qualitative covariate that would indicate the form of heteroscedasticity that appears when the variance of the random error terms differs across the different levels of some qualitative covariate. 
 
-So no, we do not have strong evidence to conclude that the variance of the random error terms is non-constant as a function of
-any of the quantitative or qualitative covariates.
+So while we see visual indications for the violation of homoscedasticity in the residuals vs fitted plot, the pattern is less clear when the standardized residuals are plotted against individual quantitative and qualitative covariates. 
 
 ## ii) Perform suitable heteroscedasticity tests and state your conclusions.
 
@@ -399,6 +398,79 @@ print(pvalue)
 library(lmtest)
 bptest(full_model)
 ```
+We can also use the Brown-Forsythe Test to test for heteroscedasticity-
+
+Brown-Forsythe for Sex:
+
+Grouping by sex, since we need to group by a categorical variable with levels (sex has 2 levels so it's valid). So, for sex the Brown-Forscythe test shows that there is np sufficient evidence that it is heteroscadastic since the p-value is 0.6143. 
+```{r}
+gss$Sex <- as.factor(gss$Sex)
+fit = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss)
+Ymed = aggregate(Income ~ Sex, data = gss, median)[gss$Sex, 2]
+Yaux = abs(gss$Income - Ymed)
+aux = lm(Yaux ~ Sex, data = gss)
+anova(aux)
+
+library(car)
+leveneTest(Income ~ Sex, data = gss)
+```
+
+Brown-Forsythe for Work:
+Grouping by work, since we need to group by a categorical variable that has levels (Work has 2+). So, for work the Brown-Forscythe test shows that there is no sufficient evidence that it is heteroscadastic since the p-value is 0.6582. 
+```{r}
+gss$Work <- as.factor(gss$Work)
+fit = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss)
+Ymed = aggregate(Income ~ Work, data = gss, median)[gss$Work, 2]
+Yaux = abs(gss$Income - Ymed)
+aux = lm(Yaux ~ Work, data = gss)
+anova(aux)
+
+library(car)
+leveneTest(Income ~ Work, data = gss)
+```
+
+Brown-Forsythe for Marital:
+Grouping by Marital, since we need to group by a categorical variable that has levels (Marital has 2+). So, for work the Brown-Forscythe test shows that there is no sufficient evidence that it is heteroscadastic since the p-value is 0.7978. 
+```{r}
+gss$Marital <- as.factor(gss$Marital)
+fit = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss)
+Ymed = aggregate(Income ~ Marital, data = gss, median)[gss$Marital, 2]
+Yaux = abs(gss$Income - Ymed)
+aux = lm(Yaux ~ Marital, data = gss)
+anova(aux)
+
+library(car)
+leveneTest(Income ~ Marital, data = gss)
+```
+
+Brown-Forsythe for Zodiac:
+Grouping by Zodiac, since we need to group by a categorical variable that has levels (Zodiac has 2+). So, for work the Brown-Forscythe test shows that there is no sufficient evidence that it is heteroscadastic since the p-value is 0.2985 
+```{r}
+gss$Zodiac <- as.factor(gss$Zodiac)
+fit = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss)
+Ymed = aggregate(Income ~ Zodiac, data = gss, median)[gss$Zodiac, 2]
+Yaux = abs(gss$Income - Ymed)
+aux = lm(Yaux ~ Zodiac, data = gss)
+anova(aux)
+
+library(car)
+leveneTest(Income ~ Zodiac, data = gss)
+```
+
+Brown-Forsythe for Happy:
+Grouping by Happy, since we need to group by a categorical variable that has levels (Happy has 2+). So, for work the Brown-Forscythe test shows that there is no sufficient evidence that it is heteroscadastic since the p-value is 0.2187 
+```{r}
+gss$Happy <- as.factor(gss$Happy)
+fit = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, data = gss)
+Ymed = aggregate(Income ~ Happy, data = gss, median)[gss$Happy, 2]
+Yaux = abs(gss$Income - Ymed)
+aux = lm(Yaux ~ Happy, data = gss)
+anova(aux)
+
+library(car)
+leveneTest(Income ~ Happy, data = gss)
+```
+We must reject the null hypothesis for every single variable here since all p-values are above 0.05 (in fact they are all above 0.2). The difference in spreads between our groups (e.g., Income variance between Men and Women) is likely due to random chance rather than a systematic difference for each of the variables. This technically means constant variance is achieved for these variables. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1186,7 +1258,9 @@ summary(full_int)
 
 Work has 8 levels, so we have 7 dummy variables times our have 7 quantitative variables, so 49 interaction terms. We want to reduce our model to avoid over fitting. We perform backward elimination since we already have our linear model with all possible covariates and interactions. 
 
+## ii) Formulate a suitable final model to draw inferences on the response variable and provide the interpretation of each type of coefficient in your final model.
 
+We are using a backward elimination technique where we remove the lowest p-value per the ANOVA test, since we have quantitative and qualitative covariates.
 ```{r}
 #anova(full_int)
 
@@ -1212,47 +1286,6 @@ full_int = update(full_int, . ~ . - Work:log(TVHours + 1))
 anova(full_int)
 
 summary(full_int)
-```
-
-
-## ii) Formulate a suitable final model to draw inferences on the response variable and provide the interpretation of each type of coefficient in your final model.
-
-Using a Backward Elimination with Valid Post-Selection Inference to formulate a good final model to draw inferences on Income. A 60 | 20 | 20 stadnard validation split (60 for training 20 for validation 20 for testing). 
-```{r}
-set.seed(0)
-X = model.matrix(
-  log(Income) ~ Work * (Age + Educ + Hours + log(TVHours + 1) +
-                        MEduc + FEduc + log(Sibs + 1)), data = gss)[, -1] 
-#[,-1] drops the intercept so we can do this selection test
-Y = log(gss$Income)
-n = nrow(X)
-P = ncol(X)
-train = sample(n, floor(0.6 * n))
-valid = sample(setdiff(1:n, train), floor(0.2 * n))
-test  = setdiff(1:n, c(train, valid))
-MSPE = numeric(P)
-
-for (p in P:1)
-{
-  fit = lm(Y ~ ., data = as.data.frame(X[, 1:p, drop = FALSE]), subset = train)
-
-  predictions = predict(fit, newdata = as.data.frame(X[valid, 1:p, drop = FALSE]))
-  MSPE[p] = mean((Y[valid] - predictions)^2)
-  ind = which.max(summary(fit)$coefficients[-1, 4]) + 1
-  if (ind != p)
-  {
-    X[, c(ind, p)] = X[, c(p, ind)]
-    colnames(X)[c(ind, p)] = colnames(X)[c(p, ind)]
-  }
-}
-plot(MSPE, type = "b", pch = 16, lwd = 4,
-     ylab = "Mean Squared\nPrediction Error")
-p = which.min(MSPE)
-fit = lm(Y ~ ., data = as.data.frame(X[,1:p, drop = FALSE]),
-         subset = c(train, valid))
-summary(fit)
-predictions = predict(fit,newdata = as.data.frame(X[test, 1:p, drop = FALSE]))
-mean((Y[test] - predictions)^2)
 ```
 
 After applying a backwards elimination technique on the transformed model, we get 12 predictors (including the intercept) as the lowest and best options for future predicitions. 
@@ -1540,10 +1573,48 @@ Ignore all random effects from now on.
 
 ## i) Apply a suitable model selection method and draw valid inferences on the response variable.
 
+Using a Backward Elimination with Valid Post-Selection Inference to formulate a good final model to draw inferences on Income. A 60 | 20 | 20 stadnard validation split (60 for training 20 for validation 20 for testing). 
+
 ```{r}
+set.seed(0)
+Y = log(gss$Income)
+X = gss[, -11]
+n = dim(X)[1]
+P = dim(X)[2]
+
+train = sample(n, floor(0.6 * n))
+valid = sample(setdiff(1:n, train), floor(0.2 * n))
+test = setdiff(1:n, c(train, valid))
+MSPE = numeric(P)
+
+for (p in P:1)
+{
+  fit = lm(Y ~ ., data = X[, 1:p, drop = FALSE], subset = train)
+
+  predictions = predict(fit, newdata = X[valid, 1:p, drop = FALSE])
+  MSPE[p] = mean((Y[valid] - predictions)^2)
+
+  a = drop1(fit, test = "F")
+  ind = which.max(a[-1, "Pr(>F)"])
+
+  if (ind != p)
+  {
+    X[, c(ind, p)] = X[, c(p, ind)]
+    names(X)[c(ind, p)] = names(X)[c(p, ind)]
+  }
+}
+
+plot(MSPE, type = "b", pch = 16, lwd = 4,
+     ylab = "Mean Squared\nPrediction Error")
+
+p = which.min(MSPE)
+fit = lm(Y ~ ., data = X[, 1:p, drop = FALSE], subset = c(train, valid))
+summary(fit)
+
+predictions = predict(fit, newdata = X[test, 1:p, drop = FALSE])
+mean((Y[test] - predictions)^2)
 
 ```
-
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
