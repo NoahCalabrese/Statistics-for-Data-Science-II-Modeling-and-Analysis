@@ -33,7 +33,7 @@ Preliminary library loading, reading code in, and exploratory data analysis
 gss = read.table("gss.txt", header = TRUE)
 summary(gss)
 ```
-We begin our data science workflow by familiarizing ourselves with the GSS dataset. The dataset contains 815 rows corresponding to 815 individuals' survery responses. The dataset contains 13 variables. There are 8 discrete numerical variables: Age (Responder's Age), Educ (Total years of education), Hours (Weekly work hours), TVHours (Hours spent watching TV daily), MEduc (Mother's years of education), FEduc (Father's years of education), Sibs (Number of siblings), and Income (Yearly income). Thus there are 5 categorical variables: Sex (Responder's sex), Happy (Happiness level), Marital (Marital status), Work (Work status), and Zodiac (Zodiac sign). Uniquely they take on the following values: Sex (Female, Male), Happy (Pretty Happy, Very Happy, Not Too Happy), Marital ("Divorced, Widowed, Married, Never Married, Separated), Work (Fulltime, Housekeeping, Laid Off, School, Retired, Parttime, Not Working, Other), and Zodiac (Virgo, Libra, Taurus, Pisces, Cancer, Aquarius, Leo, Capricorn, Aries, Gemini, Sagittarius, Scorpio). 
+We begin our data science workflow by familiarizing ourselves with the GSS dataset. The dataset contains 815 rows corresponding to 815 individuals' survery responses. The dataset contains 13 variables. There are 8 discrete numerical variables: Age (Responder's Age), Educ (Total years of education), Hours (Weekly work hours), TVHours (Hours spent watching TV daily), MEduc (Mother's years of education), FEduc (Father's years of education), Sibs (Number of siblings), and Income (Yearly income). Thus there are 5 categorical variables: Sex (Responder's sex), Happy (Happiness level), Marital (Marital status), Work (Work status), and Zodiac (Zodiac sign). Uniquely they take on the following values: Sex (Female, Male), Happy (Pretty Happy, Very Happy, Not Too Happy), Marital (Divorced, Widowed, Married, Never Married, Separated), Work (Fulltime, Housekeeping, Laid Off, School, Retired, Parttime, Not Working, Other), and Zodiac (Virgo, Libra, Taurus, Pisces, Cancer, Aquarius, Leo, Capricorn, Aries, Gemini, Sagittarius, Scorpio). 
 
 Now that we understand our data we isolate our goal being to build a linear model for the response variable yearly income by treating all other seven quanitative variables as covariates and ignoring all five qualitative variables. 
 
@@ -79,7 +79,7 @@ S = sqrt(sum(residuals^2)/(n - p))
 print(S^2)
 ```
 
-Our full model is $Y_i = \beta_0 +\beta_{Age}{\text{Age}_i} +\beta_{Educ}{\text{Educ}_i}+ +\beta_{Hours}{\text{Hours}_i} + \beta_{TVHours}{\text{TVHours}_i} + \beta_{MEduc}{\text{MEduc}_i} + \beta_{FEduc}{\text{FEduc}_i} + \beta_{Sibs}{\text{Sibs}_i} + \epsilon_i$. An unbiased estimate of the residual variance is equal to 5.42076e+12 and the MLE of the residual variance is equal to 5.474497e+12, under the full model. 
+Our full model is $Y_i = \beta_0 + \beta_{Age}{\text{Age}_i} + \beta_{Educ}{\text{Educ}_i} + \beta_{Hours}{\text{Hours}_i} + \beta_{TVHours}{\text{TVHours}_i} + \beta_{MEduc}{\text{MEduc}_i} + \beta_{FEduc}{\text{FEduc}_i} + \beta_{Sibs}{\text{Sibs}_i} + \epsilon_i$. An unbiased estimate of the residual variance is equal to 5.42076e+12 and the MLE of the residual variance is equal to 5.474497e+12, under the full model. 
 
 The reduced model is a little more tricky where we have to create a model in which it follows the constraints given by: $H_0 : 10 * \beta_{MEduc} = 20 * \beta_{FEduc} = 2$. 
 
@@ -96,7 +96,8 @@ summary(reduced_model)
 ```
 ```{r}
 R <- rbind(c(0, 0, 0, 0, 0, 1, 0, 0), 
-           c(0, 0, 0, 0, 0, 0, 1, 0)) ##the 1's in R represent the MEduc and FEduc since those are within the null hypothesis
+           c(0, 0, 0, 0, 0, 0, 1, 0))
+# the 1's in R represent the MEduc and FEduc since those are within the null hypothesis
 r <- c(0.2, 0.1) 
 k <- length(r)
 beta0 = beta - solve(crossprod(X), crossprod(R, solve(R %*% solve(crossprod(X),
@@ -779,11 +780,10 @@ The semi-parametric is not a bad choice either though since, at this point, we a
 ```{r}
 nboot = 10000
 betaboot = matrix(0, nboot, p)
-for (k in 1:nboot)
-{
-boot = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
+for (k in 1:nboot){
+  boot = lm(Income ~ Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs, 
           data = gss, sample(n, replace = TRUE))
-betaboot[k,] = boot$coefficients
+  betaboot[k,] = boot$coefficients
 }
 betabar = colMeans(betaboot)
 print(betabar)
@@ -809,9 +809,9 @@ Intercept: 661484.217   Age: 6359.772  Educ: 35431.605   Hours: 5831.865  TVHour
 
 ### Jackknife V.S. OLS Standard Error estimates
 
-The Jackknife has a significantly higher standard error for the intercept estimate than the OLS method, 804432.058 vs 661484.217. It is almost 15000 dollars larger than OLS's, which means the entire benchmark of where we begin to measure income may be off when using the OLS model. Age is also significantly under evaluated in the OLS model, which means the OLS may actually be underestimating the variability for these parameters. 
+The Jackknife has a higher standard error for the intercept estimate than the OLS method, 804432.058 vs 661484.217. It is almost 115000 dollars larger than OLS's. Age is also slightly under evaluated in the OLS model, which means the OLS may actually be underestimating the variability for these parameters. 
 
-Both MEduc and FEduc change pretty significantly too, MEduc specifically. Male's education drops about 150000, which means that the OLS might have been overly sensative and observations in the MEduc covariate, causing it to way overestimate the standard error. FEduc (and Sibs) increased a relative amount, by about 4000-4500, which means that the OLS model fell short to account for the actual variabiulity that the FEduc covariate brings to model, which would be detrimental to the overall outcome that the model gives us. 
+Both MEduc and FEduc change pretty significantly too, MEduc specifically. Mother's education standard error is much smaller than the OLS's, which means that there's more variation in the estimated Mother's education under the OLS. FEduc and Sibs increased a relative amount, which means that the OLS model fell short of accounting for the actual variabiulity that these covariates bring to model. 
 
 To add onto MEduc underestimate, variables such as Hours (lower by 7000) and TVHours (lower by 5000) were also lower in the Jackknife method than the OLS estimates. This means that there might be influential points that had inflated the OLS error estimates for these variables. This overall could have affected the outcome that the model had while testing the significance of the covariates. 
 
@@ -869,7 +869,7 @@ Above there are 4 different types of $95\%$ confidence intervals using the non-p
 
 For the most part the CInormal intervals are wider than the OLS interval with MEduc and Hours as exceptions and TVHours as exceptions because, as said in part ii, the OLS likely overestimated those variables significantly, making their confidence intervals wide and not too precise. This is because the OLS model is less reliable because it assumed the errors were all normal and homoscedastic (assuming it achieved all assumptions of the Gauss-Markov assumptions) and may have under-estimated most of the variables (including the intercept). When in reality that is not true due to the outliers and leverage points throughout the dataset. 
 
-It is important to draw attention to the Pivitol CI for the variable Hours and TVHours. These are the ONLY intervals that does NOT contain 0, Hours: [-20480.62, -416.9613], and TVHours: [-143808.24,  -4352.3522]. Which means that the pivitol CI, which corrects for bias in the boostrap distribution, calculated that Hours and TVHours are significant covariates. It is the only CI that marked Hours and TVHours as significant, since every other CI had Hours interval contain zero, which may mean that it is incorrect and fell victim to $5\%$ likelihood of a type 1 error. But it could also mean that when adjusting for the specific skew or bias that the data has using the Pivitol method, these variables might actually be statistically significant. Which means we will have to continue to evaluate and test Hours and TVhours. 
+It is important to draw attention to the Percentile CI for the variable Hours and TVHours. These are the ONLY intervals that does NOT contain 0, Hours: [-20480.62, -416.9613], and TVHours: [-143808.24,  -4352.3522]. Which means that the pivitol CI, which corrects for bias in the boostrap distribution, calculated that Hours and TVHours are significant covariates. It is the only CI that marked Hours and TVHours as significant, since every other CI had Hours interval contain zero, which may mean that it is incorrect and fell victim to $5\%$ likelihood of a type 1 error. But it could also mean that when adjusting for the specific skew or bias that the data has using the Pivitol method, these variables might actually be statistically significant. Which means we will have to continue to evaluate and test Hours and TVhours. 
 
 Overall, OLS, Normal, and Percentile's intervals all contained 0, so there was nothing statistically significant between them. Even if some intervals were wider or narrower than each other, they ultimately lead to the same conclusion in the end: failing to reject the null hypothesis for all variables at the $5\%$ confidence level. But percentile shows that there may actually be some significance within the Hours and TVHours variables, giving a glimmer of hope for rejecting the null hypothesis.
 
@@ -1026,13 +1026,15 @@ The distribution of the permutation t test statistics is slightly more concentra
 
 ## iii) How do the estimated p-values compare against the p-values obtained under the theoretical null distribution?
 
-### Hours covariate 
+### Permutation T Test: Hours covariate 
 
 The Permutation T Test statistic almost perfectly agrees with the theoretical null distrubtion and that the p-value compares very similarly to how the theoretical null distribution expects it to act. The p-value is not significant since the permutation t test almost perfectly follows the theoretical null distribution. So the results from the parametric classic t test are consistent with the conclusions from the permutation t test, in both cases we fail to reject the null that the coefficient for Hours equals zero.
 
+### Permutation F Test 
+
 A very similar story is told with the permutation F test. The histogram and the theoretical distribution are essentially equal, with little variation difference between them, and the overall significances and p-values of the permutation F test and the theoretical null distribution are quite reasonable and similar, both indicating that the model is not statistically significant. This agreement tells us that the assumptions of the F-test do not heavily affect our inference. 
 
-### TVHours covariate
+### Permutation T Test: TVHours covariate 
 
 Interestingly enough, when testing the p-value of TVHours on Income using the permutation t test, we get to see a slightly different output than the other two. The histogram does not perfectly follow the theoretical distribution, being much more concentrated around zero than the t-distribution assumed, indicating some deviation from the assumptions of the parametric test and telling us that the
 OLS model assumption of normally distributed errors may not be best for the TVHours covariate. However, even though this test is showing a little evidence of significance, it is still not enough to actually be considered statistically significant at the $5\%$ level, since the p-value is 0.1 So, the pivotal CI was not entirely accurate when determining these two covariates as statistically signficant, and we do not have sufficient evidence to conclude that TVhours has a statistically significant effect on income.   
@@ -1246,7 +1248,7 @@ Step 8:
 
 Use your transformed variables from now on.
 
-  i) Investigate the interaction effects between the 2 qualitative covariate which has been specified for your team and all available quantitative covariates on the response variable. 
+  i) Investigate the interaction effects between the qualitative covariate which has been specified for your team and all available quantitative covariates on the response variable. 
   
         - What has been specified to us: Investigate the interaction effects between work status and all available quantitative covariates on the response variable.
         
