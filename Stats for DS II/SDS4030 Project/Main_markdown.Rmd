@@ -1296,11 +1296,47 @@ anova(full_int)
 summary(full_int)
 ```
 
-After applying a backwards elimination technique on the transformed model, we get 12 predictors (including the intercept) as the lowest and best options for future predicitions. 
+After applying a backwards elimination technique on the transformed model, we get 12 predictors (including the intercept) as the lowest and best options for future predictions. 
 
-In the prediction error graph there are some incredible spikes. This is likely caused by multicollinearity within the 49 interaction terms. It is also possible that it was caused by using a 60/20/20 split, which only trains on 489 so the laid off or other categories in work may be under utilized (only having a small amount of n dedicated to it). The spike around 40 specifically is likely caused because we removed a variable that was shielding against collinearity causing the error to spike, but it still had to get removed since it was insignificant to the model and did not minimize the Mean Squared Predicition Error. 
+Inferences on the response variable:
+After applying a backwards elimination technique on the transformed model, we got a p-value of 2.785e-13, which means our new model is statistically significant while testing against Yearly Income. This means that these covariates actually influence the Income variable, to a significant degree. Though we did recieve an $R^2$ adj value of 0.08 which means that our variables are not explaining the variability of the model well. But, a significant p-value is a very good sign for this transformed model.
 
-The MSPE resides at 1.07 which is relatively low, given our outliers and leverage points, so this model is so far a significant improvement than what we had prior; thanks to the transformations and the backwards elimination.  
+Interpretations of each type of coefficient:
+The Intercept Estimate (9.241059)
+This is the predicted $\log(\text{Income})$ when all quantitative variables are zero and all qualitative variables are at their reference levels. In real terms, $e^{9.315} = \$11,103$.
+
+Variable: Educ (Estimate: $0.082639$): 
+For every additional year of education, a person’s income is estimated to increase by approximately $8.2\%$, holding all other variables constant.
+
+Variable: Age (Estimate: $0.011528$)
+For every one-year increase in age, income is estimated to increase by approximately $1.2\%$, holding all other variables constant.
+
+Variable: log(TVHours + 1) (Estimate: $-0.225616$)
+A $1\%$ increase in the number of hours spent watching TV is associated with an estimated $0.23\%$ decrease in income.
+
+Variable: log(Sibs + 1) (Estimate: $-0.072470$)
+A $1\%$ increase in the number of siblings one has is associated with an estimated $7.25\%$ decrease in income.
+
+Variable: WorkRetired (Estimate: $-0.892310$)
+Individuals who are retired are estimated to have an income approximately $89.2\%$ lower on the log scale than the reference group, holding other factors constant.
+
+Variable: WorkHousekeeping (Estimate: $-0.530434$)
+Individuals who are housekeepers are estimated to have an income approximately $53.0\%$ lower on the log scale than the reference group, holding other factors constant.
+
+Variable: WorkLaid Off (Estimate: $0.039932$)
+Individuals who have been laid off are estimated to have an income approximately $3.99\%$ higher on the log scale than the reference group, holding other factors constant.
+
+Variable: WorkNot Working (Estimate: $-0.541399$)
+Individuals who are not working are estimated to have an income approximately $54.1\%$ lower on the log scale than the reference group, holding other factors constant.
+
+Variable: WorkOther (Estimate: $0.077172$)
+Individuals who are in the "other" categories are estimated to have an income approximately $7.72\%$ higher on the log scale than the reference group, holding other factors constant.
+
+Variable: WorkParttime (Estimate: $-0.139585$)
+Individuals who work part time are estimated to have an income approximately $13.96\%$ lower on the log scale than the reference group, holding other factors constant.
+
+Variable: WorkSchool (Estimate: $-0.439255$)
+Individuals who work are in school are estimated to have an income approximately $43.93\%$ lower on the log scale than the reference group, holding other factors constant.
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
