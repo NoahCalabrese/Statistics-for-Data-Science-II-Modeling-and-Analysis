@@ -1303,43 +1303,42 @@ After applying a backwards elimination technique on the transformed model, we go
 
 Interpretations of each type of coefficient:
 The Intercept Estimate (9.241059)
-This is the predicted $\log(\text{Income})$ when all quantitative variables are zero and all qualitative variables are at their reference levels. In real terms, $e^{9.315} = \$11,103$.
+This is the predicted $\log(\text{Income})$ when all quantitative variables are zero and all qualitative variables are at their reference levels. In real terms, $e^{9.241059} = \$10,312$.
 
 Variable: Educ (Estimate: $0.082639$): 
-For every additional year of education, a person’s income is estimated to increase by approximately $8.2\%$, holding all other variables constant.
+For every additional year of education, a person’s income is estimated to change by a factor of about $e^{0.082639} = 1.09$, or approximately a $9%$ increase, holding all other variables constant.
 
 Variable: Age (Estimate: $0.011528$)
-For every one-year increase in age, income is estimated to increase by approximately $1.2\%$, holding all other variables constant.
+For every one-year increase in age, income is estimated to change by a factor of about $e^{0.011528} = 1.01$, or approximately a $1\%$ increase, holding all other variables constant.
 
 Variable: log(TVHours + 1) (Estimate: $-0.225616$)
 A $1\%$ increase in the number of hours spent watching TV is associated with an estimated $0.23\%$ decrease in income.
 
 Variable: log(Sibs + 1) (Estimate: $-0.072470$)
-A $1\%$ increase in the number of siblings one has is associated with an estimated $7.25\%$ decrease in income.
+A $1\%$ increase in the number of siblings one has is associated with an estimated $0.07\%$ decrease in income.
 
 Variable: WorkRetired (Estimate: $-0.892310$)
-Individuals who are retired are estimated to have an income approximately $89.2\%$ lower on the log scale than the reference group, holding other factors constant.
+For individuals who are retired, income is estimated to change by a factor of $e^{-0.892310} = 0.41$ (a decrease by approximately $59\% (1-0.41)$) relative to the typical person who works a full-time job and holding other factors constant. This sets a "new baseline income" prior to considering other factors of $\$4,228 (10,312*0.41)$.
 
 Variable: WorkHousekeeping (Estimate: $-0.530434$)
-Individuals who are housekeepers are estimated to have an income approximately $53.0\%$ lower on the log scale than the reference group, holding other factors constant.
+For individuals who are housekeepers, income is estimated to change by a factor of $e^{-0.530434} = 0.59$ (a decrease by approximately $41\% (1-0.59)$) relative to the typical person who works a full-time job and holding other factors constant. This sets a "new baseline income" prior to considering other factors of $\$6,084 (10,312*0.59)$.
 
 Variable: WorkLaid Off (Estimate: $0.039932$)
-Individuals who have been laid off are estimated to have an income approximately $3.99\%$ higher on the log scale than the reference group, holding other factors constant.
+For individuals who are laid off, income is estimated to change by a factor of $e^0.039932 = 1.04$ (an increase by approximately $4\%$) relative to the typical person who works a full-time job and holding other factors constant. This sets a "new baseline income" prior to considering other factors of $\$19,724 (10,312*1.04)$.
 
 Variable: WorkNot Working (Estimate: $-0.541399$)
-Individuals who are not working are estimated to have an income approximately $54.1\%$ lower on the log scale than the reference group, holding other factors constant.
+For individuals who are not working, income is estimated to change by a factor of $e^{-0.541399} = 1.72$ (an increase by approximately $72\%$) relative to the typical person who works a full-time job and holding other factors constant. This sets a "new baseline income" prior to considering other factors of $\$17,737 (10,312*1.72)$.
 
 Variable: WorkOther (Estimate: $0.077172$)
-Individuals who are in the "other" categories are estimated to have an income approximately $7.72\%$ higher on the log scale than the reference group, holding other factors constant.
+For individuals whose work is classified as "other," income is estimated to change by $e^0.077172 = 1.08$ (an increase by approximately $8\%$) relative to the typical person who works a full-time job and holding other factors constant. This sets a "new baseline income" prior to considering other factors of $\$11,137 (10,312*1.08)$.
 
 Variable: WorkParttime (Estimate: $-0.139585$)
-Individuals who work part time are estimated to have an income approximately $13.96\%$ lower on the log scale than the reference group, holding other factors constant.
+For individuals who work part time, income is estimated to change by a factor of $e^{-0.139585} = 0.87$ (a decrease by approximately $13\%$) relative to the typical person who works a full-time job and holding other factors constant. This sets a "new baseline income" prior to considering other factors of $\$8,971 (10,312*0.87)$.
 
 Variable: WorkSchool (Estimate: $-0.439255$)
-Individuals who work are in school are estimated to have an income approximately $43.93\%$ lower on the log scale than the reference group, holding other factors constant.
+For individuals who work at a school, income is estiamted to change by a factor of $e^{-0.439255} = 0.64$ (a decrease by approximately $36\%$) relative to the typical person who works a full-time job and holding other factors constant. This sets a "new baseline income" prior to considering other factors of $\$6,600 (10,312*0.64)$.
 
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------
 
 Step 9: 
 
