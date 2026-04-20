@@ -1146,7 +1146,7 @@ plot(fit_final$fitted.values, rstandard(fit_final),
 abline(h = 0, lty = 2, lwd = 2)
 ```
 
-This plot looks so much better as the residuals are centered around 0 and the spread is much more constant across the fitted values. We no longer see dramatic patterns and this transformation significantly improved the model assumptions. We do not have evidence to suggest a violation of the linearity of homoscedasticity assumptions. 
+This plot looks much better as the residuals are centered around 0 and the spread is much more constant across the fitted values. We no longer see dramatic patterns and this transformation significantly improved the model assumptions. We do not have evidence to suggest a violation of the linearity of homoscedasticity assumptions. 
 
 ## iv) Are the standardized residuals from your linear model normally distributed? 
 
@@ -1179,9 +1179,381 @@ Use your transformed variables from now on.
 ## i) Investigate the interaction effects between the 2 qualitative covariate which has been specified for your team and all available quantitative covariates on the response variable. 
 
 ```{r}
-full_int <- lm(Income ~ Work * (Age + Educ + Hours + TVHours + MEduc + FEduc + Sibs), data = gss)
+full_int <- lm(log(Income) ~ Work * (Age + Educ + Hours + log(TVHours + 1) +
+                                       MEduc + FEduc + log(Sibs + 1)), data = gss)
 summary(full_int)
 ```
 
-Work has 8 levels, so we have 7 dummy variables times our have 7 quantitative variables, so 49 interaction terms. We want to reduce our model to avoid over fitting. We perform backward elimination
+Work has 8 levels, so we have 7 dummy variables times our have 7 quantitative variables, so 49 interaction terms. We want to reduce our model to avoid over fitting. We perform backward elimination since we already have our linear model with all possible covariates and interactions. 
+
+
+```{r}
+#anova(full_int)
+
+full_int = update(full_int, . ~ . - Work:MEduc)
+#anova(full_int)
+full_int = update(full_int, . ~ . - Work:log(Sibs + 1))
+#anova(full_int)
+full_int = update(full_int, . ~ . - MEduc)
+#anova(full_int)
+full_int = update(full_int, . ~ . - Work:Hours)
+#anova(full_int)
+full_int = update(full_int, . ~ . - Work:FEduc)
+#anova(full_int)
+full_int = update(full_int, . ~ . - Work:Age)
+#anova(full_int)
+full_int = update(full_int, . ~ . - Hours)
+#anova(full_int)
+full_int = update(full_int, . ~ . - FEduc)
+#anova(full_int)
+full_int = update(full_int, . ~ . - Work:Educ)
+#anova(full_int)
+full_int = update(full_int, . ~ . - Work:log(TVHours + 1))
+anova(full_int)
+
+summary(full_int)
+```
+
+
+## ii) Formulate a suitable final model to draw inferences on the response variable and provide the interpretation of each type of coefficient in your final model.
+
+Using a Backward Elimination with Valid Post-Selection Inference to formulate a good final model to draw inferences on Income. A 60 | 20 | 20 stadnard validation split (60 for training 20 for validation 20 for testing). 
+```{r}
+set.seed(0)
+X = model.matrix(
+  log(Income) ~ Work * (Age + Educ + Hours + log(TVHours + 1) +
+                        MEduc + FEduc + log(Sibs + 1)), data = gss)[, -1] 
+#[,-1] drops the intercept so we can do this selection test
+Y = log(gss$Income)
+n = nrow(X)
+P = ncol(X)
+train = sample(n, floor(0.6 * n))
+valid = sample(setdiff(1:n, train), floor(0.2 * n))
+test  = setdiff(1:n, c(train, valid))
+MSPE = numeric(P)
+
+for (p in P:1)
+{
+  fit = lm(Y ~ ., data = as.data.frame(X[, 1:p, drop = FALSE]), subset = train)
+
+  predictions = predict(fit, newdata = as.data.frame(X[valid, 1:p, drop = FALSE]))
+  MSPE[p] = mean((Y[valid] - predictions)^2)
+  ind = which.max(summary(fit)$coefficients[-1, 4]) + 1
+  if (ind != p)
+  {
+    X[, c(ind, p)] = X[, c(p, ind)]
+    colnames(X)[c(ind, p)] = colnames(X)[c(p, ind)]
+  }
+}
+plot(MSPE, type = "b", pch = 16, lwd = 4,
+     ylab = "Mean Squared\nPrediction Error")
+p = which.min(MSPE)
+fit = lm(Y ~ ., data = as.data.frame(X[,1:p, drop = FALSE]),
+         subset = c(train, valid))
+summary(fit)
+predictions = predict(fit,newdata = as.data.frame(X[test, 1:p, drop = FALSE]))
+mean((Y[test] - predictions)^2)
+```
+
+After applying a backwards elimination technique on the transformed model, we get 12 predictors (including the intercept) as the lowest and best options for future predicitions. 
+
+In the prediction error graph there are some incredible spikes. This is likely caused by multicollinearity within the 49 interaction terms. It is also possible that it was caused by using a 60/20/20 split, which only trains on 489 so the laid off or other categories in work may be under utilized (only having a small amount of n dedicated to it). The spike around 40 specifically is likely caused because we removed a variable that was shielding against collinearity causing the error to spike, but it still had to get removed since it was insignificant to the model and did not minimize the Mean Squared Predicition Error. 
+
+The MSPE resides at 1.07 which is relatively low, given our outliers and leverage points, so this model is so far a significant improvement than what we had prior; thanks to the transformations and the backwards elimination.  
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 9: 
+
+Ignore all interaction effects from now on.
+
+  i) Fit a mixed-effects model with all available quantitative and qualitative covariates by appropriately treating some of your covariates as random effects. Determine a suitable          transformation for your response variable. 
+
+  ii) Test the statistical significance of all your fixed effects. 
+  
+  iii) Calculate the intraclass correlation coefficients corresponding to each of your random effects What percentage of the total variation in your response variable does each of your        random effects explain? 
+
+  v) What’s another interpretation for each intraclass correlation coefficient?
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## i) Ignore all interaction effects from now on. Fit a mixed-effects model with all available quantitative and qualitative covariates by appropriately treating some of your covariates as random effects. Determine a suitable transformation for your response variable.  
+
+```{r}
+library(lme4)
+
+mixed_model = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss)
+
+sigma = data.frame(summary(mixed_model)$varcor)$sdcor
+names(sigma) = data.frame(summary(mixed_model)$varcor)$grp
+ICC = sigma^2 / sum(sigma^2)
+print(ICC)
+summary(mixed_model, correlation = FALSE)
+
+```
+
+```{r}
+Y = gss$Income
+alpha = 0.05
+lambda = seq(-2, 2, 0.01)
+loglik = numeric(length(lambda))
+for (i in 1:length(lambda)) {
+  if (lambda[i] == 0) {
+    Ypower = log(Y)
+  } else {
+    Ypower = (Y^lambda[i] - 1) / lambda[i]
+  }
+  power = lmer(Ypower ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss)
+
+  loglik[i] = logLik(power)[1] + (lambda[i] - 1) * sum(log(Y))
+}
+```
+
+```{r}
+CI = range(lambda[loglik > max(loglik) - qchisq(alpha, 1, lower.tail = FALSE) / 2])
+print(CI)
+```
+
+```{r}
+plot(lambda, loglik, "l",
+     xlab = expression(lambda),
+     ylab = "Profile Log-Likelihood",
+     lwd = 2)
+abline(h = max(loglik) - qchisq(alpha, 1, lower.tail = FALSE) / 2,
+       lty = 2, lwd = 2)
+abline(v = CI, lty = 2, lwd = 2)
+```
+If 0 is inside the CI then a log transformation is used, but the CI is [-0.13 -0.09] which does not include 0 but is very close. Which also backsup our previous transformation that we did prior, showing that a log transformation IS a suitable transformation even for this mixed effects model. The residuals show a range from $-4.27$ to $5.99$; the median is very close to zero ($-0.0073$) wihch suggests that the log transformation has done a good job of stabilizing the variance. So, we conclude that log(Income) is suitable even for this mixed effects model.
+
+Since our response variable Income was was very skewed and needs a transformation and the optimal lambda is close to 0, a log transformation is reasonable. We confirm that 
+
+
+## ii) Test the statistical significance of all your fixed effects.
+
+Statistical Significance Testing for Age:
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of Age on log(Income) is equal to 0.2997707.
+
+Statistical Significance Testing for Educ:
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Age + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of Educ on log(Income) is equal to 0.000610675.
+
+Statistical Significance Testing for Hours:
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Age + Educ + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of Hours on log(Income) is equal to 0.9999998
+
+Statistical Significance Testing for log(TVHours + 1):
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Age + Educ + Hours + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of log(TVHours + 1) on log(Income) is equal to 0.4771
+
+Statistical Significance Testing for Happy:
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of Happy on log(Income) is equal to 0.0296004.
+
+Statistical Significance Testing for MEduc:
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) 
+                   + Happy + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of MEduc on log(Income) is equal to 0.9921011
+
+Statistical Significance Testing for FEduc:
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) 
+                   + Happy + MEduc+ log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of FEduc on log(Income) is equal to 0.6757152
+
+
+Statistical Significance Testing for log(Sibs + 1):
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) 
+                   + Happy + MEduc+ FEduc + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of log(Sibs + 1) on log(Income) is equal to 0.5954642
+
+Statistical Significance Testing for Sex:
+```{r}
+full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
+                   + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+reduced = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) 
+                   + Happy + MEduc+ FEduc + log(Sibs + 1) + (1 | Zodiac) 
+                   + (1 | Marital) + (1 | Work), 
+                   data = gss, REML = FALSE)
+
+LR = -2 * (logLik(reduced)[1] - logLik(full)[1])
+pvalue = pchisq(LR, 5, lower.tail = FALSE)
+print(pvalue)
+```
+The p-value of the Likelihood Ratio test for the effect of Sex on log(Income) is equal to 0.7789858
+
+Out of every fixed effect covariate, the only statistically significant ones were Educ (p-value of 0.000610675) and Happy (p-value of 0.0296004). Every other fixed effect covariate remained statistically insignificant as their p-values through the Likelihood Ratio test were above the alpha threshold of 0.05. 
+
+## iii) Calculate the intraclass correlation coefficients corresponding to each of your random effects. What percentage of the total variation in your response variable does each of your random effects explain?
+
+
+Zodiac Intraclass Correlation Coefficient:
+```{r}
+ICC_Zodiac = (0.004464 /( 0.004464 + 0.069556 + 0.070973 + 1.143890))
+ICC_Zodiac
+```
+Zodiac explains roughly $0.35\%$ of the total variation in log(Income), which is extremely, extremely small. It has very low similarities between observations within the same group. TTwo people with the same Zodiac status, the predicted correlation between their log-incomes is $0.0034$.
+
+Work Intraclass Correlation Coefficient:
+```{r}
+ICC_Sibs = (0.069556 /( 0.004464 + 0.069556 + 0.070973 + 1.143890))
+ICC_Sibs
+```
+Work explains roughly $5.4\%$ of the total variation in log(Income), which is pretty small. It has low similarities between observations within the same group. Two people with the same Work status, the predicted correlation between their log-incomes is $0.054$.
+
+Marital Intraclass Correlation Coefficient:
+```{r}
+ICC_Marital = (0.070973 /( 0.004464 + 0.069556 + 0.070973 + 1.143890))
+ICC_Marital
+```
+Marital explains roughly $5.5\%$ of the total variation in log(Income), which is pretty small. It has low similarities between observations within the same group. Two people with the same marital status, the predicted correlation between their log-incomes is $0.055$.
+
+
+Residual Intraclass Correlation Coefficient:
+```{r}
+ICC_Marital = (1.143890 /( 0.004464 + 0.069556 + 0.070973 + 1.143890))
+ICC_Marital
+```
+The residuals explain $88.75\%$ of the total varition in log(Income), this means most of the total variation in log(Income) can not be explained by our random variables. Which is not optimal for our linear model, since we would rather have a higher degree of total variability in log(Income) be explained by our covaraites rather than just residuals. 
+
+
+## iv) What’s another interpretation for each intraclass correlation coefficient?
+The ICC represents the expected correlation between log(Income) of two different individuals who belong to the same group, examples stated above in section iii just above. ICC is a measure of within group similarity. A higher ICC means that individuals within the same category are more alike regarding their income than individuals chosen from the population at large. And we do not particullary have any large ICC's for our variables, which indicates that there may not be a lot of simularity between our random groups. 
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 10: 
+
+Ignore all random effects from now on. 
+
+  i) Apply a suitable model selection method and draw valid inferences on the response variable.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## i) Apply a suitable model selection method and draw valid inferences on the response variable.
+
+```{r}
+
+```
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 11: 
+
+Investigate the collinearity among all quantitative covariates. 
+
+i) Fit different types of regularized regression models with all available quantitative covariates. What can you observe about the estimated regularized regression coefficients? 
+
+ii) Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients. How do they compare against the estimates obtained through the ordinary least squares method?
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
