@@ -1621,7 +1621,7 @@ Using a Backward Elimination with Valid Post-Selection Inference to formulate a 
 ```{r}
 set.seed(0)
 Y = log(gss$Income)
-X = gss[, -11]
+X = gss[, -12]
 n = dim(X)[1]
 P = dim(X)[2]
 
@@ -1632,42 +1632,99 @@ MSPE = numeric(P)
 
 for (p in P:1)
 {
-  fit = lm(Y ~ ., data = X[, 1:p, drop = FALSE], subset = train)
-
-  predictions = predict(fit, newdata = X[valid, 1:p, drop = FALSE])
-  MSPE[p] = mean((Y[valid] - predictions)^2)
-
-  a = drop1(fit, test = "F")
-  ind = which.max(a[-1, "Pr(>F)"])
-
-  if (ind != p)
-  {
-    X[, c(ind, p)] = X[, c(p, ind)]
-    names(X)[c(ind, p)] = names(X)[c(p, ind)]
-  }
+fit = lm(Y ~ ., X[, 1:p, drop = FALSE], train)
+predictions = predict(fit, X[valid, 1:p, drop = FALSE])
+MSPE[p] = mean((Y[valid] - predictions)^2)
+ind = which.max(summary(fit)$coefficients[-1, 4])
+if (ind != p)
+{
+X[,c(ind, p)] = X[,c(p, ind)]
+names(X)[c(ind, p)] = names(X)[c(p, ind)]
 }
-
-plot(MSPE, type = "b", pch = 16, lwd = 4,
-     ylab = "Mean Squared\nPrediction Error")
-
+}
+plot(MSPE, type = "b", pch = 16, lwd = 4, ylab = "Mean Squared
+Prediction Error")
 p = which.min(MSPE)
-fit = lm(Y ~ ., data = X[, 1:p, drop = FALSE], subset = c(train, valid))
+fit = lm(Y ~ ., X[,1:p, drop = FALSE], test)
 summary(fit)
 
-predictions = predict(fit, newdata = X[test, 1:p, drop = FALSE])
-mean((Y[test] - predictions)^2)
 
 ```
+Analysis: After applying the Backward elimination with valid post selection inference, we were able to get the maximum amount of covariates that our model should consist on in order to have the lowest predicition error: 12. This is clear from the graph that shows 11-12 covariates are at the lowest prediction error of 0.8. After applying the backward elimination method, we were able to get two significant values, in FEduc and TVHours which hold p-values below the threshold of 0.05. On top of that, the overall p-value of the fitted model came out to 2.2e-16 which is approximately zero, showing that the model is statistically significant and that we can reject the null hypothesis. A nice change of pace from what our previous findings have been (which is having no statistically significant values). Also, our R^2 value was 0.57 which is a significant improvement from any model before, showing that our model actually explains 57% of the variation in the dataset. This model is by far the best model that we have had up until this point, demonstrating that our corrections to certain problems with our data have been going well and proper. 
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Step 11: 
 
-Investigate the collinearity among all quantitative covariates. 
+  i) Investigate the collinearity among all quantitative covariates. 
 
-i) Fit different types of regularized regression models with all available quantitative covariates. What can you observe about the estimated regularized regression coefficients? 
+  ii) Fit different types of regularized regression models with all available quantitative covariates. What can you observe about the estimated regularized regression coefficients? 
 
-ii) Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients. How do they compare against the estimates obtained through the ordinary least squares method?
+  iii) Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients. How do they compare against the estimates obtained         through the ordinary least squares method?
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+## Investigate the collinearity among all quantitative covariates. 
+In terms of correlation, there seems to be reasonable diversity within how correlated the quantiative covariates are with each other, nothing being above 0.75. So they are relatively correlated, for the most part, but not in any significant or impactful way. And in terms of investigating collinearity of the quantiative covariates it is clear through the Variance Inflation Factor (VIF) values that there is no collinearity between the variables. All of the VIF values are between (1, 2), and a typicaly observation with collinearity will have a VIF value of at least 5. So, we can say confidently that there is no clear collinearity in the model.
+```{r}
+gss_numeric <- gss[, sapply(gss, is.numeric)]
+cor(cor(gss_numeric[,]))
+#Checking how correlated the quantitative covariates are to assist in finding
+#the collinearity. 
+
+library(faraway)
+vif(fit_final)
+```
+
+## Fit different types of regularized regression models with all available quantitative covariates
+
+```{r}
+
+```
+
+
+Ridge Regression: 
+```{r}
+
+```
+
+Lasso Regression: 
+```{r}
+
+```
+
+
+## Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients.
+
+```{r}
+
+```
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 12: 
+
+  i) Apply a suitable multiple comparisons method to compare the average response value across different levels defined by the qualitative covariate which has been specified for your       team at 95 percent global confidence level. 
+
+  ii) How do the results of this method compare against the results obtained without the application of the multiple comparisons method?
+
+  **Test for differences between average response values across all different work status pairs.**
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Apply a suitable multiple comparisons method to compare the average response value across different levels at a 95% gloval confidence level
+
+Scheffe Method:
+```{r}
+library(emmeans)
+
+
+```
+
+```{r}
+
+```
+
+## How do the results of this method compare against the results obtained without the application of the multiple comparisons method?
 
