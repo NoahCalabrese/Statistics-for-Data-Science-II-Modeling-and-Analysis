@@ -471,7 +471,7 @@ anova(aux)
 library(car)
 leveneTest(Income ~ Happy, data = gss)
 ```
-We must reject the null hypothesis for every single variable here since all p-values are above 0.05 (in fact they are all above 0.2). The difference in spreads between our groups (e.g., Income variance between Men and Women) is likely due to random chance rather than a systematic difference for each of the variables. This technically means constant variance is achieved for these variables. 
+We can not reject the null hypothesis for every single variable here since all p-values are above 0.05 (in fact they are all above 0.2). The difference in spreads between our groups (e.g., Income variance between Men and Women) is likely due to random chance rather than a systematic difference for each of the variables. This technically means constant variance is achieved for these variables. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -681,7 +681,7 @@ residual_variance = intercept * multiplier
 
 new_weight = 1/(residual_variance)
 ```
-The coefficient is positive which means that the variance of the error term increases as Age increases. Each age data point (within the 815) is put to the power of 0.6978, meaning that the variance of the income residuals increase by 0.7% (it is the magnitude multiplier). 
+The coefficient is positive which means that the variance of the error term increases as Age increases. Each age data point (within the 815) is put to the power of 0.6978, meaning that the power exponent of the income residuals are set to a magnified by 0.7 (it is the magnitude multiplier). 
 
 ## iii) Use the optimal weights to apply the weighted least squares method with all available quantitative covariates. 
 ```{r}
@@ -801,11 +801,10 @@ Intercept: 806702.926   Age: 6981.679  Educ: 34064.401   Hours: 5138.218  TVHour
 
 ```{r}
 coef_full_model <- summary(full_model)$coefficients
-coef_std <- coef_table[, "Std. Error"]
+coef_std <- coef_full_model[, "Std. Error"]
 coef_std
 ```
-Standard Errors for the OLS Method:
-Intercept: 661484.217   Age: 6359.772  Educ: 35431.605   Hours: 5831.865  TVHours: 40846.300  MEduc: 32196.590  FEduc: 28386.664  Sibs: 33613.869
+Standard Errors for the OLS Method proived by coef_std
 
 ### Jackknife V.S. OLS Standard Error estimates
 
@@ -1621,7 +1620,8 @@ Using a Backward Elimination with Valid Post-Selection Inference to formulate a 
 ```{r}
 set.seed(0)
 Y = log(gss$Income)
-X = gss[, -12]
+gss_no_income <- gss[, names(gss) != "Income"]
+X = as.data.frame(model.matrix(~ . - 1, data = gss_no_income))
 n = dim(X)[1]
 P = dim(X)[2]
 
@@ -1650,8 +1650,7 @@ summary(fit)
 
 
 ```
-Analysis: After applying the Backward elimination with valid post selection inference, we were able to get the maximum amount of covariates that our model should consist on in order to have the lowest predicition error: 12. This is clear from the graph that shows 11-12 covariates are at the lowest prediction error of 0.8. After applying the backward elimination method, we were able to get two significant values, in FEduc and TVHours which hold p-values below the threshold of 0.05. On top of that, the overall p-value of the fitted model came out to 2.2e-16 which is approximately zero, showing that the model is statistically significant and that we can reject the null hypothesis. A nice change of pace from what our previous findings have been (which is having no statistically significant values). Also, our R^2 value was 0.57 which is a significant improvement from any model before, showing that our model actually explains 57% of the variation in the dataset. This model is by far the best model that we have had up until this point, demonstrating that our corrections to certain problems with our data have been going well and proper. 
-
+Analysis: After applying the Backward elimination with valid post selection inference, we were able to get the maximum amount of covariates that our model should consist on in order to have the lowest predicition error: 10. This is clear from the graph that shows 10 covariates are at the lowest prediction error of around 1. After applying the backward elimination method, we were able to get two signficant p-values in TvHours and Educ. And to further, the overall p-value of the fitted model came out to 2.2e-16 which is approximately zero, showing that the model is statistically significant and that we can reject the null hypothesis. A nice change of pace from what our previous findings have been (which is having no statistically significant values). Also, our R^2 value was 0.166 which is a significant improvement from any model before, showing that our model actually explains 16.6% of the variation in the dataset. This model is by the best model that we have had up until this point, demonstrating that our corrections to certain problems with our data have been going well and proper. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1721,7 +1720,7 @@ library(emmeans)
 
 
 ```
-
+  
 ```{r}
 
 ```
