@@ -1664,7 +1664,7 @@ Step 11:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## i) Investigate the collinearity among all quantitative covariates. 
-In terms of correlation, there seems to be reasonable diversity within how correlated the quantiative covariates are with each other, nothing being above 0.75, so pairwise correlations are not too significant or impactful but are relatively moderate. The strongest pairwise correlation is between MEduc and FEduc with correlation coefficient 0.659. In terms of investigating collinearity of the quantiative covariates it is clear through the Variance Inflation Factor (VIF) values based on the  final model that uses transformed TVHours and Sibs that there is no collinearity between the variables. All of the VIF values are between (1, 2), and a typicaly observation with collinearity will have a VIF value of at least 5. The largest VIFs being MEduc and FEduc, 1.9 and 1.95 respecitevly, so we can say confidently that there is no clear collinearity in the model.
+In terms of correlation, there seems to be reasonable diversity within how correlated the quantiative covariates are with each other, nothing being above 0.75, so pairwise correlations are not too significant or impactful but are relatively moderate. The strongest pairwise correlation is between MEduc and FEduc with correlation coefficient 0.659. In terms of investigating collinearity of the quantiative covariates it is clear through the Variance Inflation Factor (VIF) values based on the  final model that uses transformed TVHours and Sibs that there is no collinearity between the variables. All of the VIF values are between (1, 2), and a rule of thumb is that VIF values above 5 can indicate collinearity. The largest VIFs being MEduc and FEduc, 1.9 and 1.95 respecitevly, so there is no evidence of serious collinearity among the quantitative covariates in the model.
 
 ```{r}
 gss_numeric <- gss[, c("Age", "Educ", "Hours", "TVHours", "MEduc", "FEduc", "Sibs")]
@@ -1704,7 +1704,7 @@ cv.ridge = cv.glmnet(X[train,], Y[train], nfolds = 5, alpha = 0)
 ridge = glmnet(X[test,], Y[test], alpha = 0, lambda = cv.ridge$lambda.min)
 print(ridge$beta)
 ```
-The estimates for the estimated ridge regression coefficients are all much smaller than the corresponding ones in the full model, owing to the imposed penalty on the 2-norm of the regression coefficient vector. All estimated ridge regression coefficients appear to be slightly biased towards zero as a result. The coefficient for Age decreases from 2949.415 to -1273.665 with a sign change. The coefficient for Educ decreases slightly from 20448.463 to 20129.530. The coefficient for Hours moves closer to zero from -9323.480 to -1030.022. The coefficient for TVHours moves closer to zero from -65363.112 to -10473.137. The coefficient fror MEduc moves closer to zero from -3715.210 to 1980.115 with a sign change. The coefficient for FEduc moves closer to zero with a sign change from 10205.481 to -8107.498. Finally, the coefficient for Sibs decreases from 58648.969 to 24759.200. 
+The estimates for the estimated ridge regression coefficients are all much smaller than the corresponding ones in the full model, owing to the imposed penalty on the 2-norm of the regression coefficient vector. All estimated ridge regression coefficients appear to be slightly shrunk towards zero as a result. The coefficient for Age decreases from 2949.415 to -1273.665 with a sign change. The coefficient for Educ decreases slightly from 20448.463 to 20129.530. The coefficient for Hours moves closer to zero from -9323.480 to -1030.022. The coefficient for TVHours moves closer to zero from -65363.112 to -10473.137. The coefficient fror MEduc moves closer to zero from -3715.210 to 1980.115 with a sign change. The coefficient for FEduc moves closer to zero with a sign change from 10205.481 to -8107.498. Finally, the coefficient for Sibs decreases from 58648.969 to 24759.200. 
 
 ### Lasso Regression: 
 
@@ -1763,27 +1763,84 @@ The bootstrap estimates for the standard errors of the estimated lasso regressio
 
 Step 12: 
 
-  i) Apply a suitable multiple comparisons method to compare the average response value across different levels defined by the qualitative covariate which has been specified for your       team at 95 percent global confidence level. 
+  i) Apply a suitable multiple comparisons method to compare the average response value across different levels defined by the qualitative covariate which has been specified for your team at 95 percent global confidence level. 
 
   ii) How do the results of this method compare against the results obtained without the application of the multiple comparisons method?
 
-  **Test for differences between average response values across all different work status pairs.**
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Apply a suitable multiple comparisons method to compare the average response value across different levels at a 95% gloval confidence level
+## i) Apply a suitable multiple comparisons method to compare the average response value across different levels at a 95% gloval confidence level
 
+We use Scheffe's and Tukey's method to construct confidence intervals at the 95 percent global confidence level. We do not want separate individual 95% CIs we want to invoke the family-wise error rate (FWER) to construct simultaneous CIs such that FWER is less than or equal to alpha (0.05). 
 
-
-Scheffe Method:
+Set up test for differences between average response values across all different work status pairs
 ```{r}
-library(emmeans)
-
-
+fit = lm(Income ~ Work, gss)
+alpha = 0.05
+Y = gss$Income
+Q = factor(gss$Work)
+n = length(Q)
+K = length(levels(Q))
 ```
   
+### Mean comparisons with no correction
 ```{r}
-
+mu = aggregate(Income ~ Work, gss, mean)[,2]
+S = sqrt(sum((Y - mu[Q])^2) / (n - K))
+SE = S * sqrt(2 * K / n)
+diff = outer(mu, mu, "-")
+diff = diff[upper.tri(diff)]
+lab = outer(levels(Q), levels(Q), function(x, y) {paste0(x, " - ", y)})
+names(diff) = lab[upper.tri(lab)]
+CI = cbind(diff - qt(1 - alpha / 2, n - K) * SE,
+           diff + qt(1 - alpha / 2, n - K) * SE)
+colnames(CI) = c("Lower", "Upper")
+print(CI)
 ```
 
+
+```{r}
+library(emmeans)
+confint(pairs(emmeans(fit, ~ Work), adjust = "none"))
+```
+
+
+### Mean comparison with Scheffe's corrections :
+```{r}
+Scheffe = cbind(diff - sqrt((K - 1) * qf(1 - alpha, K - 1, n - K)) * SE,
+                diff + sqrt((K - 1) * qf(1 - alpha, K - 1, n - K)) * SE)
+colnames(Scheffe) = c("Lower", "Upper")
+print(Scheffe)
+```
+
+
+```{r}
+confint(pairs(emmeans(fit, ~ Work), adjust = "scheffe"))
+```
+
+### Mean comparison with Tukeys's corrections :
+
+```{r}
+Tukey = cbind(diff - qtukey(1 - alpha, K, n - K) * SE / sqrt(2),
+              diff + qtukey(1 - alpha, K, n - K) * SE / sqrt(2))
+colnames(Tukey) = c("Lower", "Upper")
+print(Tukey)
+```
+
+```{r}
+confint(pairs(emmeans(fit, ~ Work)))
+```
+
+
 ## How do the results of this method compare against the results obtained without the application of the multiple comparisons method?
+
+To begin with manual unadjusted confidence intervals, the Housekeeping - Parttime, Laid Off - Parttime, Not Working - Parttime, Other - Parttime, Parttime - Retired, and Parttime - School pairs are declared statistically significant as they do not include 0 in their intervals, without accounting for the multiple comparisons problem. However, when using emmeans to test pairs with adjust = "none", still without accounting for the multiple comparisons problem, none of the pairs are declared statistically significant so we do not have statistically significant evidence that any pair of Work status group differs in average income.
+
+Scheffe's method is very conservative resulting in none of the differences in average income being declared statistically significant since all intervals include 0 so the aforementioned significant differences are not significant after controlling the FWER and we do not have significant evidence that the average income differs between any pair of the Work status groups at the 95% global confidence level. We can also see how the Scheffe method is very conservative as the confidence intervals are much wider compared to the unadjusted confidence intervals. 
+
+Tukey’s Honestly Significant Difference method is typically more powerful resulting in more statistically significant pairs than Scheffe which we can see with the narrower confidence intervals but still there are no differences in average income between Work groups being declared statistically significant while correcting the multiple comparisons problem.
+
+When we compare against the results obtained without the application of the multiple comparisons method using the emmeans output, the conclusion does not change as all methods fail to find any significant differences in average income between any of the Work groups. Using the manual adjustments, some intervals appear significant before correction but none are significant after the Scheffe or Tukey correction. 
+
+
 
