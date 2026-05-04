@@ -1231,14 +1231,14 @@ This plot looks much better as the residuals are centered around 0 and the sprea
 
 ```{r}
 library(qqconf)
-qq_conf_plot(rstandard(full_model), 
+qq_conf_plot(rstandard(fit_final), 
              points_params = list(pch = 16, cex = 0.5))
 ```
-We use a Q-Q plot to display the observed quantiles of the sample against the expected quantiles of the null distribution. If the residuals were normally distributed we would expect the sample and theoretical quantiles to be in agreement and have the points form a straight line. We can see the points to not form a straight line at all as there is much deviation from the line at the higher end of the quantiles. Thus we have evidence for a deviation from linearity at the upper tail there is extreme upward curvature. This is consistent with our dataset as we found heavy right skeweness and extreme outliers. So no, the standardized residuals from the linear model are not normally distributed and there is evidence for the violation of the normality assumption. 
+We use a Q-Q plot to display the observed quantiles of the sample against the expected quantiles of the null distribution. If the residuals were normally distributed we would expect the sample and theoretical quantiles to be in agreement and have the points form a straight line. We can see the points to not form a straight line at all as there is much deviation from the line at the lower and higher end of the quantiles. Thus we have evidence for a deviation from linearity, especially at the upper tail there is extreme upward curvature. This is consistent with our dataset as we found heavy right skeweness and extreme outliers. So no, the standardized residuals from the linear model are not normally distributed and there is evidence for the violation of the normality assumption. 
 
 ## v) Construct 95 percent simultaneous confidence bands to test the global null hypothesis of normality for the standardized residuals.
 
-The plot above draws 95% simultaneous confidence bands around the Q-Q plot line. As all points on the Q-Q plot line do not lie within the simultaneous confidence bands, particularly in the upper tail points are far outside of the bands, so we reject the null hypothesis of normality at the 5% level. 
+The plot above draws 95% simultaneous confidence bands around the Q-Q plot line. As all points on the Q-Q plot line do not lie within the simultaneous confidence bands, particularly the lower and upper tail points are far outside of the bands, so we reject the null hypothesis of normality at the 5% level. 
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1663,43 +1663,101 @@ Step 11:
   iii) Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients. How do they compare against the estimates obtained         through the ordinary least squares method?
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Investigate the collinearity among all quantitative covariates. 
-In terms of correlation, there seems to be reasonable diversity within how correlated the quantiative covariates are with each other, nothing being above 0.75. So they are relatively correlated, for the most part, but not in any significant or impactful way. And in terms of investigating collinearity of the quantiative covariates it is clear through the Variance Inflation Factor (VIF) values that there is no collinearity between the variables. All of the VIF values are between (1, 2), and a typicaly observation with collinearity will have a VIF value of at least 5. So, we can say confidently that there is no clear collinearity in the model.
+## i) Investigate the collinearity among all quantitative covariates. 
+In terms of correlation, there seems to be reasonable diversity within how correlated the quantiative covariates are with each other, nothing being above 0.75, so pairwise correlations are not too significant or impactful but are relatively moderate. The strongest pairwise correlation is between MEduc and FEduc with correlation coefficient 0.659. In terms of investigating collinearity of the quantiative covariates it is clear through the Variance Inflation Factor (VIF) values based on the  final model that uses transformed TVHours and Sibs that there is no collinearity between the variables. All of the VIF values are between (1, 2), and a typicaly observation with collinearity will have a VIF value of at least 5. The largest VIFs being MEduc and FEduc, 1.9 and 1.95 respecitevly, so we can say confidently that there is no clear collinearity in the model.
+
 ```{r}
-gss_numeric <- gss[, sapply(gss, is.numeric)]
-cor(cor(gss_numeric[,]))
-#Checking how correlated the quantitative covariates are to assist in finding
-#the collinearity. 
+gss_numeric <- gss[, c("Age", "Educ", "Hours", "TVHours", "MEduc", "FEduc", "Sibs")]
+cor(gss_numeric)
+#Checking how correlated the quantitative covariates are to assist in finding the collinearity. 
 
 library(faraway)
 vif(fit_final)
 ```
 
-## Fit different types of regularized regression models with all available quantitative covariates
+## ii) Fit different types of regularized regression models with all available quantitative covariates
 
+Full OLS model coefficients
 ```{r}
-
+coef(full_model)
 ```
 
 
-Ridge Regression: 
 ```{r}
-
+Y = gss$Income
+X = gss_numeric
+n = dim(X)[1]
+P = dim(X)[2]
+set.seed(4030)
+train = sample(n, 0.6 * n)
+valid = sample(setdiff(1:n, train), 0.2 * n)
+test = setdiff(1:n, c(train, valid))
 ```
 
-Lasso Regression: 
-```{r}
+### Ridge Regression: 
 
+```{r}
+library(glmnet)
+train = c(train, valid)
+X = as.matrix(X)
+cv.ridge = cv.glmnet(X[train,], Y[train], nfolds = 5, alpha = 0)
+ridge = glmnet(X[test,], Y[test], alpha = 0, lambda = cv.ridge$lambda.min)
+print(ridge$beta)
+```
+The estimates for the estimated ridge regression coefficients are all much smaller than the corresponding ones in the full model, owing to the imposed penalty on the 2-norm of the regression coefficient vector. All estimated ridge regression coefficients appear to be slightly biased towards zero as a result. The coefficient for Age decreases from 2949.415 to -1273.665 with a sign change. The coefficient for Educ decreases slightly from 20448.463 to 20129.530. The coefficient for Hours moves closer to zero from -9323.480 to -1030.022. The coefficient for TVHours moves closer to zero from -65363.112 to -10473.137. The coefficient fror MEduc moves closer to zero from -3715.210 to 1980.115 with a sign change. The coefficient for FEduc moves closer to zero with a sign change from 10205.481 to -8107.498. Finally, the coefficient for Sibs decreases from 58648.969 to 24759.200. 
+
+### Lasso Regression: 
+
+```{r}
+cv.lasso = cv.glmnet(X[train,], Y[train], nfolds = 5, alpha = 1)
+lasso = glmnet(X[test,], Y[test], alpha = 1, lambda = cv.lasso$lambda.min)
+print(lasso$beta)
+```
+We observe that the estimated lasso regression coefficients for Age, Hours, TVHours, and MEduc have been set to
+zero, so lasso removed these covariates from the model. The estimated lasso regression coefficient for FEduc shrunk closer to zero and changes sign, but the coefficients for Educ and Sibs  increased. 
+
+## iii) Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients.
+
+```{r}
+summary(full_model)$coefficients[-1, "Std. Error"]
 ```
 
 
-## Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients.
+### Ridge Regression: 
 
 ```{r}
-
+nboot = 10000
+beta_ridge = matrix(0, nboot, P)
+colnames(beta_ridge) = colnames(X)
+for (i in 1:nboot)
+{
+  ind = sample(test, replace = TRUE)
+  beta_ridge[i,] = glmnet(X[ind,], Y[ind], alpha = 0,
+                          lambda = cv.ridge$lambda.min)$beta[,]
+}
+SE_ridge = apply(beta_ridge, 2, sd)
+print(SE_ridge)
 ```
 
+The bootstrap estimates for the standard errors of the estimated ridge regression coefficients generally are much smaller (besides Sibs) than the corresponding ones in the full model owing to the imposed penalty on the 2-norm of the regression coefficient vector. The standard error for Age decreases from 6231.347 to 1882.244. The standard error for Educ decreases from 35626.187 to 28629.840. The standard error for Hours decreases from 5922.973 to 1790.363. The standard error for TVHours decreases from 42493.382 to 14139.763. The standard error fror MEduc decreases from 32698.962 to 3297.963. The standard error for FEduc decreases from 28724.438 to 12401.428. Finally, the standard error for Sibs increases slightly from 33489.543 to 35203.935. 
 
+
+### Lasso Regression: 
+
+```{r}
+beta_lasso = matrix(0, nboot, P)
+colnames(beta_lasso) = colnames(X)
+for (i in 1:nboot)
+{
+  ind = sample(test, replace = TRUE)
+  beta_lasso[i,] = glmnet(X[ind,], Y[ind], alpha = 1,
+                          lambda = cv.lasso$lambda.min)$beta[,]
+}
+SE_lasso = apply(beta_lasso, 2, sd)
+print(SE_lasso)
+```
+
+The bootstrap estimates for the standard errors of the estimated lasso regression coefficients change in different ways to corresponding ones in the full model. The standard error for Age decreases from 6231.347 to 3898.264. The standard error for Educ increases from 35626.187 to 86464.824. The standard error for Hours decreases from 5922.973 to 5104.711. The standard error for TVHours decreases from 42493.382 to 14890.902. The standard error for MEduc decreases from 32698.962 to 10259.079. The standard error for FEduc increases from 28724.438 to 33426.613. Finally, the standard error for Sibs increases from 33489.543 to 84808.710. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1713,6 +1771,8 @@ Step 12:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Apply a suitable multiple comparisons method to compare the average response value across different levels at a 95% gloval confidence level
+
+
 
 Scheffe Method:
 ```{r}
