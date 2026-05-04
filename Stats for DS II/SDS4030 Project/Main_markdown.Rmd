@@ -1832,7 +1832,7 @@ confint(pairs(emmeans(fit, ~ Work)))
 ```
 
 
-## How do the results of this method compare against the results obtained without the application of the multiple comparisons method?
+## ii) How do the results of this method compare against the results obtained without the application of the multiple comparisons method?
 
 To begin with manual unadjusted confidence intervals, the Housekeeping - Parttime, Laid Off - Parttime, Not Working - Parttime, Other - Parttime, Parttime - Retired, and Parttime - School pairs are declared statistically significant as they do not include 0 in their intervals, without accounting for the multiple comparisons problem. However, when using emmeans to test pairs with adjust = "none", still without accounting for the multiple comparisons problem, none of the pairs are declared statistically significant so we do not have statistically significant evidence that any pair of Work status group differs in average income.
 
@@ -1841,6 +1841,70 @@ Scheffe's method is very conservative resulting in none of the differences in av
 Tukey’s Honestly Significant Difference method is typically more powerful resulting in more statistically significant pairs than Scheffe which we can see with the narrower confidence intervals but still there are no differences in average income between Work groups being declared statistically significant while correcting the multiple comparisons problem.
 
 When we compare against the results obtained without the application of the multiple comparisons method using the emmeans output, the conclusion does not change as all methods fail to find any significant differences in average income between any of the Work groups. Using the manual adjustments, some intervals appear significant before correction but none are significant after the Scheffe or Tukey correction. 
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 13: 
+
+  i) Fit a multiple linear model with all available quantitative and qualitative covariates.
+
+  ii) Apply global testing methods to determine whether at least one statistically significant effect exists on your response variable. 
+  
+  iii) How do the results of these methods compare against each other?
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+##  i) Fit a multiple linear model with all available quantitative and qualitative covariates. 
+
+```{r}
+global_model = lm(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) +
+                    MEduc + FEduc + log(Sibs + 1) +
+                    Sex + Happy + Marital + Work + Zodiac,
+                  data = gss)
+summary(global_model)
+```
+
+## ii) Apply global testing methods to determine whether at least one statistically significant effect exists on your response variable. 
+
+$H_0$ = all the individual null hypotheses are simultaneously true so none of the covariates have a statistically significant effect on the response variable log(Income)
+$H_1$ = at least one of them is false so at least one of the covariates has a statistically significant effect on log(Income)
+
+```{r}
+pvalues = summary(global_model)$coefficients[-1, 4]
+m = length(pvalues)
+alpha = 0.05
+```
+
+### Bonferroni Test
+
+```{r}
+Bonf = min(pvalues)
+print(Bonf < alpha/m)
+```
+
+We let B denote the minimum observed p-value. Since B is less than $\frac{\alpha}{m}$ = $\frac{0.05}{32}$ then we reject the global null hypothesis at global significance level $\alpha$ = 0.05. 
+
+### Fisher’s Combination Test
+
+```{r}
+Fisher = -2 * sum(log(pvalues))
+print(Fisher > qchisq(1 - alpha, 2 * m))
+```
+
+Since the Fisher test statistic F is greater than $\chi^2_{2m; \alpha}$ then we reject the global null hypothesis at global
+significance level  $\alpha$ = 0.05. 
+
+### Simes Test
+
+```{r}
+Simes = sum(pvalues[order(pvalues)] <= (1:m) * alpha/m)
+print(Simes > 0)
+```
+
+Considering ordered p-values $p_{(1)}, p_{(2)},..., p_{(m)}$ since $p_{(j)}$ is less than or equal to $\frac{j*\alpha}{m}$ for at least one index then we reject the global null hypothesis at global significance level $\alpha$ = 0.05.
+
+## iii) How do the results of these methods compare against each other?
+
+All three tests reject the null that none of the covariates have a statistically significant effect on log(Income). The Bonferroni Test uses the minimum observed p-value and compares it to $\frac{\alpha}{m}$. The Fisher combination test combines evidence across all p-values to make a test statistic and compares it the upper $\alpha$ = 0.05 quantile of the $\chi^2_{2m}$ distribution. The Simes test orders the p-values and tests each index j. Thus all methods utilize the individual p-values to search for a case where one of the null hypotheses is false, so we can conclude that at least one of the covariates has a statistically significant effect on log(Income).
 
 
 
