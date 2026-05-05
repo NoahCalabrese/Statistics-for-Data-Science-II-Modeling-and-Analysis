@@ -37,19 +37,11 @@ We begin our data science workflow by familiarizing ourselves with the GSS datas
 
 Now that we understand our data we isolate our goal being to build a linear model for the response variable yearly income by treating all other seven quanitative variables as covariates and ignoring all five qualitative variables. 
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 1: 
+# Step 1: 
+  
 
-  i) Fit a multiple linear model with all available quantitative covariates. 
-  
-  ii) Perform exact and asymptotic tests for the set of linear constraints which has been specified for your team. 
-  
-  iii) Do all of your conclusions agree with each other and what are the relationships between the different tests?
-  
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-## i) Fitting a multiple linear model with all available quantitative covariates. This is the model that we will use for the next few parts of this project
+## i) Fitting a multiple linear model with all available quantitative covariates. 
 
 ```{r}
 library(faraway)
@@ -246,13 +238,8 @@ So yes, we observe that the results of all the four test statistics concur. The 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 2: 
+# Step 2: 
 
-  i) Is the variance of the random error terms non-constant as a function of any of the quantitative or qualitative covariates? 
-  
-  ii) Perform suitable heteroscedasticity tests and state your conclusions.
-  
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## i) Is the variance of the random error terms non-constant as a function of any of the quantitative or qualitative covariates? 
 
@@ -378,9 +365,9 @@ So while we see visual indications for the violation of homoscedasticity in the 
 
 We use the Breush-Pagan test for heteroscedasticity to test whether the variance of the error terms is a linear function of the covariates. The BP test statistic is 8.955868 and p-value is 0.2558401. Thus, we can not reject the null hypothesis that the full_model is homoscedastic since the p-value is larger than the alpha threshold of 0.05. This means we do not have sufficient evidence to reject the null hypothesis of homoskedasticity at $\alpha$ = 5% and we do not detect a relationship of linear dependence of variance on the covariates. 
 
+### Breusch-Pagan Test for heteroscedasticity
 
 ```{r}
-#Breusch-Pagan Test for heteroscedasticity
 Y = gss$Income
 residuals = full_model$residuals
 Yaux = residuals^2
@@ -399,9 +386,9 @@ print(pvalue)
 library(lmtest)
 bptest(full_model)
 ```
-We can also use the Brown-Forsythe Test to test for heteroscedasticity-
+### Brown-Forsythe Test for heteroscedasticity
 
-Brown-Forsythe for Sex:
+**Brown-Forsythe for Sex**
 
 Grouping by sex, since we need to group by a categorical variable with levels (sex has 2 levels so it's valid). So, for sex the Brown-Forscythe test shows that there is np sufficient evidence that it is heteroscadastic since the p-value is 0.6143. 
 ```{r}
@@ -416,7 +403,8 @@ library(car)
 leveneTest(Income ~ Sex, data = gss)
 ```
 
-Brown-Forsythe for Work:
+**Brown-Forsythe for Work**
+
 Grouping by work, since we need to group by a categorical variable that has levels (Work has 2+). So, for work the Brown-Forscythe test shows that there is no sufficient evidence that it is heteroscadastic since the p-value is 0.6582. 
 ```{r}
 gss$Work <- as.factor(gss$Work)
@@ -430,7 +418,8 @@ library(car)
 leveneTest(Income ~ Work, data = gss)
 ```
 
-Brown-Forsythe for Marital:
+**Brown-Forsythe for Marital**
+
 Grouping by Marital, since we need to group by a categorical variable that has levels (Marital has 2+). So, for work the Brown-Forscythe test shows that there is no sufficient evidence that it is heteroscadastic since the p-value is 0.7978. 
 ```{r}
 gss$Marital <- as.factor(gss$Marital)
@@ -444,7 +433,8 @@ library(car)
 leveneTest(Income ~ Marital, data = gss)
 ```
 
-Brown-Forsythe for Zodiac:
+**Brown-Forsythe for Zodiac**
+
 Grouping by Zodiac, since we need to group by a categorical variable that has levels (Zodiac has 2+). So, for work the Brown-Forscythe test shows that there is no sufficient evidence that it is heteroscadastic since the p-value is 0.2985 
 ```{r}
 gss$Zodiac <- as.factor(gss$Zodiac)
@@ -458,7 +448,8 @@ library(car)
 leveneTest(Income ~ Zodiac, data = gss)
 ```
 
-Brown-Forsythe for Happy:
+**Brown-Forsythe for Happy**
+
 Grouping by Happy, since we need to group by a categorical variable that has levels (Happy has 2+). So, for work the Brown-Forscythe test shows that there is no sufficient evidence that it is heteroscadastic since the p-value is 0.2187 
 ```{r}
 gss$Happy <- as.factor(gss$Happy)
@@ -475,14 +466,10 @@ We can not reject the null hypothesis for every single variable here since all p
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 3: 
+# Step 3: 
 
-  i) Calculate a suitable heteroscedasticity-consistent estimate for the covariance matrix of the regression coefficients. How does it compare against the corresponding ordinary least squares estimate? 
-     
-  ii) Calculate heteroscedasticity-consistent t-test statistics and 95 percent CIs for the regression coefficients. How do they compare against the results yielded by the ordinary least squares method?
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+**Ordinary Least Squares Method **
 
 ```{r}
 X = model.matrix(full_model)
@@ -504,8 +491,7 @@ The 95% observed CI for the regression coefficient $\hat\beta_0$, the intercept,
 ```{r}
 summary(full_model)
 ```
-The observed t test statistic of statistical significance for the intercept regression coeﬃcient
-is 0.308 with p-value 0.7583. The observed t test statistic of statistical significance for the Age regression coefficient is 0.473 with p-value 0.6361. The observed t test statistic of statistical significance for the Educ regression coefficient is 0.574 with p-value 0.5661. The observed t test statistic of statistical significance for the Hours regression coefficient is -1.574 with p-value 0.1159. The observed t test statistic of statistical significance for the TVHours regression coefficient is -1.538 with p-value 0.1244. The observed t test statistic of statistical significance for the MEduc regression coefficient is -0.114 with p-value 0.9096. The observed t test statistic of statistical significance for the FEduc regression coefficient is 0.355 with p-value 0.7225. The observed t test statistic of statistical significance for the Sibs regression coefficient is 1.751 with p-value 0.0803. Thus, none of the regression coefficients are statistically significant at the 0.05 level. 
+The observed t test statistic of statistical significance for the intercept regression coeﬃcient is 0.308 with p-value 0.7583. The observed t test statistic of statistical significance for the Age regression coefficient is 0.473 with p-value 0.6361. The observed t test statistic of statistical significance for the Educ regression coefficient is 0.574 with p-value 0.5661. The observed t test statistic of statistical significance for the Hours regression coefficient is -1.574 with p-value 0.1159. The observed t test statistic of statistical significance for the TVHours regression coefficient is -1.538 with p-value 0.1244. The observed t test statistic of statistical significance for the MEduc regression coefficient is -0.114 with p-value 0.9096. The observed t test statistic of statistical significance for the FEduc regression coefficient is 0.355 with p-value 0.7225. The observed t test statistic of statistical significance for the Sibs regression coefficient is 1.751 with p-value 0.0803. Thus, none of the regression coefficients are statistically significant at the 0.05 level. 
 
 
 ## i) Calculate a suitable heteroscedasticity-consistent estimate for the covariance matrix of the regression coefficients. How does it compare against the corresponding ordinary least squares estimate?
@@ -575,27 +561,16 @@ The heteroscedasticity-consistent 95% CIs for the Sibs coefficient is [-15467.31
 The heteroscedasticity-consistent 95% CIs for Hours, TVHours MEduc are narrower than the 95% CIs by the ordinary least squares method, so the OLS may have overestimated variability there, but overall the heteroscedasticity-consistent 95% CIs are mostly wider than the 95% CIs by the ordinary least squares method. Still all methods contain 0 so the conclusions are the same at the 5% level and none of the regression coefficients are statistically significant.  
 
 
-## Patterns
+**Patterns**
 
 The variables Hours, TVHours, and especially MEduc, consistently exhibit the most changes from OLS to HC, where their test statistics become more extreme, the variance of their coefficients decrease, and their confidence intervals become substantially narrower. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 4: 
+# Step 4: 
 
-  i) Apply the iteratively reweighted least squares method to specify optimal weights for the variances of the random error terms as a function of the quantitative covariate which has been specified for your team.
 
-  ii) Write down and interpret your estimated equation for the residual variance. 
-  
-  iii) Use the optimal weights to apply the weighted least squares method with all available quantitative covariates. 
-
-  iv) Calculate t test statistics and 95 percent CIs for the regression coefficients. 
-
-  v) How do they compare against the results yielded by the ordinary least squares method?
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-## i) Apply the iteratively reweighted least squares method to specify optimal weights for the variances of the random error terms as a function of the quantitative covariate which has been specified for your team.
+## i) Apply the iteratively reweighted least squares method to specify optimal weights for the variances of the random error terms as a function of the quantitative covariate which has been specified for your team (Age)
 
 ### Weighted Least Squares
 ```{r}
@@ -728,17 +703,9 @@ That is also visible in the confidence intervals we constructed above. All of th
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 5: 
+# Step 5: 
 
-  i) Ignore any heteroscedasticity issues from now on. Apply the jackknife and a suitable bootstrap method to estimate the standard errors of your regression coefficients. 
 
-  ii) How do your estimates compare against the estimates obtained through the ordinary least squares method? 
-
-  iii) Use the bootstrap estimates to construct different types of 95 percent CIs for the regression coefficients. 
-
-  iv) How do the results of these methods compare against each other?
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## i) Ignore any heteroscedasticity issues from now on. Apply the jackknife and a suitable bootstrap method to estimate the standard errors of your regression coefficients. 
 
 ### Jackknife Method
@@ -875,15 +842,9 @@ Overall, OLS, Normal, and Percentile's intervals all contained 0, so there was n
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 6: 
+# Step 6: 
 
-  i) Perform a nonparametric test of overall statistical significance. 
 
-  ii) Perform a non-parametric test of statistical significance for the effect of a single covariate of your choice on the response variable. 
-
-  iii) How do the estimated p-values compare against the p-values obtained under the theoretical null distribution?
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## i) Perform a nonparametric test of overall statistical significance. 
 
 
@@ -959,7 +920,8 @@ print(pvalue)
 
 The estimated p-value obtained through the permutation t-test 0.1187881 after utilizing the Hours covariate is roughly equal to the one obtained under the theoretical null distribution 0.1158518.
 
-Permutation T-Test statistic:
+**Permutation T-Test statistic:**
+
 Provides the distribution with theoretical, observed, and empirical information using the Hours covariate.
 ```{r}
 hist(tperm, "FD", freq = FALSE, main = NA, xlab = "Permutation t Test Statistics")
@@ -1005,7 +967,8 @@ print(pvalue)
 
 The estimated p-value obtained through the permutation permutation t-test after utilizing the TVHours covariate 0.1022898 is slightly smaller than the one to the one obtained under the theoretical null distribution 0.1243934.
 
-Permutation T-Test statistic:
+**Permutation T-Test statistic:**
+
 Provides the distribution with theoretical, observed, and empirical information using the TVHours covariate.
 ```{r}
 hist(tperm, "FD", freq = FALSE, main = NA, xlab = "Permutation t Test Statistics")
@@ -1037,25 +1000,15 @@ A very similar story is told with the permutation F test. The histogram and the 
 
 Interestingly enough, when testing the p-value of TVHours on Income using the permutation t test, we get to see a slightly different output than the other two. The histogram does not perfectly follow the theoretical distribution, being much more concentrated around zero than the t-distribution assumed, indicating some deviation from the assumptions of the parametric test and telling us that the
 OLS model assumption of normally distributed errors may not be best for the TVHours covariate. However, even though this test is showing a little evidence of significance, it is still not enough to actually be considered statistically significant at the $5\%$ level, since the p-value is 0.1 So, the pivotal CI was not entirely accurate when determining these two covariates as statistically signficant, and we do not have sufficient evidence to conclude that TVhours has a statistically significant effect on income.   
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 7: 
+# Step 7: 
 
-  i) Are there any covariates which should be transformed? 
-  
-  ii) Should a transformation be applied to the response variable? 
-
-  iii) Refit your linear model to account for all your transformed variables. 
-
-  iv) Are the standardized residuals from your linear model normally distributed? 
-
-  v) Construct 95 percent simultaneous confidence bands to test the global null hypothesis of normality for the standardized residuals.
-  
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## i) Are there any covariates which should be transformed? 
 
-We will look at each coefficient individually using a histogram and boxplot to look for skew. 
+We will look at each qualitative covariate individually using a histogram and boxplot to look for skew. 
 
 ### Age 
 
@@ -1144,9 +1097,8 @@ The histogram for number of siblings is strongly right skewed, and the box plot 
 Out of the 7 numerical covariates - Age (Responder's Age), Educ (Total years of education), Hours (Weekly work hours), TVHours (Hours spent watching TV daily), MEduc (Mother's years of education), FEduc (Father's years of education), and Sibs (Number of siblings)- TVHours and Sibs- are right skewed and to address their high values a log transformation is appropriate in order to improve normality and stabilize variance. While square root transformations are these covariates are substantially skewed and should be transformed with a log transformation to better satisfy model assumptions of normality and non constant variance.
 
 
-## ii) Should a transformation be applied to the response variable? 
+## ii) Should a transformation be applied to the response variable (Income) ? 
 
-### Income
 
 ```{r}
 hist(gss$Income)
@@ -1243,19 +1195,12 @@ The plot above draws 95% simultaneous confidence bands around the Q-Q plot line.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 8: 
+# Step 8: 
 
 Use your transformed variables from now on.
 
-  i) Investigate the interaction effects between the qualitative covariate which has been specified for your team and all available quantitative covariates on the response variable. 
-  
-        - What has been specified to us: Investigate the interaction effects between work status and all available quantitative covariates on the response variable.
-        
-  ii) Formulate a suitable final model to draw inferences on the response variable and provide the interpretation of each type of coefficient in your final model.
-  
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## i) Investigate the interaction effects between the 2 qualitative covariate which has been specified for your team and all available quantitative covariates on the response variable. 
+## i) Investigate the interaction effects between the qualitative covariate which has been specified for your team (work status) and all available quantitative covariates on the response variable. 
 
 ```{r}
 full_int <- lm(log(Income) ~ Work * (Age + Educ + Hours + log(TVHours + 1) +
@@ -1297,10 +1242,10 @@ summary(full_int)
 
 After applying a backwards elimination technique on the transformed model, we get 12 predictors (including the intercept) as the lowest and best options for future predictions. 
 
-Inferences on the response variable:
+**Inferences on the response variable:**
 After applying a backwards elimination technique on the transformed model, we got a p-value of 2.785e-13, which means our new model is statistically significant while testing against Yearly Income. This means that these covariates actually influence the Income variable, to a significant degree. Though we did recieve an $R^2$ adj value of 0.08 which means that our variables are not explaining the variability of the model well. But, a significant p-value is a very good sign for this transformed model.
 
-Interpretations of each type of coefficient:
+**Interpretations of each type of coefficient:**
 The Intercept Estimate (9.241059)
 This is the predicted $\log(\text{Income})$ when all quantitative variables are zero and all qualitative variables are at their reference levels. In real terms, $e^{9.241059} = \$10,312$.
 
@@ -1339,21 +1284,12 @@ For individuals who work at a school, income is estiamted to change by a factor 
 
 -------------------------------------------------------------
 
-Step 9: 
+# Step 9: 
 
 Ignore all interaction effects from now on.
 
-  i) Fit a mixed-effects model with all available quantitative and qualitative covariates by appropriately treating some of your covariates as random effects. Determine a suitable          transformation for your response variable. 
 
-  ii) Test the statistical significance of all your fixed effects. 
-  
-  iii) Calculate the intraclass correlation coefficients corresponding to each of your random effects What percentage of the total variation in your response variable does each of your        random effects explain? 
-
-  v) What’s another interpretation for each intraclass correlation coefficient?
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-## i) Ignore all interaction effects from now on. Fit a mixed-effects model with all available quantitative and qualitative covariates by appropriately treating some of your covariates as random effects. Determine a suitable transformation for your response variable.  
+## i) Fit a mixed-effects model with all available quantitative and qualitative covariates by appropriately treating some of your covariates as random effects. Determine a suitable transformation for your response variable.  
 
 ```{r}
 library(lme4)
@@ -1407,12 +1343,13 @@ abline(v = CI, lty = 2, lwd = 2)
 ```
 If 0 is inside the CI then a log transformation is used, but the CI is [-0.13 -0.09] which does not include 0 but is very close. Which also backsup our previous transformation that we did prior, showing that a log transformation IS a suitable transformation even for this mixed effects model. The residuals show a range from $-4.27$ to $5.99$; the median is very close to zero ($-0.0073$) wihch suggests that the log transformation has done a good job of stabilizing the variance. So, we conclude that log(Income) is suitable even for this mixed effects model.
 
-Since our response variable Income was was very skewed and needs a transformation and the optimal lambda is close to 0, a log transformation is reasonable. We confirm that 
+Since our response variable Income was was very skewed and needs a transformation and the optimal lambda is close to 0, a log transformation is reasonable.
 
 
 ## ii) Test the statistical significance of all your fixed effects.
 
-Statistical Significance Testing for Age:
+### Statistical Significance Testing for Age
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1429,7 +1366,8 @@ print(pvalue)
 ```
 The p-value of the Likelihood Ratio test for the effect of Age on log(Income) is equal to 0.2997707.
 
-Statistical Significance Testing for Educ:
+### Statistical Significance Testing for Educ
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1446,7 +1384,8 @@ print(pvalue)
 ```
 The p-value of the Likelihood Ratio test for the effect of Educ on log(Income) is equal to 0.000610675.
 
-Statistical Significance Testing for Hours:
+### Statistical Significance Testing for Hours
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1463,7 +1402,8 @@ print(pvalue)
 ```
 The p-value of the Likelihood Ratio test for the effect of Hours on log(Income) is equal to 0.9999998
 
-Statistical Significance Testing for log(TVHours + 1):
+### Statistical Significance Testing for log(TVHours + 1)
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1480,7 +1420,8 @@ print(pvalue)
 ```
 The p-value of the Likelihood Ratio test for the effect of log(TVHours + 1) on log(Income) is equal to 0.4771
 
-Statistical Significance Testing for Happy:
+### Statistical Significance Testing for Happy
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1497,7 +1438,8 @@ print(pvalue)
 ```
 The p-value of the Likelihood Ratio test for the effect of Happy on log(Income) is equal to 0.0296004.
 
-Statistical Significance Testing for MEduc:
+### Statistical Significance Testing for MEduc
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1514,7 +1456,8 @@ print(pvalue)
 ```
 The p-value of the Likelihood Ratio test for the effect of MEduc on log(Income) is equal to 0.9921011
 
-Statistical Significance Testing for FEduc:
+### Statistical Significance Testing for FEduc
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1532,7 +1475,8 @@ print(pvalue)
 The p-value of the Likelihood Ratio test for the effect of FEduc on log(Income) is equal to 0.6757152
 
 
-Statistical Significance Testing for log(Sibs + 1):
+### Statistical Significance Testing for log(Sibs + 1)
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1549,7 +1493,8 @@ print(pvalue)
 ```
 The p-value of the Likelihood Ratio test for the effect of log(Sibs + 1) on log(Income) is equal to 0.5954642
 
-Statistical Significance Testing for Sex:
+### Statistical Significance Testing for Sex
+
 ```{r}
 full = lmer(log(Income) ~ Age + Educ + Hours + log(TVHours + 1) + Happy 
                    + MEduc + FEduc + log(Sibs + 1) + Sex + (1 | Zodiac) 
@@ -1571,21 +1516,24 @@ Out of every fixed effect covariate, the only statistically significant ones wer
 ## iii) Calculate the intraclass correlation coefficients corresponding to each of your random effects. What percentage of the total variation in your response variable does each of your random effects explain?
 
 
-Zodiac Intraclass Correlation Coefficient:
+### Zodiac Intraclass Correlation Coefficient
+
 ```{r}
 ICC_Zodiac = (0.004464 /( 0.004464 + 0.069556 + 0.070973 + 1.143890))
 ICC_Zodiac
 ```
 Zodiac explains roughly $0.35\%$ of the total variation in log(Income), which is extremely, extremely small. It has very low similarities between observations within the same group. TTwo people with the same Zodiac status, the predicted correlation between their log-incomes is $0.0034$.
 
-Work Intraclass Correlation Coefficient:
+### Work Intraclass Correlation Coefficient
+
 ```{r}
 ICC_Sibs = (0.069556 /( 0.004464 + 0.069556 + 0.070973 + 1.143890))
 ICC_Sibs
 ```
 Work explains roughly $5.4\%$ of the total variation in log(Income), which is pretty small. It has low similarities between observations within the same group. Two people with the same Work status, the predicted correlation between their log-incomes is $0.054$.
 
-Marital Intraclass Correlation Coefficient:
+### Marital Intraclass Correlation Coefficient
+
 ```{r}
 ICC_Marital = (0.070973 /( 0.004464 + 0.069556 + 0.070973 + 1.143890))
 ICC_Marital
@@ -1593,12 +1541,13 @@ ICC_Marital
 Marital explains roughly $5.5\%$ of the total variation in log(Income), which is pretty small. It has low similarities between observations within the same group. Two people with the same marital status, the predicted correlation between their log-incomes is $0.055$.
 
 
-Residual Intraclass Correlation Coefficient:
+### Residual Variation Proportion 
+
 ```{r}
 ICC_Marital = (1.143890 /( 0.004464 + 0.069556 + 0.070973 + 1.143890))
 ICC_Marital
 ```
-The residuals explain $88.75\%$ of the total varition in log(Income), this means most of the total variation in log(Income) can not be explained by our random variables. Which is not optimal for our linear model, since we would rather have a higher degree of total variability in log(Income) be explained by our covaraites rather than just residuals. 
+The residuals explain $88.75\%$ of the total variation in log(Income), this means most of the total variation in log(Income) can not be explained by the random effects for Zodiac, Work, and Marital. We would prefer for the random effects to explain a large portion of the variation on our response. 
 
 
 ## iv) What’s another interpretation for each intraclass correlation coefficient?
@@ -1606,16 +1555,14 @@ The ICC represents the expected correlation between log(Income) of two different
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 10: 
+# Step 10: 
 
 Ignore all random effects from now on. 
 
-  i) Apply a suitable model selection method and draw valid inferences on the response variable.
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## i) Apply a suitable model selection method and draw valid inferences on the response variable.
 
-Using a Backward Elimination with Valid Post-Selection Inference to formulate a good final model to draw inferences on Income. A 60 | 20 | 20 stadnard validation split (60 for training 20 for validation 20 for testing). 
+Using a Backward Elimination with Valid Post-Selection Inference to formulate a good final model to draw inferences on Income. A 60 | 20 | 20 standard validation split (60 for training 20 for validation 20 for testing). 
 
 ```{r}
 set.seed(0)
@@ -1650,20 +1597,17 @@ summary(fit)
 
 
 ```
-Analysis: After applying the Backward elimination with valid post selection inference, we were able to get the maximum amount of covariates that our model should consist on in order to have the lowest predicition error: 10. This is clear from the graph that shows 10 covariates are at the lowest prediction error of around 1. After applying the backward elimination method, we were able to get two signficant p-values in TvHours and Educ. And to further, the overall p-value of the fitted model came out to 2.2e-16 which is approximately zero, showing that the model is statistically significant and that we can reject the null hypothesis. A nice change of pace from what our previous findings have been (which is having no statistically significant values). Also, our R^2 value was 0.166 which is a significant improvement from any model before, showing that our model actually explains 16.6% of the variation in the dataset. This model is by the best model that we have had up until this point, demonstrating that our corrections to certain problems with our data have been going well and proper. 
+**Analysis:**
+
+After applying the Backward elimination with valid post selection inference, we were able to get the maximum amount of covariates that our model should consist on in order to have the lowest predicition error: 10. This is clear from the graph that shows 10 covariates are at the lowest prediction error of around 1. After applying the backward elimination method, we were able to get two signficant p-values in TvHours and Educ. And to further, the overall p-value of the fitted model came out to 2.2e-16 which is approximately zero, showing that the model is statistically significant and that we can reject the null hypothesis. A nice change of pace from what our previous findings have been (which is having no statistically significant values). Also, our R^2 value was 0.166 which is a significant improvement from any model before, showing that our model actually explains 16.6% of the variation in the dataset. This model is by the best model that we have had up until this point, demonstrating that our corrections to certain problems with our data have been going well and proper. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 11: 
+# Step 11: 
 
-  i) Investigate the collinearity among all quantitative covariates. 
-
-  ii) Fit different types of regularized regression models with all available quantitative covariates. What can you observe about the estimated regularized regression coefficients? 
-
-  iii) Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients. How do they compare against the estimates obtained         through the ordinary least squares method?
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## i) Investigate the collinearity among all quantitative covariates. 
+
 In terms of correlation, there seems to be reasonable diversity within how correlated the quantiative covariates are with each other, nothing being above 0.75, so pairwise correlations are not too significant or impactful but are relatively moderate. The strongest pairwise correlation is between MEduc and FEduc with correlation coefficient 0.659. In terms of investigating collinearity of the quantiative covariates it is clear through the Variance Inflation Factor (VIF) values based on the  final model that uses transformed TVHours and Sibs that there is no collinearity between the variables. All of the VIF values are between (1, 2), and a rule of thumb is that VIF values above 5 can indicate collinearity. The largest VIFs being MEduc and FEduc, 1.9 and 1.95 respecitevly, so there is no evidence of serious collinearity among the quantitative covariates in the model.
 
 ```{r}
@@ -1675,9 +1619,10 @@ library(faraway)
 vif(fit_final)
 ```
 
-## ii) Fit different types of regularized regression models with all available quantitative covariates
+## ii) Fit different types of regularized regression models with all available quantitative covariates. What can you observe about the estimated regularized regression coefficients? 
 
-Full OLS model coefficients
+**Full OLS model coefficients**
+
 ```{r}
 coef(full_model)
 ```
@@ -1716,7 +1661,7 @@ print(lasso$beta)
 We observe that the estimated lasso regression coefficients for Age, Hours, TVHours, and MEduc have been set to
 zero, so lasso removed these covariates from the model. The estimated lasso regression coefficient for FEduc shrunk closer to zero and changes sign, but the coefficients for Educ and Sibs  increased. 
 
-## iii) Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients.
+## iii) Apply the bootstrap method to obtain estimates for the standard errors of the estimated regularized regression coefficients. How do they compare against the estimates obtained through the ordinary least squares method?
 
 ```{r}
 summary(full_model)$coefficients[-1, "Std. Error"]
@@ -1757,19 +1702,13 @@ SE_lasso = apply(beta_lasso, 2, sd)
 print(SE_lasso)
 ```
 
-The bootstrap estimates for the standard errors of the estimated lasso regression coefficients change in different ways to corresponding ones in the full model. The standard error for Age decreases from 6231.347 to 3898.264. The standard error for Educ increases from 35626.187 to 86464.824. The standard error for Hours decreases from 5922.973 to 5104.711. The standard error for TVHours decreases from 42493.382 to 14890.902. The standard error for MEduc decreases from 32698.962 to 10259.079. The standard error for FEduc increases from 28724.438 to 33426.613. Finally, the standard error for Sibs increases from 33489.543 to 84808.710. 
+The bootstrap estimates for the standard errors of the estimated lasso regression coefficients change in different ways from the estimates obtained through the ordinary least squares method. The standard error for Age decreases from 6231.347 to 3898.264. The standard error for Educ increases from 35626.187 to 86464.824. The standard error for Hours decreases from 5922.973 to 5104.711. The standard error for TVHours decreases from 42493.382 to 14890.902. The standard error for MEduc decreases from 32698.962 to 10259.079. The standard error for FEduc increases from 28724.438 to 33426.613. Finally, the standard error for Sibs increases from 33489.543 to 84808.710. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 12: 
+# Step 12: 
 
-  i) Apply a suitable multiple comparisons method to compare the average response value across different levels defined by the qualitative covariate which has been specified for your team at 95 percent global confidence level. 
-
-  ii) How do the results of this method compare against the results obtained without the application of the multiple comparisons method?
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-## i) Apply a suitable multiple comparisons method to compare the average response value across different levels at a 95% gloval confidence level
+## i) Apply a suitable multiple comparisons method to compare the average response value across different levels  defined by the qualitative covariate which has been specified for your team (work status pairs) at a 95% gloval confidence level
 
 We use Scheffe's and Tukey's method to construct confidence intervals at the 95 percent global confidence level. We do not want separate individual 95% CIs we want to invoke the family-wise error rate (FWER), defined as the probability of
 committing at least one type I error among a family of hypothesis tests, to construct simultaneous CIs such that FWER is less than or equal to alpha (0.05). 
@@ -1805,8 +1744,8 @@ library(emmeans)
 confint(pairs(emmeans(fit, ~ Work), adjust = "none"))
 ```
 
+### Mean comparison with Scheffe's corrections 
 
-### Mean comparison with Scheffe's corrections :
 ```{r}
 Scheffe = cbind(diff - sqrt((K - 1) * qf(1 - alpha, K - 1, n - K)) * SE,
                 diff + sqrt((K - 1) * qf(1 - alpha, K - 1, n - K)) * SE)
@@ -1814,12 +1753,11 @@ colnames(Scheffe) = c("Lower", "Upper")
 print(Scheffe)
 ```
 
-
 ```{r}
 confint(pairs(emmeans(fit, ~ Work), adjust = "scheffe"))
 ```
 
-### Mean comparison with Tukeys's corrections :
+### Mean comparison with Tukeys's corrections 
 
 ```{r}
 Tukey = cbind(diff - qtukey(1 - alpha, K, n - K) * SE / sqrt(2),
@@ -1831,7 +1769,6 @@ print(Tukey)
 ```{r}
 confint(pairs(emmeans(fit, ~ Work)))
 ```
-
 
 ## ii) How do the results of this method compare against the results obtained without the application of the multiple comparisons method?
 
@@ -1845,14 +1782,7 @@ When we compare against the results obtained without the application of the mult
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 13: 
-
-  i) Fit a multiple linear model with all available quantitative and qualitative covariates.
-
-  ii) Apply global testing methods to determine whether at least one statistically significant effect exists on your response variable. 
-  
-  iii) How do the results of these methods compare against each other?
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Step 13: 
 
 ##  i) Fit a multiple linear model with all available quantitative and qualitative covariates. 
 
@@ -1909,13 +1839,8 @@ All three tests reject the null that none of the covariates have a statistically
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Step 14: 
+# Step 14: 
 
-  i) Apply multiple testing methods to determine which effects are statistically significant on your response variable by controlling the FWER or FDR at level 5%. 
-
-  ii) How do the results of these methods compare against each other?
-  
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## i) Apply multiple testing methods to determine which effects are statistically significant on your response variable by controlling the FWER or FDR at level 5%. 
 
@@ -1987,4 +1912,159 @@ The Benjamini-Hochberg procedure is generally more powerful but is valid only wh
 The Benjamini-Yekutieli offers an adjustment under any kind of dependence making it more conservative. It also controls for FDR and results in 4 rejections, the same 4 rejections (Educ, Happy- Very Happy, Marital- Married, and Work- Retired) as the Holm-Bonferroni. So those four are the most robust statistically significant effects on the response log(Income)
 
 So while significant under no correction and Benjamini-Hochberg, Age, Happy- Pretty Happy, and Work- Housekeeping are not significant effects under the more conservative methods: Holm-Bonferroni and Benjamini-Yekutieli. 
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Step 15: 
+
+## i) Taking all your previous analyses into account, describe all the elements that a final model to draw inferences on the response variable should incorporate
+
+### Transformations 
+
+A transformation on the response variable should be incorporated into a final model. We can use Box Cox to determine which transformation may be appropriate by looking for meaningful transformations in the confidence interval produced. In this case, our response variable income was very right skewed benefited from a log transformation since the confidence interval was close to 0, and that was used from step 7 onward. 
+
+### Fixed Effects 
+
+A final model should also incorporate qualitative covariates as fixed effects as the regression coefficients in the mixed model, as seen in step 9. Also including transformations on the qualitative covariates if deemed appropriate. By plotting histograms and boxplots for each qualitative covariate we found TVHours and Sibs to be very right skewed and benefited from a log transformation, thus showing up like log(TVHours + 1) and log(Sibs + 1) being transformed quantiative fixed effects. 
+
+Also when we want the final model to draw inferences on specific differences between levels, the model should incorporate qualitative variables as fixed effects. For example in step 8 we looked at Work as a qualitative fixed effect and interpreted differences in our response log(income) across the work levels. 
+
+### Interaction Effects 
+
+A final model should consider interaction effects when the effect of a quantitative covariate can differ across a qualitative covariate's levels. The full model may begin with too many interaction effects so backward elimation is used to retain only the significant interaction effects and main effects, keeping in mind the rule that you should not remove a main effect if their interaction terms remain in the model.  
+
+### Random Effects 
+
+uses of Work as a fixed effect in step 8 and random effect in step 9 with (1 | Work)
+ICC
+
+### Heteroscedasticity Treatment 
+
+at first it looked heterschedastic in the income plot diagnostics but the tests rejected that 
+WLS, IRLS, GLS
+
+### Variance based on a Quantiative Predictor 
+
+when variance depends on a quantiative predictor - WLS t tests and CI against OLS  step 4 
+incorporate weights 
+
+### Variance based on a Qualitative Predictor 
+
+group specific residual variances (hw 9 with residence)
+gls variance structure 
+
+### Model Selection
+bias variance tradeoff 
+training validation test split step 10 
+
+### Collinearity 
+
+effect on standard errors (hw 10) variance inflation factor 
+
+### Regularized Regression 
+
+Ridge and lasso 
+
+
+## ii) Describe how inference on that final model should be carried out to ensure statistical validity
+
+### OLS baseline
+
+coefficient estimates, estimated residual variance , least squares coefficient vector, mle residual variance, unbiased residual variance 
+
+baseline for standard errors and pvalues 
+
+### Exact F Tests
+
+normal assumptions 
+reduced vs full model
+
+### Asymptotic Wald, Score, and Likelihood Ratio tests
+
+### Breusch-Pagan
+
+is error variance a function of quantitative covariates 
+
+### Brown-Forsythe
+
+residual variance across qualitative levels 
+
+### Heteroscedasticity-Consistent Estimators
+
+ols covariance formula not valid under heteroscedasticity - hc3 is more robust 
+
+### WLS/ IRLS
+
+if quantiative variance function
+
+### GLS 
+
+if qualitative variance function 
+
+### Jackknife 
+
+when assumptions are violated 
+
+### Bootstrap 
+
+hw9 
+
+### Permutation F tests
+
+### Permutation t tests
+
+indivual covariate effects
+
+### Q-Q plots with confidence bands
+
+### Mixed Effects Model
+
+REML 
+
+hw 8 - ICC
+
+Likelihood ratio tests for fixed effects in the mixed effects model 
+
+### ICCs for random effects 
+
+### Valid post selection inference
+
+lecture 31
+
+step 10 with the train val test split
+
+### Collinearity diagnostics and VIF
+
+lecture 32 hw 10 
+
+### Ridge regression 
+
+stability under collinearity 
+
+bootstrap standard errors 
+which qualitative covariates are important 
+
+### Lasso regression 
+
+bootstrap standard errors 
+compare uncertaintly with ols 
+
+### Multiple comparisons 
+
+lecture 33
+FWER scheffe and tukey 
+
+### Global testing
+
+ bonfero, fisher, simes
+distinguish is there and effect and which are significant effects 
+
+### Multiple test corrections 
+
+FWER and FDR
+
+
+
+
 
