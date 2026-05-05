@@ -1771,7 +1771,8 @@ Step 12:
 
 ## i) Apply a suitable multiple comparisons method to compare the average response value across different levels at a 95% gloval confidence level
 
-We use Scheffe's and Tukey's method to construct confidence intervals at the 95 percent global confidence level. We do not want separate individual 95% CIs we want to invoke the family-wise error rate (FWER) to construct simultaneous CIs such that FWER is less than or equal to alpha (0.05). 
+We use Scheffe's and Tukey's method to construct confidence intervals at the 95 percent global confidence level. We do not want separate individual 95% CIs we want to invoke the family-wise error rate (FWER), defined as the probability of
+committing at least one type I error among a family of hypothesis tests, to construct simultaneous CIs such that FWER is less than or equal to alpha (0.05). 
 
 Set up test for differences between average response values across all different work status pairs
 ```{r}
@@ -1906,5 +1907,84 @@ Considering ordered p-values $p_{(1)}, p_{(2)},..., p_{(m)}$ since $p_{(j)}$ is 
 
 All three tests reject the null that none of the covariates have a statistically significant effect on log(Income). The Bonferroni Test uses the minimum observed p-value and compares it to $\frac{\alpha}{m}$. The Fisher combination test combines evidence across all p-values to make a test statistic and compares it the upper $\alpha$ = 0.05 quantile of the $\chi^2_{2m}$ distribution. The Simes test orders the p-values and tests each index j. Thus all methods utilize the individual p-values to search for a case where one of the null hypotheses is false, so we can conclude that at least one of the covariates has a statistically significant effect on log(Income).
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Step 14: 
+
+  i) Apply multiple testing methods to determine which effects are statistically significant on your response variable by controlling the FWER or FDR at level 5%. 
+
+  ii) How do the results of these methods compare against each other?
+  
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## i) Apply multiple testing methods to determine which effects are statistically significant on your response variable by controlling the FWER or FDR at level 5%. 
+
+### Without Multiple Testing Corrections 
+```{r}
+pvalues = summary(global_model)$coefficients[-1, 4]
+m = length(pvalues)
+alpha = 0.05
+print(pvalues)
+sum(pvalues < alpha)
+```
+
+Without Multiple Testing Corrections seven effects are statistically significant on the response variable log(Income): Age, Educ, Happy- Pretty Happy, Happy- Very Happy, Marital- Married, Work- Housekeeping, and Work- Retired with p-values 3.144217e-03, 5.706203e-06, 9.252257e-03, 7.588101e-04, 1.629166e-04, 2.000089e-03, and 1.276854e-04, respectively. 
+
+### Holm-Bonferroni Procedure
+```{r}
+HB = numeric(m)
+for (j in 1:m)
+{
+  HB[j] = min(max((m - (1:j) + 1) * pvalues[order(pvalues)][1:j]), 1)
+}
+HB = HB[order(order(pvalues))]
+HB = p.adjust(pvalues, "holm")
+print(HB)
+sum(HB < alpha)
+```
+
+The Holm-Bonferroni procedure produces ordered adjusted p-values and ensures that FWER is less than or equal to $\alpha$ = 0.05. The following four effects are statistically significant on log(Income) after controlling the FWER at level 5%: Educ, Happy- Very Happy, Marital- Married, and Work- Retired, with p-values 0.0001825985, 0.0220054920, 0.0048874966, and 0.0039582478, respectively. 
+
+### Benjamini-Hochberg Procedure
+```{r}
+BH = numeric(m)
+for (j in 1:m)
+{
+  BH[j] = min(min(m * pvalues[order(pvalues)][j:m] / (j:m)), 1)
+}
+BH = BH[order(order(pvalues))]
+BH = p.adjust(pvalues, "BH")
+print(BH)
+sum(BH < alpha)
+```
+
+False discovery rate (FDR) is defined as the expected proportion of rejections which are false. The Benjamini-Hochberg procedure produces ordered adjusted p-values and ensures that FDR is less than or equal to $\alpha$ = 0.05 provided that the p-values are not negatively dependent. The following seven effects are statistically significant on log(Income) after controlling the FDR at level 5%: Age, Educ, Happy- Pretty Happy, Happy- Very Happy, Marital- Married, Work- Housekeeping, and Work- Retired, with p-values 0.0167691547, 0.0001825985, 0.0422960327, 0.0060704806, 0.0017377766, 0.0128005693, and 0.0017377766, respectively. 
+
+### Benjamini-Yekutieli Procedure
+
+```{r}
+BY = numeric(m)
+for (j in 1:m)
+{
+  BY[j] = min(min(m * sum(1 / (1:m)) * pvalues[order(pvalues)][j:m] / (j:m)), 1)
+}
+BY = BY[order(order(pvalues))]
+BY = p.adjust(pvalues, "BY")
+print(BY)
+sum(BY < alpha)
+```
+
+The Benjamini-Yekutieli procedure produces ordered adjusted p-values and ensures that FDR is less than or equal to  $\alpha$ = 0.05. The following four effects are statistically significant on log(Income) after controlling the FDR at level 5%: Educ, Happy- Very Happy, Marital- Married, and Work- Retired, with p-values 0.0007410751, 0.0246370162, 0.0070527579, and 0.0070527579.
+
+## ii) How do the results of these methods compare against each other?
+
+Discounting the multiple testing problem produces 7 rejections some of which may be false. 
+
+The Holm-Bonferroni procedure is overly conservative, controls for FWER, and results in 4 rejections. 
+
+The Benjamini-Hochberg procedure is generally more powerful but is valid only when there are no negative dependence among the tests being performed. It controls for FDR and results in 7 rejections, the same 7 rejections as produced with no multiple testing correction (Age, Educ, Happy- Pretty Happy, Happy- Very Happy, Marital- Married, Work- Housekeeping, and Work- Retired) being the least conservative of the three.  
+
+The Benjamini-Yekutieli offers an adjustment under any kind of dependence making it more conservative. It also controls for FDR and results in 4 rejections, the same 4 rejections (Educ, Happy- Very Happy, Marital- Married, and Work- Retired) as the Holm-Bonferroni. So those four are the most robust statistically significant effects on the response log(Income)
+
+So while significant under no correction and Benjamini-Hochberg, Age, Happy- Pretty Happy, and Work- Housekeeping are not significant effects under the more conservative methods: Holm-Bonferroni and Benjamini-Yekutieli. 
 
