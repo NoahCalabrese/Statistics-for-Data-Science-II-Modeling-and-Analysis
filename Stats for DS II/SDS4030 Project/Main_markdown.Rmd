@@ -1918,53 +1918,60 @@ So while significant under no correction and Benjamini-Hochberg, Age, Happy- Pre
 
 # Step 15: 
 
-## i) Taking all your previous analyses into account, describe all the elements that a final model to draw inferences on the response variable should incorporate
+## i) Taking all your previous analyses into account, describe all the elements that a final model to draw inferences on the response variable should incorporate.
+
+Based on our above analysis, a final model would incorporate transformations, fixed effects, interaction effects, and model selection; random effects, heteroscedasticity treatment, and collinearity treatment would not be necessary to incorporate in a final model in this specific case.
 
 ### Transformations 
 
-A transformation on the response variable should be incorporated into a final model. We can use Box Cox to determine which transformation may be appropriate by looking for meaningful transformations in the confidence interval produced. In this case, our response variable income was very right skewed benefited from a log transformation since the confidence interval was close to 0, and that was used from step 7 onward. 
+A transformation on the response variable should be incorporated into a final model. We can use Box-Cox to determine which transformation may be appropriate by looking for meaningful transformations in the confidence interval produced. In this case, our response variable income, which is very right skewed due to 17 outliers with a much higher income than the rest, benefited from a log transformation since the Box-Cox confidence interval was close to 0, and that was used from [Step 7](#step-7) onward. 
+
+Additionally, transformations on the quantitative covariates should be incorporated into a final model if they are deemed appropriate. By plotting histograms and boxplots for each quantitative covariate, we found that TVHours and Sibs were very right skewed and benefited from a log transformation; therefore, transforming the covariates as log(TVHours + 1) and log(Sibs + 1) would be appropriate for the final model.
 
 ### Fixed Effects 
 
-A final model should also incorporate qualitative covariates as fixed effects as the regression coefficients in the mixed model, as seen in step 9. Also including transformations on the qualitative covariates if deemed appropriate. By plotting histograms and boxplots for each qualitative covariate we found TVHours and Sibs to be very right skewed and benefited from a log transformation, thus showing up like log(TVHours + 1) and log(Sibs + 1) being transformed quantiative fixed effects. 
+A final model should incorporate statistically significant quantitative covariates, as well as qualitative covariates that measure specific (and statistically significant) differences between specific levels, as fixed effects, as seen in [Step 9](#step-9). 
 
-Also when we want the final model to draw inferences on specific differences between levels, the model should incorporate qualitative variables as fixed effects. For example in step 8 we looked at Work as a qualitative fixed effect and interpreted differences in our response log(income) across the work levels. 
+For example, in [Step 8](#step-8), we looke at Work as a qualitative fixed effect and interpreted differences in our response log(income) across the work levels. Likewise, in [Step 9, Part ii](#ii-Test-the-statistical-significance-of-all-your-fixed-effects), we measured the significance of several covariates treated as fixed effects.
 
 ### Interaction Effects 
 
-A final model should consider interaction effects when the effect of a quantitative covariate can differ across a qualitative covariate's levels. The full model may begin with too many interaction effects so backward elimation is used to retain only the significant interaction effects and main effects, keeping in mind the rule that you should not remove a main effect if their interaction terms remain in the model.  
+A final model should consider interaction effects — but only when the effect of one covariate on the response variable depends on the level of another covariate, with the remaining interaction effects being excluded via backward elimination. 
+
+In [Step 8, Part i](#step-8), we looked at the interaction between the qualitative Work covariate and all quantitative covariates, and found two significant interaction effects: Work- Parttime with Educ and Work- Parttime with log(TVHours + 1). However, there were many interaction effects that were not significant, so we would not want to include those in the final model. Backward elimination is an important step to retain only the significant interaction effects and main effects, therefore keeping as many degrees of freedom as possible and avoiding overfitting.
 
 ### Random Effects 
 
-uses of Work as a fixed effect in step 8 and random effect in step 9 with (1 | Work)
-ICC
+A final model does not need to incorporate random effects in this specific case. This is because the three variables that we treated as random effects in [Step 8, Part iii](#step-8) — Zodiac, Marital, and Work — had very small Intraclass Correlation Coefficients below 0.06, meaning over 88% of the total variation in log(Income) cannot be explained by the random effects; ideally, we would prefer for the random effects to explain a larger portion of the variation. It would be more appropriate to ignore the random effects and treat all covariates as fixed effects in the final model, and then perform backward elimination to retain only the significant covariates and interaction effects. In a more general case, if the random effects had larger ICCs, it would be more appropriate to include them in the final model as well.
 
 ### Heteroscedasticity Treatment 
 
-at first it looked heterschedastic in the income plot diagnostics but the tests rejected that 
-WLS, IRLS, GLS
+Heteroscedasticity treatment does not need to be incorporated into a final model in this specific case. This is because the Breusch-Pagan and Brown-Forsythe tests did not find evidence of heteroscedasticity in the residuals of the fitted model (per (Step 2, Part ii)[#step-2]), as all p-values were above the alpha threshold of 0.05, so we can assume homoscedasticity. This is despite the initial visual appearance of heteroscedasticity in (Step 2, Part i)[#step-2] with the Residuals vs. Fitted plot for income. If there was evidence of heteroscedasticity, then we would want to incorporate a treatment for it in the final model, such as using heteroscedasticity-consistent estimators or using the Weighted or Iteratively Reweighted Least Squares methods.
 
-### Variance based on a Quantiative Predictor 
+### Variance based on a Quantitative Predictor 
 
-when variance depends on a quantiative predictor - WLS t tests and CI against OLS  step 4 
-incorporate weights 
+*note from Tim: I think we can eliminate this part*
+
+Per (Step 2, Part i)[#step-2] and the individual inspection of standardized residuals vs. each quantitative covariate, there is no indication of heteroscedasticity with respect to any of the quantitative covariates. However, if there was, we would would use the Weighted or Iteratively Reqeighted Least Squares methods to apply weights to the covariates that have a pattern of increasing or decreasing variance in the residuals and achieve homoscedasticity; this is depicted in (Step 4, Part i)[#step-4].
 
 ### Variance based on a Qualitative Predictor 
 
-group specific residual variances (hw 9 with residence)
-gls variance structure 
+*note from Tim: I think we can eliminate this part*
+
+Per (Step 2, Part i)[#step-2] and the individual inspection of standardized residuals vs. each qualitative covariate using the Brown-Forsythe test in (Step 2, Part ii)[#step-2], there is no indication of heteroscedasticity with respect to any of the qualitative covariates. However, if there was, we would use the Generalized Least Squares method to apply weights to the qualitative covariates that have a pattern of differing variance in the residuals across its levels.
 
 ### Model Selection
-bias variance tradeoff 
-training validation test split step 10 
 
-### Collinearity 
+A final model should incorporate a model selection method such as backward elimination with valid post-selection inference — as depicted in (Step 10, Part i)[#step-10] — to minimize the prediction error and retain only the significant covariates and interaction effects, while also avoiding overfitting and keeping as many degrees of freedom as possible. In this case, all but ten covariates were removed frrom the model in order to minimize the prediction error, while simultaneously improving the R^2 value.
 
-effect on standard errors (hw 10) variance inflation factor 
+### Collinearity Treatment
+
+Collinearity treatment methods do not need to be incorporated into a final model in this specific case. This is because there is no evidence of serious collinearity among the quantitative covariates, as determined in (Step 11, Part i)[#step-11], so we do not need to worry about inflated variance or the appearance of less significant covariates due to collinearity. However, if there was evidence of serious collinearity, we would use regularized regression methods such as ridge regression or lasso regression to address the concerns; this is depicted in (Step 11, Part ii)[#step-11]
 
 ### Regularized Regression 
 
-Ridge and lasso 
+*note from Tim: I think we can eliminate this part, Collinearity Treatment covers it bc regularized regression is the actual action of updating the model to address collinearity*
+
 
 
 ## ii) Describe how inference on that final model should be carried out to ensure statistical validity
