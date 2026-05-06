@@ -1946,131 +1946,39 @@ A final model does not need to incorporate random effects in this specific case.
 
 ### Heteroscedasticity Treatment 
 
-Heteroscedasticity treatment does not need to be incorporated into a final model in this specific case. This is because the Breusch-Pagan and Brown-Forsythe tests did not find evidence of heteroscedasticity in the residuals of the fitted model (per (Step 2, Part ii)[#step-2]), as all p-values were above the alpha threshold of 0.05, so we can assume homoscedasticity. This is despite the initial visual appearance of heteroscedasticity in (Step 2, Part i)[#step-2] with the Residuals vs. Fitted plot for income. If there was evidence of heteroscedasticity, then we would want to incorporate a treatment for it in the final model, such as using heteroscedasticity-consistent estimators or using the Weighted or Iteratively Reweighted Least Squares methods.
-
-### Variance based on a Quantitative Predictor 
-
-*note from Tim: I think we can eliminate this part*
-
-Per (Step 2, Part i)[#step-2] and the individual inspection of standardized residuals vs. each quantitative covariate, there is no indication of heteroscedasticity with respect to any of the quantitative covariates. However, if there was, we would would use the Weighted or Iteratively Reqeighted Least Squares methods to apply weights to the covariates that have a pattern of increasing or decreasing variance in the residuals and achieve homoscedasticity; this is depicted in (Step 4, Part i)[#step-4].
-
-### Variance based on a Qualitative Predictor 
-
-*note from Tim: I think we can eliminate this part*
-
-Per (Step 2, Part i)[#step-2] and the individual inspection of standardized residuals vs. each qualitative covariate using the Brown-Forsythe test in (Step 2, Part ii)[#step-2], there is no indication of heteroscedasticity with respect to any of the qualitative covariates. However, if there was, we would use the Generalized Least Squares method to apply weights to the qualitative covariates that have a pattern of differing variance in the residuals across its levels.
+Heteroscedasticity treatment does not need to be incorporated into a final model in this specific case. This is because the Breusch-Pagan and Brown-Forsythe tests did not find evidence of heteroscedasticity in the residuals of the fitted model (per [Step 2, Part ii](#step-2)), as all p-values were above the alpha threshold of 0.05, so we can assume homoscedasticity. This is despite the initial visual appearance of heteroscedasticity in [Step 2, Part i](#step-2) with the Residuals vs. Fitted plot for income. If there was evidence of heteroscedasticity, then we would want to incorporate a treatment for it in the final model, such as using heteroscedasticity-consistent estimators or using the Weighted or Iteratively Reweighted Least Squares methods for quantitative covariates and the Generalized Least Squares method for qualitative covariates, as depicted in [Step 4, Part i](#step-4).
 
 ### Model Selection
 
-A final model should incorporate a model selection method such as backward elimination with valid post-selection inference — as depicted in (Step 10, Part i)[#step-10] — to minimize the prediction error and retain only the significant covariates and interaction effects, while also avoiding overfitting and keeping as many degrees of freedom as possible. In this case, all but ten covariates were removed frrom the model in order to minimize the prediction error, while simultaneously improving the R^2 value.
-
+A final model should incorporate a model selection method such as backward elimination with valid post-selection inference — as depicted in [Step 10, Part i](#step-10) — to minimize the prediction error and retain only the significant covariates and interaction effects, while also avoiding overfitting and keeping as many degrees of freedom as possible. In this case, all but ten covariates were removed frrom the model in order to minimize the prediction error, while simultaneously improving the R^2 value.
 ### Collinearity Treatment
 
-Collinearity treatment methods do not need to be incorporated into a final model in this specific case. This is because there is no evidence of serious collinearity among the quantitative covariates, as determined in (Step 11, Part i)[#step-11], so we do not need to worry about inflated variance or the appearance of less significant covariates due to collinearity. However, if there was evidence of serious collinearity, we would use regularized regression methods such as ridge regression or lasso regression to address the concerns; this is depicted in (Step 11, Part ii)[#step-11]
-
-### Regularized Regression 
-
-*note from Tim: I think we can eliminate this part, Collinearity Treatment covers it bc regularized regression is the actual action of updating the model to address collinearity*
-
+Collinearity treatment methods do not need to be incorporated into a final model in this specific case. This is because there is no evidence of serious collinearity among the quantitative covariates, as determined in [Step 11, Part i](#step-11), so we do not need to worry about inflated variance or the appearance of less significant covariates due to collinearity. However, if there was evidence of serious collinearity, we would use regularized regression methods such as ridge regression or lasso regression to address the concerns; this is depicted in [Step 11, Part ii](#step-11)
 
 
 ## ii) Describe how inference on that final model should be carried out to ensure statistical validity
 
-### OLS baseline
+Linear regression models are built on four assumptions: linearity, independence, homoscedasticity, and normality of residuals. In order for our model to be statistically valid, we need to confirm that these assumptions are not violated.
 
-coefficient estimates, estimated residual variance , least squares coefficient vector, mle residual variance, unbiased residual variance 
+To check linearity, we can generate a Fitted Values vs. Residuals plot. If there is a pattern in the plot — specifically, if the residuals appear to follow a curve or line that is not horizontal — that would suggest a violation of the linearity assumption, and the model would not be statistically valid.
 
-baseline for standard errors and pvalues 
+We haven't learned tests to specifically check for independence, but having an understanding of the data collection process is sufficient. In this case, the GSS survey is conducted as a random sample of individuals, in such a fashion that no one response influences another, so it is safe to assume that the independece assumption is not violated.
 
-### Exact F Tests
+To check homoscedasticity, we also use a Fitted Values vs. Residuals plot. In this case, the pattern we're looking for is whether the variance of the residuals is consistent, or fanning in or out, as the fitted values increase. If there is a pattern of nonconstant variance, that would suggest a violation of the homoscedasticity assumption, and the model would not be statistically valid. Alternatively, we could also use the Breusch-Pagan test to check for heteroscedasticity among the quantitative covariates, and the Brown-Forsythe test to check for heteroscedasticity among the qualitative covariates, both of which would be violations of the homoscedasticity assumption if it returns a p-value below the alpha threshold of 0.05; this is depicted in [Step 2, Part ii](#step-2).
 
-normal assumptions 
-reduced vs full model
+To check normality of residuals, we can generate a Q-Q plot; if the points on the plot are significantly outside of the diagonal line, that would suggest a violation of the normality assumption, and the model would not be statistically valid. This is depicted in [Step 7, Part iv](#step-7).
 
-### Asymptotic Wald, Score, and Likelihood Ratio tests
+If normality or homoscedasticity assumptions are violated, the regular OLS methords to estimate the residual variance or OLS standard errors would not be valid, so we need to use other methods. For one, we can use jackknife and boostrap methods to obtain new, more accurate estiamtes for the standard errors of the estimated regression coefficients. 
 
-### Breusch-Pagan
+If the homoscedasticity assumption is violated, we can use heteroscedasticity-consistent estimators such as HC3 to obtain more accurate estimates for the covariance matrix, which can then be used to obtain more accurate statistical tests and confidence intervals for the regression coefficients; this is depicted in [Step 3](#step-3).
 
-is error variance a function of quantitative covariates 
+If normality is violated, we can use permutation tests to obtain more accurate p-values for F-tests and t-tests; these work by permuting the response variable (for the F-test) or the residuals (for the t-test) to generate a new null distribution to obtain the more accurate p-values. This is depicted in [Step 6](#step-6).
 
-### Brown-Forsythe
+If normality is valid, we can use the exact F-tests to compare different models; however, even if the normality assumption is violated, we can still use the asymptotic Wald, Score, and Likelihood Ratio tests to compare different models as long as the other assumptions are not violated. This is depicted in [Step 1, Part ii](#step-1). 
 
-residual variance across qualitative levels 
+Regularized regression methods such as ridge and lasso regression are a bit different — rather than addressing a violation of an assumption, they address collinearity, as addressed in Part i. However, the method by which they do so is by changing how the coefficients are estimated. This impacts statistical validity inferences because once coefficients change, the variances and standard errors also change, so any measure of statistical significance (p-values) would have to be recalculated using the new estiamtes for the coefficients and their standard errors. Part of this process is depicted in [Step 11, Part ii and iii](#step-11).
 
-### Heteroscedasticity-Consistent Estimators
-
-ols covariance formula not valid under heteroscedasticity - hc3 is more robust 
-
-### WLS/ IRLS
-
-if quantiative variance function
-
-### GLS 
-
-if qualitative variance function 
-
-### Jackknife 
-
-when assumptions are violated 
-
-### Bootstrap 
-
-hw9 
-
-### Permutation F tests
-
-### Permutation t tests
-
-indivual covariate effects
-
-### Q-Q plots with confidence bands
-
-### Mixed Effects Model
-
-REML 
-
-hw 8 - ICC
-
-Likelihood ratio tests for fixed effects in the mixed effects model 
-
-### ICCs for random effects 
-
-### Valid post selection inference
-
-lecture 31
-
-step 10 with the train val test split
-
-### Collinearity diagnostics and VIF
-
-lecture 32 hw 10 
-
-### Ridge regression 
-
-stability under collinearity 
-
-bootstrap standard errors 
-which qualitative covariates are important 
-
-### Lasso regression 
-
-bootstrap standard errors 
-compare uncertaintly with ols 
-
-### Multiple comparisons 
-
-lecture 33
-FWER scheffe and tukey 
-
-### Global testing
-
- bonfero, fisher, simes
-distinguish is there and effect and which are significant effects 
-
-### Multiple test corrections 
-
-FWER and FDR
-
+Multiple testing methods, as depicted in [Step 14](#step-14), consider family-wise error rate (FWER) and false discovery rate (FDR) to control for the multiple comparisons problem, which is when multiple hypothesis tests are performed and the probability of making at least one Type I error increases; this method is a more accurate way to ensure statistical validity when performing multiple hypothesis tests.
 
 
 
